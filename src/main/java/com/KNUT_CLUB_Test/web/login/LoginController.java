@@ -39,10 +39,10 @@ public class LoginController {
             login = "Login";
         }
 
-
         // 학번 정보 저장
         session.setAttribute("login", login);
         session.setAttribute("id", id);
+        session.setAttribute("authority", authority);
 
         LoginService service = new LoginService();
         int check = service.LoginCheck(id, pw);

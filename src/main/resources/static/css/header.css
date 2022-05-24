@@ -1,8 +1,23 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 body {
 margin: 0;
+
+}
+
+
+
+.picture {
+  background-color: white;
+  text-align: center;
+}
+
+.picture img{
+width: 100%;
+height: 700px;
 }
 /* Style the top navigation bar */
 .topnav {
@@ -82,14 +97,15 @@ width: 100%;
 
 .navbar .logo{
 width: 25%;
-display: inline-block;
-margin-right: 350px;
+display: inline;
+margin-right: 300px;
+
 
 
 }
 .navbar .logo img{
-width: 250px;
-height: 80px;
+width: 200px;
+height: 100px;
 }
 /* navigaionbar */
 * {
@@ -139,108 +155,4 @@ display:block;
 #menu > ul > li > ul > li:hover {
 background: #ddd;
 transition: ease 1s;
-}
-
-/* pathbox */
-.pathbox{
-  background-color: #ddd;
-  text-align: center;
-  margin-bottom: 100px;
-  
-
-}
-
-/* noticebox */
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th, td {
-  padding: 20px;
-  text-align: left;
-  border-bottom: 1px solid rgb(109, 13, 13);
-}
-
-#tableheader{
-  border-top: 3px solid rgb(109, 13, 13);
-  border-bottom: 2px solid rgb(109, 13, 13);
-  background-color: #eee;
-}
-tr:hover {
-  background-color: #ddd;
-}
-/* Create three unequal columns that floats next to each other */
-.column {
-  float: left;
-  padding: 10px;
-
-}
-/* Left and right column */
-.column.side {
-  width: 20%;
-  margin-left: 50px;
-  margin-top: 50px;
-  margin-bottom: 100px;
-
-}
-
-.column .side .ul .li{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.side h2{
-  text-align: center;
-  padding-bottom: 20px;
-  border-bottom: 3px solid rgb(109, 13, 13);
-}
-/* Middle column */
-.column.middle {
-  width: 60%;
-  margin-left: 50px;
-}
-
-
-/* sidemenu */
-.sidemenu{
-  
-  width: 200px;
-  
-}
-
-.sidemenu li{
-  border-bottom: 1px solid rgb(109, 13, 13);
-  text-align: center;
-  padding-bottom: 20px;
-  padding-top: 20px;
-  font-size: 15px;
-}
-
-.sidemenu #now{
-  font-weight: bold;
-  font-size: 25px;
-}
-.column.middle h1{
-  margin-bottom: 50px;
-}
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .column.side, .column.middle {
-      width: 100%;
-  }
-}
-/* Style the footer */
-.footer {
-  background-color: #f1f1f1;
-  padding: 10px;
-  text-align: center;
 }

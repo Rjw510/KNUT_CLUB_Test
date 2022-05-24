@@ -36,9 +36,10 @@ public class Member {
         this.detailAddress = detailAddress;
     }
 
-    public Member(String name, String email, String studentID) {
+    public Member(String name, String email, String studentID, String department) {
         this.name = name;
         this.email = email;
         this.studentID = studentID;
+        this.department = department;
     }
 }
