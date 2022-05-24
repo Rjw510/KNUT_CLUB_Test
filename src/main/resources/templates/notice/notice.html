@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>공지사항</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/notice.css">
+</head>
+
+<body>
+<div class="topnav">
+    <a href="/login">Login</a>
+    <a href="/index">Home</a>
+    <div class="search-container">
+        <form action="#">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><img id="searchicon" src="/img/search.png" alt=""><i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+
+
+</div>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="/index"><img src="/img/logo.jpg"></a>
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li><a href="/notice">공지사항</a>
+            </li>
+            <li><a href="/board">자유게시판</a>
+
+            </li>
+            <li><a href="#">가입</a>
+                <ul>
+                    <li><a href="#">충주캠퍼스</a></li>
+                    <li><a href="#">의왕캠퍼스</a></li>
+                    <li><a href="#">증평캠퍼스</a></li>
+                </ul>
+            </li>
+            <li><a href="#">소개</a>
+                <ul>
+                    <li><a href="#">동아리란?</a></li>
+                    <li><a href="#">가입 방법</a></li>
+                </ul>
+            </li>
+            <li><a href="#">행사</a>
+                <ul>
+                    <li><a href="#">동아리 행사</a></li>
+                    <li><a href="#">동아리 페어</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="pathbox">
+    <h2>Pathbox</h2>
+</div>
+
+<div class="row">
+    <div class="column side">
+
+        <ul class="sidemenu">
+            <h2>Menu</h2>
+            <li id="now"><a href="/notice">공지사항</a></li>
+            <li><a href="/board">자유게시판</a></li>
+            <li><a href="#">가입</a></li>
+            <li><a href="#">소개</a></li>
+            <li><a href="#">행사</a></li>
+        </ul>
+    </div>
+    <div class="column middle">
+        <h1><a href="/notice">공지사항</a></h1>
+
+        <form action="/notice" method="get">
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <select class="custom-select d-block w-100" name="select">
+                        <option value="title" th:selected="${#strings.equals(param.select, 'title')}">제목</option>
+                        <option value="writer" th:selected="${#strings.equals(param.select, 'writer')}">작성자</option>
+                    </select>
+                    <input type="text" class="form-control" name="word"
+                           placeholder="" th:selected="${#strings.equals(param.word, '')}" required>
+<!--                           placeholder="" th:value="${param.word}" required>-->
+                    <input type="submit" value="검색">
+                </div>
+            </div>
+        </form>
+
+        <form action="/notice/noticeList" method="post">
+            <table class="noticetable">
+                <tr id="tableheader">
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                    <th>파일</th>
+                    <th scope="cols">선택</th>
+                </tr>
+
+                <tbody>
+                <tr th:each="n : ${list}">
+                    <input type="hidden" name="n" th:value="${n.num}">
+                    <td th:text="${n.n}">-</td>
+                    <td th:text="${n.title }"><a th:href="@{notice/noticeDetail(num = ${n.num})}"></a></td>
+                    <td th:text="${n.writer}">-</td>
+                    <td th:text="${n.date}">-</td>
+                    <td>0</td>
+                    <td>-</td>
+                    <td><input type="checkbox" name="del_id" th:value="${n.num}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
+
+<!--        <div class="indexer margin-top align-right">-->
+<!--            <h3 class="hidden">현재 페이지</h3>-->
+<!--            <div>-->
+<!--                <span class="text-orange text-strong" th:text="${(param.p==null)?1:param.p}">th:text=${(param.p==null)?1:param.p}/ ${lastNum} </span>-->
+<!--                pages-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="margin-top align-center pager">-->
+<!--            <hidden th:name="page" th:value="${(param.p==null)?1:param.p}"></hidden>-->
+<!--            <hidden th:name="lastNum" th:value="${#strings.arraySplit([Math.ceil(count/10)], '.')}"></hidden>-->
+<!--            <hidden th:name="startNum" th:value="${page} - (${page} - 1) % 5"></hidden>-->
+
+<!--            <div>-->
+<!--                <th:block th:if="${startNum}>1">-->
+<!--                    <a th:href="@{/notice (p=${startNum}-1, search=${param.search}, word=${param.word})}">이전</a>-->
+<!--                </th:block>-->
+<!--                <th:block th:if="${startNum}<=1">-->
+<!--                    <span onclick="alert('이전 페이지가 없습니다.');">이전</span>-->
+<!--                </th:block>-->
+<!--                    &lt;!&ndash;<a href="?p=${startNum-1}&search=${param.search}&word=${param.word}">이전</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span onclick="alert('이전 페이지가 없습니다.');">이전</span>&ndash;&gt;-->
+<!--            </div>-->
+
+<!--            <ul class="list" th:each="i : ${#numbers.sequence(0, 4)}">-->
+<!--                <th:block th:if="${startNum}+i <= ${lastNum}">-->
+<!--                    <li><a th:href="@{/notice/noticeList (p=${startNum}+i, search=${param.search}, word=${param.word})}"></a></li>-->
+<!--                &lt;!&ndash;<li><a href="?p=${startNum+i}&search=${param.search}&word=${param.word}">${startNum+i}</a></li>&ndash;&gt;-->
+<!--                </th:block>-->
+<!--            </ul>-->
+
+<!--            <div>-->
+<!--                <th:block th:if="${startNum}+4 < ${lastNum}">-->
+<!--                    <a th:href="@{/notice/noticeList (p=${startNum}+5, search=${param.search}, word=${param.word})}">다음</a>-->
+<!--                </th:block>-->
+<!--                    &lt;!&ndash;<a href="?p=${startNum+5}&search=${param.search}&word=${param.word}">다음</a>&ndash;&gt;-->
+<!--                <th:block th:if="${startNum}=${lastNum}">-->
+<!--                    <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>-->
+<!--                </th:block>-->
+<!--            </div>-->
+
+
+            <div>
+                <button class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
+            </div>
+            </form>
+            <div>
+                <button class="btn btn-success btn-lg btn-block" onclick="location.href='/notice/noticeDetail'"
+                        style="float: right;" type="submit">글쓰기
+                </button>
+            </div>
+
+
+        </div>
+
+        <div class="footer">
+            <p>Footer</p>
+        </div>
+</body>
+</html>
