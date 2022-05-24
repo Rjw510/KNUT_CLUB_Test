@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lnag="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>로그인</title>
@@ -9,7 +9,7 @@
 
 <body>
 <header>
-    <h1>KNUT-CLUB</h1>
+    <h1 ><a class="Toindex" href="/adminIndex">KNUT-CLUB</a></h1>
 </header>
 
 <section>
@@ -29,6 +29,7 @@
                     <div class="pwform">
                         <input type="password" name="password" id="pw" placeholder="비밀번호">
                     </div>
+
                     <button id="btn" type="submit"><strong>로그인</strong></button>
                     <div class="links">
                         <button class="links-btn" type="button" onclick="location.href='/check'"><strong>회원가입</strong></button>
@@ -44,10 +45,10 @@
                 <h2>관리자 로그인</h2>
                 <div class="login-Form-inner">
                     <div class="idform">
-                        <input type="text" name="studentID" id="id" placeholder="학번"><br>
+                        <input type="text" name="studentID" id="adminId" placeholder="학번"><br>
                     </div>
                     <div class="pwform">
-                        <input type="password" name="password" id="pw" placeholder="비밀번호">
+                        <input type="password" name="password" id="adminPw" placeholder="비밀번호">
                     </div>
                     <button id="second-btn" type="submit"><strong>로그인</strong></button>
 
