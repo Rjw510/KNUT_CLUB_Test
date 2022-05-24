@@ -15,13 +15,22 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class IndexController {
 
+    @GetMapping("/")
+    public String goMain(HttpServletRequest request, Model model) {
+        return "index/index";
+    }
+
     @GetMapping("/index")
     public String goIndex(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession();
 
+        String authority = (String) session.getAttribute("authority");
+        model.addAttribute("authority", authority);
+
         String login = "Login";
         session.setAttribute("login", login);
+
 
         return "index/index";
     }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/header.css">
+  </head>
+  <body>
+  <div th:fragment="headerFragment">
+    <div class="topnav">
+        <a href="/login" th:text="${session.login}">Login</a>
+        <!--<a onclick="window.location.reload()">Home</a>-->
+        <a href="/">Home</a>
+        <a href="/myPage">Mypage</a>
+      <div class="search-container">
+          <form action="/action_page.php">
+              <input type="text" placeholder="Search.." name="search">
+              <button type="submit">
+                  <img id="searchicon" src="/img/search.png" alt=""><i
+                      class="fa fa-search"></i>
+              </button>
+          </form>
+      </div>
+  </div>
+
+  
+  <div class="navbar">
+      <div class="logo">
+          <a href="/"><img src="/img/logo.jpg"></a>
+      </div>
+  
+      <div id="menu">
+          <ul>
+              <li><a href="/notice">공지사항</a></li>
+              <li><a href="/board">자유게시판</a></li>
+              <li><a href="#">동아리</a>
+                  <ul>
+                      <li><a href="/joinClub/chungju">조회 및 가입</a></li>
+                      <li><a href="/joinClub/uiwang">가입 방법</a></li>
+  
+                  </ul>
+              </li>
+              <li><a href="#">소개</a>
+                  <ul>
+                      <li><a href="#">동아리란?</a></li>
+                      <li><a href="#">동아리 배치도</a></li>
+                  </ul>
+              </li>
+              <li><a href="#">행사</a>
+                  <ul>
+                      <li><a href="#">동아리 행사</a></li>
+                      <li><a href="#">우수동아리</a></li>
+                  </ul>
+              </li>
+              <li><a href="#">회원관리</a>
+                  <ul>
+                      <li><a href="/memberlist">회원목록</a></li>
+                      <li><a href="/permission">승인목록</a></li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+  </div>
+  </div>
+
+  </body>
+</html>

@@ -80,7 +80,7 @@ public class MemberService {
 
         List<Member> list = new ArrayList<>();
 
-        String sql = "SELECT name, email, studentID FROM USER WHERE studentID = ?;";
+        String sql = "SELECT name, email, studentID, department FROM USER WHERE studentID = ?;";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -101,12 +101,14 @@ public class MemberService {
             while (rs.next()) {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
+                String department = rs.getString("department");
                 studentID = rs.getString("studentID");
 
                 Member member = new Member(
                         name
                         , email
                         , studentID
+                        , department
                 );
                 list.add(member);
             }

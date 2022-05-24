@@ -9,10 +9,10 @@
 </head>
 
 <body>
-<div class="topnav">
+<!--<div class="topnav">
 
     <a href="/login" th:text="${session.login}">Login</a>
-   <!-- <a href="/login">login</a>-->
+   &lt;!&ndash; <a href="/login">login</a>&ndash;&gt;
 
     <a onclick="window.location.reload()">Home</a>
     <div class="search-container">
@@ -62,7 +62,9 @@
             </li>
         </ul>
     </div>
-</div>
+</div>-->
+
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 
 <div class="picture">
     <img class="slide1" src="/img/main_1.png" >

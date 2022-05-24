@@ -10,9 +10,10 @@
 </head>
 
 <body>
-<div class="topnav">
 
-    <!--<a href="/login">login</a>-->
+<!--<div class="topnav">
+
+    &lt;!&ndash;<a href="/login">login</a>&ndash;&gt;
 
     <a href="/login" th:text="${session.login}">Login</a>
 
@@ -56,15 +57,18 @@
                     <li><a href="#">동아리 페어</a></li>
                 </ul>
             </li>
-            <!--<li><a href="#">회원관리</a>
+            &lt;!&ndash;<li><a href="#">회원관리</a>
                 <ul>
                     <li><a href="/VIEW/memberlist/memberlist">회원목록</a></li>
                     <li><a href="/VIEW/permission/permission">승인목록</a></li>
                 </ul>
-            </li>-->
+            </li>&ndash;&gt;
         </ul>
     </div>
-</div>
+</div>-->
+
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+
 
 <div class="picture">
     <img class="slide1" src="/img/main_1.png" >
