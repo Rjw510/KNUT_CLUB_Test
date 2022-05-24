@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/mypage.css">
+  <title>MyPage</title>
+</head>
+<body>
+
+<div class="header">
+  <h1>Header</h1>
+  <p>Resize the browser window to see the responsive effect.</p>
+</div>
+
+<div class="topnav">
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+</div>
+
+<h1 class="name">마이페이지</h1>
+<div class="pathbox">
+  <p>pathbox</p>
+</div>
+<div class="row">
+  <div class="column side">
+    <h2>About me</h2>
+    <div class="profile">
+      <h3>김종원</h3>
+      <h4>님의 마이페이지입니다.</h4>
+    </div>
+  </div>
+  <div class="column middle">
+    <div class="wrapper">
+      <div class="row planBox premium text-center">
+        <div class="col-md-12 section1">
+          <img id="profilepicture" src="img/profile.PNG">
+          <p>김종원</p>
+        </div>
+        <div class="col-md-12 section2" th:each="profile : ${profile}">
+          <p th:text="'이름 : ' + ${profile.name}">이름 : </p><br>
+          <p th:text="'이메일 :' + ${profile.email}">이메일 : </p><br>
+          <p th:text="'학번 : ' + ${profile.studentID}">학번 : </p><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column side">
+    <h2>동아리</h2>
+    <h4>가입 된 동아리</h4>
+    <p>퍼펙트</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+</div>
+
+</body>
+</html>

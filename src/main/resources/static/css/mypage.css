@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+/* Style the header */
+.header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+}
+/* Style the top navigation bar */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
+/* Style the topnav links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+/* Change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.name{
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+/* pathbox */
+
+.pathbox{
+  background-color: #ddd;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+  
+}
+.pathbox p{
+  text-decoration: solid;
+}
+/* row */
+.row{
+    background-color: #FFFFFF;
+}
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+    margin-top: 20px;
+    
+}
+/* Left and right column */
+.column.side {
+    width: 25%;
+    padding-left: 50px;
+    background-color: #CCC;
+    margin-top: 200px;
+   
+}
+
+
+
+#profilepicture{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.column.side h3, h4{
+    display: inline-block;
+}
+
+/* Middle column */
+.column.middle {
+    width: 50%;
+}
+
+.wrapper {
+    position: relative;
+    z-index: 1;
+    background-color: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    
+    
+  }
+
+.wrapper .content{
+  list-style: none;
+  
+}
+.planBox{
+  margin: 0px;
+  border-radius:3px;
+  border:1px solid black;
+  background-color: #FFFFFF;
+  
+  }
+  .section1{
+  border-radius:3px 3px 0px 0px;
+  padding: 10px 15px 30px 15px;
+  background-color: #333;
+  }
+  .section1 img, p{
+    padding-top: 20px;
+  }
+  .section1 p{
+  font-size:20px;
+  color:#fff;
+  }
+  .section1 h1{
+  color:#fff;
+  font-size:45px;
+  margin-top:0px;
+  }
+  sup{
+  font-size: 12px;
+  top: -1.9em;
+  }
+  .section1 span{
+  font-size: 12px;
+  }
+  .section2{
+    background-color: #FFFFFF;
+  }
+  .section2 p{
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 30px;
+  }
+
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column.side, .column.middle {
+        width: 100%;
+    }
+}
+/* Style the footer */
+.footer {
+    background-color: #ccc;
+    padding: 10px;
+    text-align: center;
+}

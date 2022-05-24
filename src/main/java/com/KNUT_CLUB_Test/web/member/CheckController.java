@@ -13,8 +13,4 @@ public class CheckController {
         return "check";
     }
 
-    @GetMapping("/check/join")
-    public String doCheck() {
-        return "join";
-    }
 }

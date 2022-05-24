@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lnag="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>KNUT_LUB</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+</head>
+
+<body>
+<div class="topnav">
+
+    <!--<a href="/login">login</a>-->
+
+    <a href="/login" th:text="${session.login}">Login</a>
+
+    <a onclick="window.location.reload()">Home</a>
+    <div class="search-container">
+        <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit">
+                <img id="searchicon" src="/img/search.png" alt=""><i
+                    class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="logo">
+        <a onclick="window.location.reload()"><img src="/img/logo.jpg"></a>
+    </div>
+
+    <div id="menu">
+        <ul>
+            <li><a href="/notice">공지사항</a></li>
+            <li><a href="/board">자유게시판</a></li>
+            <li><a href="#">가입</a>
+                <ul>
+                    <li><a href="/joinClub/chungju">충주캠퍼스</a></li>
+                    <li><a href="/joinClub/uiwang">의왕캠퍼스</a></li>
+                    <li><a href="/joinClub/jeungpyeong">증평캠퍼스</a></li>
+                </ul>
+            </li>
+            <li><a href="#">소개</a>
+                <ul>
+                    <li><a href="#">동아리란?</a></li>
+                    <li><a href="#">가입 방법</a></li>
+                </ul>
+            </li>
+            <li><a href="#">행사</a>
+                <ul>
+                    <li><a href="#">동아리 행사</a></li>
+                    <li><a href="#">동아리 페어</a></li>
+                </ul>
+            </li>
+            <!--<li><a href="#">회원관리</a>
+                <ul>
+                    <li><a href="/VIEW/memberlist/memberlist">회원목록</a></li>
+                    <li><a href="/VIEW/permission/permission">승인목록</a></li>
+                </ul>
+            </li>-->
+        </ul>
+    </div>
+</div>
+
+<div class="picture">
+    <img class="slide1" src="/img/main_1.png" >
+    <img class="slide1" src="/img/main_2.png">
+    <img class="slide1" src="/img/main_3.png">
+</div>
+
+<div class="row">
+
+    <div class="column middle">
+        <h2>공지사항</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
+            ultricies, eget elementum magna tristique. Quisque vehicula, risus
+            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
+            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
+            ultricies, eget elementum magna tristique. Quisque vehicula, risus
+            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
+            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+    </div>
+    <div class="column middle">
+        <h2>자유게시판</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
+            ultricies, eget elementum magna tristique. Quisque vehicula, risus
+            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
+            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
+            ultricies, eget elementum magna tristique. Quisque vehicula, risus
+            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
+            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+    </div>
+
+
+</div>
+
+<div class="footer">
+    <p>Footer</p>
+</div>
+</body>
+</html>
