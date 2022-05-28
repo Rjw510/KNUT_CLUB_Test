@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>동아리방 배치도</title>
+    <link rel="stylesheet" href="/css/arrange.css">
+    <meta charset="utf-8">
+</head>
+<body>
+
+<!--<div class="header">
+    <h1>My Website</h1>
+    <p>Resize the browser window to see the effect.</p>
+</div>
+
+<div class="topnav">
+    <a href="#">Link</a>
+    <a href="#">Link</a>
+    <a href="#">Link</a>
+    <a href="#" style="float:right">Link</a>
+</div>-->
+
+<th:block th:replace="fragments/adminHeader :: headerFragment"></th:block>
+
+<div class="row">
+    <div class="rightcolumn">
+        <div class="card">
+            <div class="namebox">
+                <h2 id="sidemenuname">소개</h2>
+            </div>
+            <ul class="sidemenu">
+                <li class="box"><a href="/introduce/aboutclub.html">동아리란?</a></li>
+                <li class="box"><a class="now" href="/introduce/arrange.html">동아리 배치도</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="leftcolumn">
+        <h2>동아리방 배치도</h2>
+        <div class="card">
+            <div class="arrangeimg">
+                <img src="/img/arrangement.png">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <h2>Footer</h2>
+</div>
+
+</body>
+</html>
