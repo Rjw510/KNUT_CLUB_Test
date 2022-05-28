@@ -22,13 +22,18 @@ public class MyPageController {
 
         String studentID = (String) session.getAttribute("id");
 
-        MemberService service = new MemberService();
-        List<Member> profile = service.getMemberProfile(studentID);
+        if (studentID == null) {
+            return "/login";
+        }
+        else {
+            MemberService service = new MemberService();
+            List<Member> profile = service.getMemberProfile(studentID);
 
 
-        model.addAttribute("profile", profile);
+            model.addAttribute("profile", profile);
 
-        return "mypage/mypage";
+            return "mypage/mypage";
+        }
     }
 
 }
