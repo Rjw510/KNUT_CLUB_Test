@@ -68,6 +68,7 @@
 </div>-->
 
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
 
 <div class="picture">
@@ -84,29 +85,57 @@
 
     <div class="column middle">
         <h2>공지사항</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
-            ultricies, eget elementum magna tristique. Quisque vehicula, risus
-            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
-            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
-            ultricies, eget elementum magna tristique. Quisque vehicula, risus
-            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
-            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+
+        <form action="/notice" method="post">
+            <table class="noticetable">
+                <tr class="Tableh">
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                </tr>
+
+
+                <tbody>
+                <tr th:each="n : ${noticeList}">
+                    <input type="hidden" name="n" th:value="${n.num}">
+                    <td th:text="${n.n}">-</td>
+                    <td th:text="${n.title }"><a th:href="@{notice/noticeDetail(num = ${n.num})}"></a></td>
+                    <td th:text="${n.writer}">-</td>
+                    <td th:text="${n.date}">-</td>
+                    <td>0</td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
     <div class="column middle">
         <h2>자유게시판</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
-            ultricies, eget elementum magna tristique. Quisque vehicula, risus
-            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
-            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Maecenas sit amet pretium urna. Vivamus venenatis velit nec neque
-            ultricies, eget elementum magna tristique. Quisque vehicula, risus
-            eget aliquam placerat, purus leo tincidunt eros, eget luctus quam
-            orci in velit. Praesent scelerisque tortor sed accumsan convallis.</p>
+
+        <form action="/board" method="post">
+            <table class="noticetable">
+                <tr class="Tableh">
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                </tr>
+
+
+                <tbody>
+                <tr th:each="b : ${boardList}">
+                    <input type="hidden" name="n" th:value="${b.num}">
+                    <td th:text="${b.n}">-</td>
+                    <td th:text="${b.title }"><a th:href="@{notice/noticeDetail(num = ${n.num})}"></a></td>
+                    <td th:text="${b.writer}">-</td>
+                    <td th:text="${b.date}">-</td>
+                    <td>0</td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
 
 

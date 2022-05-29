@@ -1,0 +1,52 @@
+CREATE DATABASE KNUT_CLUB;
+
+USE KNUT_CLUB;
+
+-- 회원 테이블
+CREATE TABLE IF NOT EXISTS MEMBER (
+	num				INT				NOT NULL	AUTO_INCREMENT,
+    name			VARCHAR(10)		NOT NULL,
+	studentID		VARCHAR(10)		NOT NULL,
+    password		VARCHAR(10)		NOT NULL,
+    department		VARCHAR(10)		NOT NULL,
+    email			VARCHAR(25)		NOT NULL,
+    address			VARCHAR(25)		NOT NULL,
+    detailAddress	VARCHAR(25)		NOT NULL,
+	authority		INT			NOT NULL,
+    club			VARCHAR(10)		NOT NULL,
+    grade			VARCHAR(10)		NOT NULL,
+    PRIMARY KEY(num)
+);
+
+-- 공지사항 
+CREATE TABLE IF NOT EXISTS NOTICE (
+	num			INT				NOT NULL	AUTO_INCREMENT,
+    title		VARCHAR(20)		NOT NULL,
+    content		TEXT			NOT NULL,
+    wrtier		VARCHAR(10)		NOT NULL,
+    date		DATETIME		NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+    views		INT				NOT NULL,
+    PRIMARY KEY(num)
+);
+
+-- 자유게시판 
+CREATE TABLE IF NOT EXISTS BOARD (
+	num			INT				NOT NULL	AUTO_INCREMENT,
+    title		VARCHAR(20)		NOT NULL,
+    content		TEXT			NOT NULL,
+    wrtier		VARCHAR(10)		NOT NULL,
+    date		DATETIME		NOT NULL	DEFAULT CURRENT_TIMESTAMP,
+    views		INT				NOT NULL,
+    PRIMARY KEY(num)
+);
+
+-- 동아리 
+CREATE TABLE IF NOT EXISTS CLUB (
+	num			INT				NOT NULL	AUTO_INCREMENT,
+    clubName	VARCHAR(20)		NOT NULL,
+    clubIntro	TEXT			NOT NULL,
+    PRIMARY KEY(num)
+)
+
+
+

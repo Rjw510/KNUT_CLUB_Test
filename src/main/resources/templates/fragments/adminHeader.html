@@ -8,19 +8,20 @@
   <body>
   <div th:fragment="headerFragment">
     <div class="topnav">
-        <a href="/login" th:text="${session.login}">Login</a>
-        <!--<a onclick="window.location.reload()">Home</a>-->
+        <th:block th:if="${#strings.isEmpty(session.state)}">
+            <a href="/login" th:text="Login" >Login</a>
+        </th:block>
+        <th:block th:if="${not #strings.isEmpty(session.state)}">
+            <a href="/logout" th:text="Logout" >Logout</a>
+        </th:block>
+        <th:block th:if="${#strings.isEmpty(session.state)}">
+            <a href="/join" th:text="회원가입" >회원가입</a>
+        </th:block>
+        <th:block th:if="${not #strings.isEmpty(session.state)}">
+            <a href="/myPage" th:text="MyPage" >MyPage</a>
+        </th:block>
         <a href="/">Home</a>
-        <th:block th:if="${session.login} == null">
-            <a href="/login">Mypage</a>
-        </th:block>
-        <th:block th:if="${session.login} == 'Login'">
-            <a href="/login">Mypage</a>
-        </th:block>
-        <th:block th:if="${session.login} == 'Logout'">
-            <a href="/myPage">Mypage</a>
-        </th:block>
-        <!--<a href="/myPage">Mypage</a>-->
+
       <div class="search-container">
           <form action="/action_page.php">
               <input type="text" placeholder="Search.." name="search">

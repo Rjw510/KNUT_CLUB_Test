@@ -1,9 +1,6 @@
 package com.KNUT_CLUB_Test.domain.notice;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +13,7 @@ public class NoticeService {
         List<Notice> list = new ArrayList<>();
 
         String sql = "SELECT @ROWNUM := @ROWNUM +1 AS n, NOTICE.*"
-                + " FROM NOTICE, (SELECT @ROWNUM := 0)TMP ORDER BY date DESC limit 1, 10;";
+                + " FROM NOTICE, (SELECT @ROWNUM := 0)TMP ORDER BY date DESC limit 5;";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -32,8 +29,6 @@ public class NoticeService {
             pst = conn.prepareStatement(sql);
 
             rs = pst.executeQuery();
-
-            System.out.println(pst);
 
             while (rs.next()) {
                 int n = rs.getInt("n");
@@ -72,13 +67,13 @@ public class NoticeService {
         return list;
     }
 
-    /* notice */
+    /* board */
     public List<Notice> getBoardList() {
 
         List<Notice> list = new ArrayList<>();
 
         String sql = "SELECT @ROWNUM := @ROWNUM +1 AS n, BOARD.*"
-                + " FROM BOARD, (SELECT @ROWNUM := 0)TMP ORDER BY date DESC limit 1, 10;";
+                + " FROM BOARD, (SELECT @ROWNUM := 0)TMP ORDER BY date DESC limit 5;";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -94,8 +89,6 @@ public class NoticeService {
             pst = conn.prepareStatement(sql);
 
             rs = pst.executeQuery();
-
-            System.out.println(pst);
 
             while (rs.next()) {
                 int n = rs.getInt("n");
@@ -342,5 +335,97 @@ public class NoticeService {
             }
         }
         return count;
+    }
+
+    public int delNoticeAll(int[] ids) {
+        int result = 0;
+
+        String params = "";
+
+        for (int i=0; i<ids.length; i++) {
+            params += ids[i];
+            if(i<ids.length-1)
+                params += ",";
+        }
+
+        String sql = "DELETE FROM NOTICE WHERE num IN ("+params+")";
+
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            st = conn.createStatement();
+
+            result = st.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (st != null)
+                    st.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return result;
+    }
+
+    public int delBoardAll(int[] ids) {
+        int result = 0;
+
+        String params = "";
+
+        for (int i=0; i<ids.length; i++) {
+            params += ids[i];
+            if(i<ids.length-1)
+                params += ",";
+        }
+
+        String sql = "DELETE FROM BOARD WHERE num IN ("+params+")";
+
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            st = conn.createStatement();
+
+            result = st.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (st != null)
+                    st.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return result;
     }
 }

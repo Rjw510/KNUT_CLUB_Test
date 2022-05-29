@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lnag="ko" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="sidebar.css">
+
+<th:block th:fragment="sideBarFragment" >
+<input type="checkbox" id="menuicon">
+<ul>
+  <li>
+    <label for="menuicon">
+      <span></span><span></span><span></span>
+    </label>
+  </li>
+
+</ul>
+
+<div class="sidebar">
+  <div class="profile">
+    <h1>김종원</h1>
+    <h2>보통 사람들</h2>
+    <th:block th:if="${#strings.isEmpty(session.state)}">
+      <button class="login" onclick="location.href='/login'" th:text="로그인" >Login</button>
+    </th:block>
+    <th:block th:if="${not #strings.isEmpty(session.state)}">
+      <button class="login" onclick="location.href='/logout'" th:text="로그아웃" >Logout</button>
+    </th:block>
+    <th:block th:if="${#strings.isEmpty(session.state)}">
+      <button class="mypage" onclick="location.href='/check'" th:text="회원가입" >회원가입</button>
+    </th:block>
+    <th:block th:if="${not #strings.isEmpty(session.state)}">
+      <button class="mypage" onclick="location.href='/myPage'" th:text="MyPage" >MyPage</button>
+    </th:block>
+  </div>
+  <ul>
+    <li>
+      <a href="#" class="active">
+        <span class="icon"><i class="fas fa-home"></i></span>
+        <span class="item">Home</span>
+      </a>
+    </li>
+    <li>
+      <a href="/notice">
+        <span class="icon"><i class="fas fa-desktop"></i></span>
+        <span class="item">공지사항</span>
+      </a>
+    </li>
+    <li>
+      <a href="/board">
+        <span class="icon"><i class="fas fa-user-friends"></i></span>
+        <span class="item">자유게시판</span>
+      </a>
+    </li>
+    <li>
+      <a href="/check">
+        <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+        <span class="item">가입</span>
+      </a>
+    </li>
+    <li>
+      <a href="/introduce/aboutClub">
+        <span class="icon"><i class="fas fa-database"></i></span>
+        <span class="item">소개</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <span class="icon"><i class="fas fa-chart-line"></i></span>
+        <span class="item">행사</span>
+      </a>
+    </li>
+    <li th:if="${session.authority == '2'}">
+      <a href="/memberlist">
+        <span class="icon"><i class="fas fa-chart-line"></i></span>
+        <span class="item">회원목록</span>
+      </a>
+    </li>
+  </ul>
+
+
+
+</div>
+</th:block>
