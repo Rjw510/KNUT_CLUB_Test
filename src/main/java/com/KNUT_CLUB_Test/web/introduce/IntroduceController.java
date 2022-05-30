@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class IntroduceController {
 
-    @GetMapping("/introduce/arrange")
+    @GetMapping("/arrange")
     public String goArrange() {
         return "introduce/arrange";
     }
 
-    @GetMapping("/introduce/aboutClub")
+    @GetMapping("/aboutClub")
     public String goAboutClub() {
         return "introduce/aboutClub";
     }

@@ -198,19 +198,20 @@ a {
 
 #sidemenuname{
     text-decoration: none;
-    text-decoration: underline;
-    text-underline-offset: 10px;
+    text-align: center;
 }
 
 .sidemenu li{
-    padding-top: 30px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-bottom: 1px solid rgb(109, 13, 13);
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 15px;
 }
 
-.sidemenu li .now{
+.sidemenu #now{
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 

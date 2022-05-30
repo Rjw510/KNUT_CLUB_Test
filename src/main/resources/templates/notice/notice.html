@@ -9,7 +9,7 @@
 
 <body>
 
-<th:block th:replace="fragments/adminHeader :: headerFragment"></th:block>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
 <div class="pathbox">
@@ -22,9 +22,9 @@
             <h2>Menu</h2>
             <li id="now"><a href="/notice">공지사항</a></li>
             <li><a href="/board">자유게시판</a></li>
-            <li><a href="#">가입</a></li>
-            <li><a href="#">소개</a></li>
-            <li><a href="#">행사</a></li>
+            <li><a href="/clubJoin">동아리</a></li>
+            <li><a href="/aboutClub">소개</a></li>
+            <li><a href="/event">행사</a></li>
         </ul>
     </div>
 

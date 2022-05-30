@@ -19,19 +19,22 @@
     <a href="#" style="float:right">Link</a>
 </div>-->
 
-<th:block th:replace="fragments/adminHeader :: headerFragment"></th:block>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
 <div class="row">
     <div class="rightcolumn">
         <div class="card">
-            <div class="namebox">
-                <h2 id="sidemenuname">소개</h2>
-            </div>
-            <ul class="sidemenu">
-                <li class="box"><a class="now" href="introduce/aboutClub.html">동아리란?</a></li>
-                <li class="box"><a href="introduce/arrange.html">동아리 배치도</a></li>
-            </ul>
+                <div class="namebox">
+                    <h2 id="sidemenuname">
+                        Menu
+                    </h2>
+                </div>
+                <ul class="sidemenu">
+                    <li id="now"><a href="/aboutClub">동아리란?</li>
+                    <li><a href="/arrange">동아리 배치도</a></li>
+                </ul>
+
         </div>
 
     </div>

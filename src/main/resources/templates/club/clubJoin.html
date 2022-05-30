@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>조회 및 가입</title>
+    <link rel="stylesheet" href="/css/clubJoin.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
+
+<div class="pathbox">
+    <h2>pathbox</h2>
+</div>
+
+<div class="row">
+    <div class="column side">
+        <div class="sidewrapper">
+            <div class="namebox">
+                <h2 id="sidemenuname">
+                    Menu
+                </h2>
+            </div>
+            <ul class="sidemenu">
+                <li id="now"><a href="/clubJoin">조회 및 가입</li>
+                <li><a href="/joinManual">가입 방법</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="column middle">
+        <h1><a href="/clubJoin">조회 및 가입</h2>
+            <form action="#">
+                <select name="campus">
+                    <option value="basic">캠퍼스 선택</option>
+                    <option value="sport">충주</option>
+                    <option value="band">증평</option>
+                    <option value="volunteer">의왕</option>
+                </select>
+                <select name="category">
+                    <option value="basic">종류 선택</option>
+                    <option value="sport">스포츠</option>
+                    <option value="band">밴드</option>
+                    <option value="volunteer">봉사</option>
+                </select>
+                <input type="submit" value="조회">
+            </form>
+            <div class="products">
+                <a href="#">
+                    <img src="/img/grid_1.jpg">
+                    <p class="name">위키드</p>
+                    <p class="price">야구동아리</p>
+                </a>
+                <a href="/clubJoin/clubdetail">
+                    <img src="/img/grid_2.jpg">
+                    <p class="name">퍼펙트</p>
+                    <p class="price">테니스 동아리</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_3.jpg">
+                    <p class="name">포세이돈</p>
+                    <p class="price">밴드 동아리</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_4.jpg">
+                    <p class="name">RETURN</p>
+                    <p class="price">농구 동아리</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_1.jpg">
+                    <p class="name">위키드</p>
+                    <p class="price">야구동아리</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_2.jpg">
+                    <p class="name">퍼펙트</p>
+                    <p class="price">테니스 동아리</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_3.jpg">
+                    <p class="name">포세이돈</p>
+                    <p class="price">밴드 동아리</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_4.jpg">
+                    <p class="name">RETURN</p>
+                    <p class="price">농구 동아리</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_1.jpg">
+                    <p class="name">위키드</p>
+                    <p class="price">야구동아리</p>
+                </a>
+                <div class="clearfix"></div>
+            </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>Footer</p>
+</div>
+
+</body>
+</html>

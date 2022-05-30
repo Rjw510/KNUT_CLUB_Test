@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>동아리 행사</title>
+    <link rel="stylesheet" href="/css/event.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
+
+<div class="pathbox">
+    <h2>pathbox</h2>
+</div>
+
+<div class="row">
+    <div class="column side">
+        <div class="sidewrapper">
+            <div class="namebox">
+                <h2 id="sidemenuname">
+                    Menu
+                </h2>
+            </div>
+            <ul class="sidemenu">
+                <li id="now"><a href="/event">동아리 행사</li>
+                <li><a href="#">우수동아리</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="column middle">
+        <h1><a href="/event">동아리 행사</h2>
+            <form action="#">
+                <select name="campus">
+                    <option value="basic">캠퍼스 선택</option>
+                    <option value="sport">충주</option>
+                    <option value="band">증평</option>
+                    <option value="volunteer">의왕</option>
+                </select>
+                <select name="category">
+                    <option value="basic">종류 선택</option>
+                    <option value="sport">스포츠</option>
+                    <option value="band">밴드</option>
+                    <option value="volunteer">봉사</option>
+                </select>
+                <input type="submit" value="조회">
+            </form>
+            <div class="products">
+                <a href="#">
+                    <img src="/img/grid_1.png">
+                    <p class="name">테니스</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)~18(수)</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_2.png">
+                    <p class="name">축구</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)부터</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_3.png">
+                    <p class="name">축구</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_4.png">
+                    <p class="name">축구</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_5.png">
+                    <p class="name">배구</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_1.png">
+                    <p class="name">테니스</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)~18(수)</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_2.png">
+                    <p class="name">축구</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)부터</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_3.png">
+                    <p class="name">축구</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
+                </a>
+                <a href="#">
+                    <img src="/img/grid_4.png">
+                    <p class="name">축구</p>
+                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
+                </a>
+                <div class="clearfix"></div>
+            </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>Footer</p>
+</div>
+
+</body>
+</html>

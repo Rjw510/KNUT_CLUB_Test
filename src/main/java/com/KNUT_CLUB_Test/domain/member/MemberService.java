@@ -114,8 +114,6 @@ public class MemberService {
                 );
                 list.add(member);
             }
-
-            System.out.println(list);
         }
         catch (Exception e) {
             System.out.println(e);
