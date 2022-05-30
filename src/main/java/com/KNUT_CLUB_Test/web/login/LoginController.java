@@ -1,6 +1,8 @@
 package com.KNUT_CLUB_Test.web.login;
 
 import com.KNUT_CLUB_Test.domain.login.LoginService;
+import com.KNUT_CLUB_Test.domain.member.Member;
+import com.KNUT_CLUB_Test.domain.member.MemberService;
 import com.KNUT_CLUB_Test.domain.notice.Notice;
 import com.KNUT_CLUB_Test.domain.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +65,9 @@ public class LoginController {
         session.setAttribute("state", state);
 
         LoginService service = new LoginService();
+        MemberService memberService = new MemberService();
         NoticeService noticeService = new NoticeService();
+        List<Member> profile = memberService.getMemberProfile(state);
 
         int check = service.LoginCheck(id, pw);
         List<Notice> noticeList = noticeService.getNoticeList();
@@ -73,6 +77,7 @@ public class LoginController {
         model.addAttribute("boardList", boardList);
 
         session.setAttribute("authority", grade);
+        session.setAttribute("profile", profile);
 
 
         if (check == 1) {

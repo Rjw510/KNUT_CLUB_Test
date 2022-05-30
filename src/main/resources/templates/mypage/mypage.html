@@ -28,11 +28,11 @@
                 <div class="col-md-12 section2">
 
                     <div class="box">
-                        <p th:text="'이름 : ' + ${profile.studentID}">학번 : </p><br>
+                        <p th:text="'이름 : ' + ${profile.name}">이름 : </p><br>
 
                     </div>
                     <div class="box">
-                        <p th:text="'이름 : ' + ${profile.name}">이름 : </p><br>
+                        <p th:text="'이름 : ' + ${profile.studentID}">학번 : </p><br>
                     </div>
                     <div class="box">
                         <p th:text="'이메일 :' + ${profile.email}">이메일 : </p><br>
@@ -41,7 +41,7 @@
                         <p th:text="'학번 : ' + ${profile.department}">학과 : </p><br>
                     </div>
                     <div class="box">
-                        <p>가입 된 동아리 : 퍼펙트</p><br>
+                        <p th:text="'가입 된 동아리 : ' + ${profile.club}"> : </p><br>
                     </div>
                 </div>
             </div>

@@ -15,6 +15,7 @@ public class Member {
     private String phone;
     private String address;
     private String detailAddress;
+    private String club;
 
     Login login = new Login();
 
@@ -36,10 +37,11 @@ public class Member {
         this.detailAddress = detailAddress;
     }
 
-    public Member(String name, String email, String studentID, String department) {
+    public Member(String name, String email, String studentID, String department, String club) {
         this.name = name;
         this.email = email;
         this.studentID = studentID;
         this.department = department;
+        this.club = club;
     }
 }
