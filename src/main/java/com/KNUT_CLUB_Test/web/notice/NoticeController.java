@@ -100,10 +100,4 @@ public class NoticeController {
 
         return "redirect:/board";
     }
-
-
-
-
-
-
 }

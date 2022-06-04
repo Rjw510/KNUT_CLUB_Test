@@ -15,6 +15,13 @@ public class Notice {
     private String content;
     private String file;
 
+    /* noticeWrite */
+    public Notice(String title, String writer, String content) {
+        this.title = title;
+        this.writer = writer;
+        this.content = content;
+    }
+
     /* notice */
     public Notice(int n, int num, String title, String writer, Date date) {
         this.n = n;
