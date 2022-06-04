@@ -161,6 +161,14 @@ th, td {
   border-bottom: 1px solid rgb(109, 13, 13);
 }
 
+th, td:hover{
+  cursor: pointer;
+}
+
+td :hover{
+  cursor: pointer;
+}
+
 #tableheader{
   border-top: 3px solid rgb(109, 13, 13);
   border-bottom: 2px solid rgb(109, 13, 13);

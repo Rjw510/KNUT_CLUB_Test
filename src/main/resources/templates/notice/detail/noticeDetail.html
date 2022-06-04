@@ -5,6 +5,26 @@
     <title>Title</title>
 </head>
 <body>
+<table class="noticetable">
+    <tr id="tableheader">
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>내용</th>
+        <th>파일</th>
+        <th scope="cols">선택</th>
+    </tr>
 
+    <tbody th:each="n : ${list}">
+            <td th:text="${n.title}">번호</td>
+            <td th:text="${n.writer }">제목</td>
+            <td th:text="${n.date}">작성자</td>
+            <td th:text="${n.content}">작성일</td>
+            <td th:text="${n.file}">0</td>
+            <td>-</td>
+        </tr>
+    </a>
+    </tbody>
+</table>
 </body>
 </html>

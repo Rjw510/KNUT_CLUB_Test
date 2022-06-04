@@ -428,4 +428,122 @@ public class NoticeService {
         }
         return result;
     }
+
+    public List<Notice> getNoticeDetail(int num) {
+
+        List<Notice> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM NOTICE WHERE num= ? ";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, num);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String writer = rs.getString("writer");
+                Date date = rs.getDate("date");
+                String content = rs.getString("content");
+                String file = rs.getString("file");
+
+                Notice notice = new Notice(
+                        title
+                        , writer
+                        , date
+                        , content
+                        , file
+                );
+                list.add(notice);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return list;
+    }
+
+    public List<Notice> getBoardDetail(int num) {
+
+        List<Notice> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM BOARD WHERE num= ? ";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, num);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String writer = rs.getString("writer");
+                Date date = rs.getDate("date");
+                String content = rs.getString("content");
+                String file = rs.getString("file");
+
+                Notice notice = new Notice(
+                        title
+                        , writer
+                        , date
+                        , content
+                        , file
+                );
+                list.add(notice);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return list;
+    }
 }
