@@ -52,20 +52,23 @@
                     <th>작성자</th>
                     <th>작성일</th>
                     <th>조회</th>
-                    <th>파일</th>
                     <th scope="cols">선택</th>
                 </tr>
 
                 <tbody th:each="n : ${list}">
-                <tr th:onclick="|location.href='@{/board/detail(num=${n.num})}'|">
+                <tr>
                     <input type="hidden" name="n" th:value="${n.num}">
-                    <td th:text="${n.n}">-</td>
-                    <td th:text="${n.title }"></td>
-                    <td th:text="${n.writer}">-</td>
-                    <td th:text="${n.date}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.n}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.title }"></td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.writer}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.date}">-</td>
                     <td>0</td>
-                    <td>-</td>
-                    <td><input type="checkbox" name="del_id" th:value="${n.num}"></td>
+                    <th:block th:if="${session.name} == ${n.writer}">
+                        <td><input type="checkbox" name="del_id" th:value="${n.num}"></td>
+                    </th:block>
+                    <th:block th:if="${session.name} != ${n.writer}">
+                        <td><input type="checkbox" name="'del_id" th:value="${n.num}" disabled></td>
+                    </th:block>
                 </tr>
                 </tbody>
             </table>
@@ -74,11 +77,11 @@
 
 
 <div>
-    <button class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
+    <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
 </div>
 </form>
 <div>
-    <button class="btn btn-success btn-lg btn-block" onclick="location.href='/board/boardWrite'"
+    <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/board/boardWrite'"
             style="float:right;" type="submit">글쓰기
     </button>
 </div>

@@ -1,20 +1,34 @@
 package com.KNUT_CLUB_Test.web.notice;
 
+import com.KNUT_CLUB_Test.domain.notice.FileDto;
 import com.KNUT_CLUB_Test.domain.notice.Notice;
 import com.KNUT_CLUB_Test.domain.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.Writer;
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import javax.swing.plaf.ButtonUI;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.IntStream;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,7 +42,6 @@ public class NoticeWriteController {
     @PostMapping("/notice/noticeWrite")
     public String doNoticeWrite(@RequestParam("title") String title, @RequestParam("writer") String writer,
                                 @RequestParam("content") String content, Model model) {
-
         NoticeService service = new NoticeService();
 
         List<Notice> list = service.writeNotice(title, writer, content);
@@ -42,22 +55,14 @@ public class NoticeWriteController {
         return "notice/write/boardWrite";
     }
 
-    @PostMapping("/upload")
-    public String doNoticeWrite() {
-        String uploadFolder = "C:/tools/졸업작품/KNUT_CLUB_Test/src/main/resources/static/img/sample";
+    @PostMapping("/board/boardWrite")
+    public String doBoardWrite(@RequestParam("title") String title, @RequestParam("writer") String writer,
+                                @RequestParam("content") String content, Model model) {
+        NoticeService service = new NoticeService();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        List<Notice> list = service.writeBoard(title, writer, content);
+        model.addAttribute("list", list);
 
-        Date date = new Date();
-        String str = sdf.format(date);
-        String datePath = str.replace("-", File.separator);
-
-        File uploadPath = new File(uploadFolder, datePath);
-
-        if (uploadPath.exists() == false) {
-            uploadPath.mkdirs();
-        }
-
-        return ("notice/write/noticeWrite");
+        return "redirect:/notice";
     }
 }

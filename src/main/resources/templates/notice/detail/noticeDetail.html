@@ -22,12 +22,9 @@
                         <li th:text="${'등록일:' + n.date}">작성일></li>
                     </ul>
                 </div>
-            </div>
-            <div class="attached_file">
-                <p th:text="'파일:' + ${n.file}">attached_file</p>
-            </div>
-            <div class="detailcontent" style="height:200px;">
-                <p th:text="'글내용:' + ${n.content}">글 내용</p>
+            </div><!---->
+            <div class="detailcontent" style="height:auto; ">
+                <p class="noticect" th:utext="${n.content}">글 내용</p>
             </div>
             <div class="detailfooter">
                 <button type="button" onclick="location.href='/notice'">목록</button>

@@ -44,25 +44,8 @@ public class IndexController {
         return "index/index";
     }
 
-    /*@GetMapping("/adminIndex")
-    public String goAdminIndex(HttpServletRequest request, Model model) {
-
-        HttpSession session = request.getSession();
-
-        String login = "Login";
-        session.setAttribute("login", login);
-
-        return "index/adminIndex";
-    }*/
-
-  /*  @GetMapping("/")
-    public String goMain(HttpServletRequest request, Model model) {
-        String login = "Logout";
-
-        if (id.isEmpty()) {
-            login = "Login";
-        }
-
-        return "index/index";
-    }*/
+    @GetMapping("/writing")
+    public String goNoticeWrite() {
+        return "/index/write";
+    }
 }

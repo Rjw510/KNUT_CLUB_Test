@@ -1,3 +1,13 @@
+body{
+    width: 100%;
+    background-color: #888888;
+}
+.container{
+    padding: 50px;
+    margin-top: 100px;
+    background-color: white;
+    border-radius: 20px;
+}
 #wrap-inner-post{
     margin: auto;
     display: flex;
@@ -46,3 +56,8 @@
     float:left;
     height: 36px;
 }
+
+
+
+
+

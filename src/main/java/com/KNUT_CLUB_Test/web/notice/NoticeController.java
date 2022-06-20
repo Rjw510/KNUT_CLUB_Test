@@ -2,7 +2,6 @@ package com.KNUT_CLUB_Test.web.notice;
 
 import com.KNUT_CLUB_Test.domain.notice.Notice;
 import com.KNUT_CLUB_Test.domain.notice.NoticeService;
-import com.KNUT_CLUB_Test.domain.notice.Paging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
-
-import static org.thymeleaf.util.StringUtils.substringBefore;
 
 @Controller
 @RequiredArgsConstructor
@@ -89,14 +87,16 @@ public class NoticeController {
     }
 
     @PostMapping("/delBoard")
-    public String delBoard(@RequestParam("del_id") String[] delIds) {
+    public String delBoard(@RequestParam("del_id") String[] delIds, HttpSession session) {
         NoticeService service = new NoticeService();
         int[] ids = new int[delIds.length];
+
+        String name = (String) session.getAttribute("name");
 
         for(int i=0; i<delIds.length; i++)
             ids[i] = Integer.parseInt(delIds[i]);
 
-        int result = service.delBoardAll(ids);
+        int result = service.delBoardAll(ids, name);
 
         return "redirect:/board";
     }

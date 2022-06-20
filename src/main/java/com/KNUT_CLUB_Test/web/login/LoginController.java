@@ -62,12 +62,18 @@ public class LoginController {
         String state = (String) session.getAttribute("id");
         String grade = String.valueOf(session.getAttribute("authority"));
 
+
+
         session.setAttribute("state", state);
 
         LoginService service = new LoginService();
         MemberService memberService = new MemberService();
         NoticeService noticeService = new NoticeService();
         List<Member> profile = memberService.getMemberProfile(state);
+        String name = memberService.getMemberName(id);
+        String club = memberService.getMemberClub(id);
+
+
 
         int check = service.LoginCheck(id, pw);
         List<Notice> noticeList = noticeService.getNoticeList();
@@ -78,6 +84,8 @@ public class LoginController {
 
         session.setAttribute("authority", grade);
         session.setAttribute("profile", profile);
+        session.setAttribute("name", name);
+        session.setAttribute("club", club);
 
 
         if (check == 1) {

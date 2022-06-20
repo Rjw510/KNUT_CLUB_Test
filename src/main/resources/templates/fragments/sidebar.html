@@ -20,11 +20,10 @@
         <h2 th:text="없음">없음</h2>
       </th:block>
       <th:block th:if="${not #strings.isEmpty(session.state)}">
-        <th:block th:each="profile : ${session.profile}"></th:block>
-        <!--<h1 th:text="${session.profile}">회원</h1>-->
-        <!--하드 코딩->수정요망-->
-        <h1>류지원님</h1>
-        <h2>퍼펙트</h2>
+        <th:block th:each="profile : ${session.profile}">
+          <h1 th:text="${session.name} + '님'" >님</h1>
+          <h2 th:text="${session.club}">club</h2>
+        </th:block>
       </th:block>
     <th:block th:if="${#strings.isEmpty(session.state)}">
       <button class="login" onclick="location.href='/login'" th:text="로그인" >Login</button>
@@ -83,8 +82,5 @@
       </a>
     </li>
   </ul>
-
-
-
 </div>
 </th:block>

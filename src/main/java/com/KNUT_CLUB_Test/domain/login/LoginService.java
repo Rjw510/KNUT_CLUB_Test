@@ -27,19 +27,16 @@ public class LoginService {
             pst.setString(1, id);
             rs = pst.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 if (rs.getString(1).contentEquals(pw)) {
                     result = 1;
-                }
-                else {
+                } else {
                     result = 0;
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
-        }
-        finally {
+        } finally {
             try {
                 if (rs != null)
                     rs.close();
