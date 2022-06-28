@@ -2,51 +2,88 @@ CREATE DATABASE KNUT_CLUB;
 
 USE KNUT_CLUB;
 
--- 회원 테이블
-CREATE TABLE IF NOT EXISTS MEMBER (
-	num				INT				NOT NULL	AUTO_INCREMENT,
-    name			VARCHAR(10)		NOT NULL,
-	studentID		VARCHAR(10)		NOT NULL,
-    password		VARCHAR(10)		NOT NULL,
-    department		VARCHAR(10)		NOT NULL,
-    email			VARCHAR(25)		NOT NULL,
-    address			VARCHAR(25)		NOT NULL,
-    detailAddress	VARCHAR(25)		NOT NULL,
-	authority		INT			NOT NULL,
-    club			VARCHAR(10)		NOT NULL,
-    grade			VARCHAR(10)		NOT NULL,
+# 유저 데이터베이스
+CREATE TABLE IF NOT EXISTS MEMBER
+(
+    num           INT          NOT NULL AUTO_INCREMENT,
+    name          VARCHAR(10)  NOT NULL,
+    studentID     VARCHAR(10)  NOT NULL ,
+    password      VARCHAR(20)  NOT NULL,
+    department    VARCHAR(20)  NOT NULL,
+    birth         VARCHAR(10)  NOT NULL,
+    gender        VARCHAR(5)   NOT NULL,
+    email         VARCHAR(30)  NOT NULL,
+    phone         VARCHAR(15)  NOT NULL,
+    address       VARCHAR(50)  NOT NULL,
+    detailAddress VARCHAR(50)  NOT NULL,
+    authority     INT          NOT NULL,
+    club          VARCHAR(20)  NOT NULL,
     PRIMARY KEY(num)
 );
 
--- 공지사항 
-CREATE TABLE IF NOT EXISTS NOTICE (
-	num			INT				NOT NULL	AUTO_INCREMENT,
-    title		VARCHAR(20)		NOT NULL,
-    content		TEXT			NOT NULL,
-    wrtier		VARCHAR(10)		NOT NULL,
-    date		DATETIME		NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-    views		INT				NOT NULL,
+
+# 공지사항 데이터베이스
+CREATE TABLE IF NOT EXISTS NOTICE
+(
+    num     int         NOT NULL AUTO_INCREMENT,
+    title   VARCHAR(30) NOT NULL,
+    writer  VARCHAR(10) NOT NULL,
+    date    DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    content text,
+    views   INTEGER,
     PRIMARY KEY(num)
 );
 
--- 자유게시판 
-CREATE TABLE IF NOT EXISTS BOARD (
-	num			INT				NOT NULL	AUTO_INCREMENT,
-    title		VARCHAR(20)		NOT NULL,
-    content		TEXT			NOT NULL,
-    wrtier		VARCHAR(10)		NOT NULL,
-    date		DATETIME		NOT NULL	DEFAULT CURRENT_TIMESTAMP,
-    views		INT				NOT NULL,
+# 자유게시판 데이터베이스
+CREATE TABLE IF NOT EXISTS BOARD
+(
+    num     int         NOT NULL AUTO_INCREMENT,
+    title   VARCHAR(30) NOT NULL,
+    writer  VARCHAR(10) NOT NULL,
+    date    DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    content text,
+    views   INTEGER,
     PRIMARY KEY(num)
 );
 
--- 동아리 
-CREATE TABLE IF NOT EXISTS CLUB (
-	num			INT				NOT NULL	AUTO_INCREMENT,
-    clubName	VARCHAR(20)		NOT NULL,
-    clubIntro	TEXT			NOT NULL,
+
+# 댓글 테이블
+CREATE TABLE IF NOT EXISTS COMMENT
+(
+    num         INT NOT NULL AUTO_INCREMENT,
+    board_num   VARCHAR(5) ,
+    writer      VARCHAR(10)  NOT NULL,
+    date        DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    content     text,
     PRIMARY KEY(num)
 )
+
+# 동아리 홍보게시판 데이터베이스
+CREATE TABLE IF NOT EXISTS PROMOTION
+(
+    num         int          NOT NULL AUTO_INCREMENT,
+    campus      VARCHAR(10)  NOT NULL,
+    type        VARCHAR(10)  NOT NULL,
+    name        VARCHAR(10)  NOT NULL,
+    field       VARCHAR(10)  NOT NULL,
+    introduce   VARCHAR(50)  NOT NULL,
+    promotion   VARCHAR(50)  NOT NULL,
+    PRIMARY KEY(num)
+);
+
+# 동아리 행사 데이터베이스
+CREATE TABLE IF NOT EXISTS EVENT
+(
+    num         int          NOT NULL AUTO_INCREMENT,
+    campus      VARCHAR(10)  NOT NULL,
+    type        VARCHAR(10)  NOT NULL,
+    name        VARCHAR(10)  NOT NULL,
+    field       VARCHAR(10)  NOT NULL,
+    introduce   VARCHAR(50)  NOT NULL,
+    promotion   VARCHAR(50)  NOT NULL,
+    PRIMARY KEY(num)
+);
+
 
 
 

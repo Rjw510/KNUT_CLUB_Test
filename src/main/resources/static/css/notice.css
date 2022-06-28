@@ -212,9 +212,13 @@ tr:hover {
 
 /* sidemenu */
 .sidemenu{
-  
+
   width: 200px;
   
+}
+
+.noticebtn button{
+  color: white;
 }
 
 .sidemenu li{
