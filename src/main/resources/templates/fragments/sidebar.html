@@ -15,26 +15,24 @@
 
 <div class="sidebar">
   <div class="profile">
-      <th:block th:if="${#strings.isEmpty(session.state)}">
+      <th:block th:if="${#strings.isEmpty(session.id)}">
         <h1 th:text="비회원">비회원</h1>
         <h2 th:text="없음">없음</h2>
       </th:block>
-      <th:block th:if="${not #strings.isEmpty(session.state)}">
-        <th:block th:each="profile : ${session.profile}">
+      <th:block th:if="${not #strings.isEmpty(session.id)}">
           <h1 th:text="${session.name} + '님'" >님</h1>
           <h2 th:text="${session.club}">club</h2>
-        </th:block>
       </th:block>
-    <th:block th:if="${#strings.isEmpty(session.state)}">
+    <th:block th:if="${#strings.isEmpty(session.id)}">
       <button class="login" onclick="location.href='/login'" th:text="로그인" >Login</button>
     </th:block>
-    <th:block th:if="${not #strings.isEmpty(session.state)}">
+    <th:block th:if="${not #strings.isEmpty(session.id)}">
       <button class="login" onclick="location.href='/logout'" th:text="로그아웃" >Logout</button>
     </th:block>
-    <th:block th:if="${#strings.isEmpty(session.state)}">
+    <th:block th:if="${#strings.isEmpty(session.id)}">
       <button class="mypage" onclick="location.href='/check'" th:text="회원가입" >회원가입</button>
     </th:block>
-    <th:block th:if="${not #strings.isEmpty(session.state)}">
+    <th:block th:if="${not #strings.isEmpty(session.id)}">
       <button class="mypage" onclick="location.href='/myPage'" th:text="MyPage" >MyPage</button>
     </th:block>
   </div>
@@ -75,7 +73,7 @@
         <span class="item">행사</span>
       </a>
     </li>
-    <li th:if="${session.authority == '2'}">
+    <li th:if="${session.grade == 'admin'}">
       <a href="/memberlist">
         <span class="icon"><i class="fas fa-chart-line"></i></span>
         <span class="item">회원목록</span>

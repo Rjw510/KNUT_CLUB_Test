@@ -8,18 +8,18 @@
   <body>
   <div th:fragment="headerFragment">
     <div class="topnav">
-        <th:block th:if="${#strings.isEmpty(session.state)}">
+        <th:block th:if="${#strings.isEmpty(session.id)}">
             <a href="/login" th:text="Login" >Login</a>
         </th:block>
-        <th:block th:if="${not #strings.isEmpty(session.state)}">
+        <th:block th:if="${not #strings.isEmpty(session.id)}">
             <a href="/logout" th:text="Logout" >Logout</a>
         </th:block>
         <!--<a href="/login" th:text="${session.login}">Login</a>-->
         <!--<a onclick="window.location.reload()">Home</a>-->
-        <th:block th:if="${#strings.isEmpty(session.state)}">
+        <th:block th:if="${#strings.isEmpty(session.id)}">
             <a href="/check" th:text="회원가입" >회원가입</a>
         </th:block>
-        <th:block th:if="${not #strings.isEmpty(session.state)}">
+        <th:block th:if="${not #strings.isEmpty(session.id)}">
             <a href="/myPage" th:text="MyPage" >MyPage</a>
         </th:block>
         <a href="/">Home</a>
@@ -61,10 +61,10 @@
               <li><a href="#">행사</a>
                   <ul>
                       <li><a href="/event">동아리 행사</a></li>
-                      <li><a href="#">우수동아리</a></li>
+                      <!--<li><a href="#">우수동아리</a></li>-->
                   </ul>
               </li>
-              <li th:if="${session.authority == '2'}">
+              <li th:if="${session.grade == 'admin'}">
                   <a href="#">회원관리</a>
                   <ul>
                       <li><a href="/memberlist">회원목록</a></li>

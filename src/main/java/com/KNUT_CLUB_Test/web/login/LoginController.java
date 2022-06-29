@@ -51,42 +51,44 @@ public class LoginController {
 
     @PostMapping("/")
     public String doLogin(@RequestParam("studentID") String id, @RequestParam("password") String pw,
-                          @RequestParam("authority") int authority, HttpServletRequest request, Model model) {
+                          HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession();
 
-        // 학번 정보 저장
+        // 회원 정보 저장
         session.setAttribute("id", id);
-        session.setAttribute("authority", authority);
+        id = (String) session.getAttribute("id");
 
-        String state = (String) session.getAttribute("id");
-        String grade = String.valueOf(session.getAttribute("authority"));
-
-
-
-        session.setAttribute("state", state);
-
+        // 서비스 생성
         LoginService service = new LoginService();
         MemberService memberService = new MemberService();
         NoticeService noticeService = new NoticeService();
-        List<Member> profile = memberService.getMemberProfile(state);
+
         String name = memberService.getMemberName(id);
         String club = memberService.getMemberClub(id);
-
-
+        String authority = memberService.getMemberAuthority(id);
 
         int check = service.LoginCheck(id, pw);
+
+        String grade = "";
+        if (authority.equals("0") || authority.equals("1") || authority.equals("2")) {
+            grade = "admin";
+        }
+        else {
+            grade = "user";
+        }
+
+        // 공지사항 & 자유게시판
         List<Notice> noticeList = noticeService.getNoticeList();
         List<Notice> boardList = noticeService.getBoardList();
 
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);
 
-        session.setAttribute("authority", grade);
-        session.setAttribute("profile", profile);
+        session.setAttribute("id", id);
+        session.setAttribute("grade", grade);
         session.setAttribute("name", name);
         session.setAttribute("club", club);
-
 
         if (check == 1) {
             return "index/index";

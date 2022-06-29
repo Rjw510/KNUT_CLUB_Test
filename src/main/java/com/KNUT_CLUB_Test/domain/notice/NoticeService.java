@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NoticeService {
 
-    /* notice */
+    /* index */
     public List<Notice> getNoticeList() {
 
         List<Notice> list = new ArrayList<>();
@@ -19,7 +19,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -36,6 +36,7 @@ public class NoticeService {
                 String title = rs.getString("title");
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
+                int views = rs.getInt("views");
 
                 Notice notice = new Notice(
                         n
@@ -43,6 +44,7 @@ public class NoticeService {
                         , title
                         , writer
                         , date
+                        , views
                 );
                 list.add(notice);
             }
@@ -67,7 +69,7 @@ public class NoticeService {
         return list;
     }
 
-    /* board */
+    /* index */
     public List<Notice> getBoardList() {
 
         List<Notice> list = new ArrayList<>();
@@ -79,7 +81,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -96,6 +98,7 @@ public class NoticeService {
                 String title = rs.getString("title");
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
+                int views = rs.getInt("views");
 
                 Notice notice = new Notice(
                         n
@@ -103,6 +106,7 @@ public class NoticeService {
                         , title
                         , writer
                         , date
+                        , views
                 );
                 list.add(notice);
             }
@@ -140,7 +144,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -159,6 +163,7 @@ public class NoticeService {
                 String title = rs.getString("title");
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
+                int views = rs.getInt("views");
 
                 Notice notice = new Notice(
                         n
@@ -166,6 +171,7 @@ public class NoticeService {
                         , title
                         , writer
                         , date
+                        , views
                 );
                 list.add(notice);
             }
@@ -203,7 +209,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -222,6 +228,7 @@ public class NoticeService {
                 String title = rs.getString("title");
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
+                int views = rs.getInt("views");
 
                 Notice notice = new Notice(
                         n
@@ -229,6 +236,7 @@ public class NoticeService {
                         , title
                         , writer
                         , date
+                        , views
                 );
                 list.add(notice);
             }
@@ -263,7 +271,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -305,7 +313,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -354,7 +362,7 @@ public class NoticeService {
         Statement st = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -400,7 +408,7 @@ public class NoticeService {
         Statement st = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -439,7 +447,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -456,14 +464,12 @@ public class NoticeService {
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
                 String content = rs.getString("content");
-                String file = rs.getString("file");
 
                 Notice notice = new Notice(
                         title
                         , writer
                         , date
                         , content
-                        , file
                 );
                 list.add(notice);
             }
@@ -498,7 +504,7 @@ public class NoticeService {
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -515,14 +521,12 @@ public class NoticeService {
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
                 String content = rs.getString("content");
-                String file = rs.getString("file");
 
                 Notice notice = new Notice(
                         title
                         , writer
                         , date
                         , content
-                        , file
                 );
                 list.add(notice);
             }
@@ -556,7 +560,7 @@ public class NoticeService {
         Connection conn = null;
         PreparedStatement pst = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -604,7 +608,7 @@ public class NoticeService {
         Connection conn = null;
         PreparedStatement pst = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 

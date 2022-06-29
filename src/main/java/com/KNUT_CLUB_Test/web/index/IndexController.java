@@ -25,10 +25,11 @@ public class IndexController {
 
         HttpSession session = request.getSession();
         String state = (String) session.getAttribute("id");
-        String authority = String.valueOf(session.getAttribute("authority"));
+//        String authority = String.valueOf(session.getAttribute("authority"));
 
         NoticeService noticeService = new NoticeService();
         MemberService memberService = new MemberService();
+
         List<Notice> noticeList = noticeService.getNoticeList();
         List<Notice> boardList = noticeService.getBoardList();
         List<Member> profile = memberService.getMemberProfile(state);
@@ -38,7 +39,7 @@ public class IndexController {
         model.addAttribute("profile", profile);
 
         session.setAttribute("state", state);
-        session.setAttribute("authority", authority);
+//        session.setAttribute("authority", authority);
 //        session.setAttribute("profile", profile);
 
         return "index/index";

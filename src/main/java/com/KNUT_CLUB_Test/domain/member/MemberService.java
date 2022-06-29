@@ -13,14 +13,14 @@ public class MemberService {
 
         List<Member> list = new ArrayList<>();
 
-        String sql = "INSERT INTO USER(name, studentID, password, department, birth, gender, email," +
-                " phone, address, detailAddress, authority) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+        String sql = "INSERT INTO MEMBER(name, studentID, password, department, birth, gender, email," +
+                " phone, address, detailAddress, authority) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 4)";
 
         Connection conn = null;
         PreparedStatement pst = null;
         int rs = 0;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -77,13 +77,13 @@ public class MemberService {
 
         List<Member> list = new ArrayList<>();
 
-        String sql = "SELECT name, email, studentID, department, club FROM USER WHERE studentID = ?;";
+        String sql = "SELECT name, email, studentID, department, club FROM MEMBER WHERE studentID = ?;";
 
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/test";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -135,13 +135,13 @@ public class MemberService {
     public String getMemberName(String id) {
         String name = "";
 
-        String sql = "SELECT name FROM USER WHERE studentID = ?";
+        String sql = "SELECT name FROM MEMBER WHERE studentID = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/TEST";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -178,13 +178,13 @@ public class MemberService {
     public String getMemberClub(String id) {
         String club = "";
 
-        String sql = "SELECT club FROM USER WHERE studentID = ?";
+        String sql = "SELECT club FROM MEMBER WHERE studentID = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/TEST";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
@@ -216,6 +216,49 @@ public class MemberService {
             }
         }
         return club;
+    }
+
+    public String getMemberAuthority(String id) {
+        String authority = "";
+
+        String sql = "SELECT authority FROM MEMBER WHERE studentID = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, id);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                authority = rs.getString("authority");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return authority;
     }
 }
 

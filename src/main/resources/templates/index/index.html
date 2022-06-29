@@ -141,11 +141,11 @@
                 <tbody>
                 <tr th:each="n : ${noticeList}">
                     <input type="hidden" name="n" th:value="${n.num}">
-                    <td th:text="${n.n}">-</td>
-                    <td th:text="${n.title }"><a th:href="@{notice/noticeDetail(num = ${n.num})}"></a></td>
-                    <td th:text="${n.writer}">-</td>
-                    <td th:text="${n.date}">-</td>
-                    <td>0</td>
+                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.n}">번호</td>
+                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.title }">제목</td>
+                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.writer}">작성자</td>
+                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.date}">작성일</td>
+                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.views}">조회수</td>
                 </tr>
                 </tbody>
             </table>

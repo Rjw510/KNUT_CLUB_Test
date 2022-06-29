@@ -13,7 +13,7 @@ public class Notice {
     private String writer;
     private Date date;
     private String content;
-    private String file;
+    private int views;
 
     /* noticeWrite */
     public Notice(String title, String writer, String content) {
@@ -23,21 +23,21 @@ public class Notice {
     }
 
     /* notice */
-    public Notice(int n, int num, String title, String writer, Date date) {
+    public Notice(int n, int num, String title, String writer, Date date, int views) {
         this.n = n;
         this.num = num;
         this.title = title;
         this.writer = writer;
         this.date = date;
+        this.views = views;
     }
 
 
     /* noticeDetail */
-    public Notice(String title, String writer, Date date, String content, String file) {
+    public Notice(String title, String writer, Date date, String content) {
         this.title = title;
         this.writer = writer;
         this.date = date;
         this.content = content;
-        this.file = file;
     }
 }

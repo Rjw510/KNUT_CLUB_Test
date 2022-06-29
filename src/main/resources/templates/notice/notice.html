@@ -63,7 +63,7 @@
                     <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.title }">제목</td>
                     <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.writer}">작성자</td>
                     <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.date}">작성일</td>
-                    <td>0</td>
+                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.views}">조회수</td>
                     <th:block th:if="${session.name} == ${n.writer}">
                         <td><input type="checkbox" name="del_id" th:value="${n.num}"></td>
                     </th:block>
@@ -71,14 +71,13 @@
                         <td><input type="checkbox" name="'del_id" th:value="${n.num}" disabled></td>
                     </th:block>
                 </tr>
-                </a>
                 </tbody>
             </table>
     </div>
 
 </div>
 
-<th:block th:if="${session.authority == '2'}">
+<th:block th:if="${session.grade == 'admin'}">
     <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
     </form>
     <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/notice/noticeWrite'"

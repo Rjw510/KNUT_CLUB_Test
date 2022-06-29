@@ -11,13 +11,13 @@ public class LoginService {
 
         int result = 0;
 
-        String sql = "SELECT password FROM USER WHERE studentID = ?";
+        String sql = "SELECT password FROM MEMBER WHERE studentID = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
 
-        String dbURL = "jdbc:mysql://localhost:4406/TEST";
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
         String dbID = "root";
         String dbPassword = "root";
 
