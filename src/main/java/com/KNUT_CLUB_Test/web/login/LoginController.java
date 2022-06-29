@@ -67,6 +67,8 @@ public class LoginController {
         String name = memberService.getMemberName(id);
         String club = memberService.getMemberClub(id);
         String authority = memberService.getMemberAuthority(id);
+        String department = memberService.getMemberDepartment(id);
+        String phone = memberService.getMemberPhone(id);
 
         int check = service.LoginCheck(id, pw);
 
@@ -88,6 +90,8 @@ public class LoginController {
         session.setAttribute("id", id);
         session.setAttribute("grade", grade);
         session.setAttribute("name", name);
+        session.setAttribute("department", department);
+        session.setAttribute("phone", phone);
         session.setAttribute("club", club);
 
         if (check == 1) {

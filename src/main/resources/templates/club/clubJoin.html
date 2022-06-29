@@ -24,7 +24,7 @@
                 </h2>
             </div>
             <ul class="sidemenu">
-                <li id="now"><a href="/clubJoin">조회 및 가입</li>
+                <li id="now"><a href="/clubJoin">조회 및 가입</a></li>
                 <li><a href="/joinManual">가입 방법</a></li>
             </ul>
         </div>
@@ -96,15 +96,17 @@
                 <div class="clearfix"></div>
             </div>-->
         <div class="products" >
-            <a href="/clubJoin/perfect" th:each="n : ${list}">
+            <th:block th:each="n : ${list}">
+            <a th:href="@{/clubJoin/detail(num=${n.num})}">
+<!--                <input type="hidden" name="n" th:value="${n.num}">-->
                 <img th:src="${n.img}">
                 <p class="name" th:text="${n.name}"></p>
                 <p class="price" th:text="${n.activity} + '동아리'"></p>
             </a>
+            </th:block>
             <div class="clearfix"></div>
         </div>
     </div>
-
 </div>
 
 <div class="footer">

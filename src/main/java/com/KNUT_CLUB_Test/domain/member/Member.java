@@ -44,4 +44,13 @@ public class Member {
         this.department = department;
         this.club = club;
     }
+
+    public Member(int num, String name, String studentID, String department, String phone, String club) {
+        this.num = num;
+        this.name = name;
+        this.studentID = studentID;
+        this.department = department;
+        this.phone = phone;
+        this.club = club;
+    }
 }

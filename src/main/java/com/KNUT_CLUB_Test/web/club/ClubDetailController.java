@@ -1,31 +1,29 @@
 package com.KNUT_CLUB_Test.web.club;
 
+import com.KNUT_CLUB_Test.domain.club.Club;
+import com.KNUT_CLUB_Test.domain.club.ClubService;
+import com.KNUT_CLUB_Test.domain.notice.Notice;
+import com.KNUT_CLUB_Test.domain.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ClubDetailController {
 
-    @GetMapping("/clubJoin/perfect")
-    public String goPerfect() {
-        return "club/clubJoin/perfect";
-    }
+    @GetMapping("/clubJoin/detail")
+    public String goClubDetail(@RequestParam("num") int num, Model model) {
 
-    @GetMapping("/clubJoin/poseidon")
-    public String goPoseidon() {
-        return "club/clubJoin/poseidon";
-    }
+        ClubService service = new ClubService();
+        List<Club> list = service.getClubDetail(num);
 
-    @GetMapping("/clubJoin/return")
-    public String goReturn() {
-        return "club/clubJoin/return";
-    }
+        model.addAttribute("list", list);
 
-    @GetMapping("/clubJoin/wicked")
-    public String goWicked() {
-        return "club/clubJoin/wicked";
+        return "club/detail/clubJoinDetail";
     }
-
 }

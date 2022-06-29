@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS MEMBER
     address       VARCHAR(50)  NOT NULL,
     detailAddress VARCHAR(50)  NOT NULL,
     authority     INT          NOT NULL,
-    club          VARCHAR(20)  NOT NULL,
+    club          VARCHAR(20),
     PRIMARY KEY(num)
 );
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS PROMOTION
     campus      VARCHAR(10)  NOT NULL,
     type        VARCHAR(10)  NOT NULL,
     name        VARCHAR(10)  NOT NULL,
-    field       VARCHAR(10)  NOT NULL,
+    activity    VARCHAR(10)  NOT NULL,
     introduce   VARCHAR(50)  NOT NULL,
     promotion   VARCHAR(50)  NOT NULL,
     PRIMARY KEY(num)

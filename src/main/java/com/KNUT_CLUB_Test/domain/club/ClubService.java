@@ -1,5 +1,6 @@
-package com.KNUT_CLUB_Test.web.club;
+package com.KNUT_CLUB_Test.domain.club;
 
+import com.KNUT_CLUB_Test.domain.club.Club;
 import com.KNUT_CLUB_Test.domain.notice.Notice;
 
 import java.sql.Connection;
@@ -42,13 +43,73 @@ public class ClubService {
                 String type = rs.getString("type");
                 String name = rs.getString("name");
                 String activity = rs.getString("activity");
-                String introduce = rs.getString("introduce");
-                String promotion = rs.getString("promotion");
                 String img = rs.getString("img");
 
                 Club club = new Club (
                         num
                         , campus
+                        , type
+                        , name
+                        , activity
+                        , img
+                );
+                list.add(club);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return list;
+
+    }
+
+    public List<Club> getClubDetail(int num) {
+
+        List<Club> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM PROMOTION WHERE num= ? ";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, num);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String campus = rs.getString("campus");
+                String type = rs.getString("type");
+                String name = rs.getString("name");
+                String activity = rs.getString("activity");
+                String introduce = rs.getString("introduce");
+                String promotion = rs.getString("promotion");
+                String img = rs.getString("img");
+
+                Club club = new Club (
+                        campus
                         , type
                         , name
                         , activity
@@ -77,6 +138,5 @@ public class ClubService {
             }
         }
         return list;
-
     }
 }

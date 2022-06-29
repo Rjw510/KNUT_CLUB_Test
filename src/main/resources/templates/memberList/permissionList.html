@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="column middle">
+        <h1><a href="/memberList">memberList</a></h1>
+
+        <form action="/memberList" method="get">
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <select id="searchBox" class="custom-select d-block w-100" name="select">
+                        <option value="이름" th:selected="${#strings.equals(param.select, 'name')}">이름</option>
+                        <option value="학과" th:selected="${#strings.equals(param.select, 'department')}">학과</option>
+                    </select> <input type="text" class="form-control" name="word"
+                                     placeholder="검색어" th:selected="${#strings.equals(param.word, '')}" required>
+                    <!--                           placeholder="" th:value="${param.word}" required>-->
+                    <input type="submit" value="검색">
+                </div>
+            </div>
+        </form>
+
+        <form action="/delMember" method="post">
+            <table class="noticetable">
+                <tr id="tableheader">
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>조회</th>
+                    <th scope="cols">선택</th>
+                </tr>
+
+                <tbody> <!--th:each="n : ${list}"-->
+                <tr>
+                    <td th:onclick="|location.href='@{/memberList/detail(studentID=${n.studentID})}'|" th:text="${session.name}">이름</td>
+                    <td th:onclick="|location.href='@{/memberList/detail(studentID=${n.studentID})}'|" th:text="${session.department }">학과</td>
+                    <td th:onclick="|location.href='@{/memberList/detail(studentID=${n.studentID})}'|" th:text="${session.phone}">핸드폰</td>
+                    <td th:onclick="|location.href='@{/memberList/detail(studentID=${n.studentID})}'|" th:text="${session.club}">소속동아리</td>
+                    <td><input type="checkbox" name="del_id"></td>  <!--th:value="${n.num}"-->
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</body>
+</html>

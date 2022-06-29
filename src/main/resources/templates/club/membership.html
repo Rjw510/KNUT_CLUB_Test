@@ -21,22 +21,22 @@
 <article>
     <div class="container" role="main">
         <h2>동아리 가입 신청</h2>
-        <form name="form" id="form" role="form" method="post" action="/board/boardWrite">
+        <form name="form" id="form" role="form" method="post" action="/clubJoin/membership">
             <div class="mb-3">
                 <label >동아리 이름</label>
-                <input type="text" class="form-control" name="writer"  th:value="Perfect" readonly>
+                <input type="text" class="form-control" name="club" readonly>
             </div>
             <div class="mb-3">
                 <label>이름</label>
-                <input type="text" class="form-control" name="writer" th:value="${session.name}" readonly>
+                <input type="text" class="form-control" name="name" th:value="${session.name}" readonly>
             </div>
             <div class="mb-3">
                 <label>학과</label>
-                <input type="text" class="form-control" name="writer" th:value="${session.name}" readonly>
+                <input type="text" class="form-control" name="department" th:value="${session.department}" readonly>
             </div>
             <div class="mb-3">
                 <label>휴대전화</label>
-                <input type="text" class="form-control" name="writer" th:value="${session.name}" readonly>
+                <input type="text" class="form-control" name="phone" th:value="${session.phone}" readonly>
             </div>
             <div>
                 <label>지원동기</label>
@@ -62,7 +62,7 @@
             <div >
                 <!-- onclick="location.href='/VIEW/noticeWrite/noticeWrite'" -->
                 <button type="submit" class="btn float-right btn btn-sm btn-primary" id="btnSave">저장</button>
-                <button type="button" class="btn float-right btn btn-sm btn-primary" style="margin-right: 10px;" onclick="location.href='/clubJoin/perfect'" id="btnList">목록</button>
+                <button type="button" class="btn float-right btn btn-sm btn-primary" style="margin-right: 10px;" onclick="location.href='/clubJoin'" id="btnList">목록</button>
             </div>
         </form>
     </div>
