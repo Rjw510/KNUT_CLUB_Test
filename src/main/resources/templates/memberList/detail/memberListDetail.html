@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>자세한 페이지</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/noticedetail.css">
+
+</head>
+<body>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
+
+<div class="row">
+    <div class="leftcolumn">
+        <div class="card" th:each="n : ${list}">
+            <div class="detailheader">
+                <h2 th:text="${n.name}">이름</h2>
+                <div class="list">
+                    <ul class="detailheaderlist" >
+                        <li th:text="'학과:' + ${n.department}">학과</li>
+                    </ul>
+                    <ul class="detailheaderlist" >
+                        <li th:text="'학번:' + ${n.studentID}">학번</li>
+                    </ul>
+                    <ul class="detailheaderlist" >
+                        <li th:text="'핸드폰:' + ${n.phone}">핸드폰</li>
+                    </ul>
+                </div>
+            </div><!---->
+            <div class="detailcontent" style="height:auto; ">
+                <p class="noticect" th:utext="${n.motive}">지원동기</p>
+            </div>
+            <div class="detailfooter">
+                <button type="button" onclick="location.href='/memberList'">목록</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <h2>Footer</h2>
+</div>
+</body>
+</html>

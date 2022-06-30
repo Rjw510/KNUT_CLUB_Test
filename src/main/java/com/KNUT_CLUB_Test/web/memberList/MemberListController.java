@@ -31,7 +31,16 @@ public class MemberListController {
     }
 
     @GetMapping("/permissionList")
-    public String goPermissionList() {
+    public String goPermissionList(HttpServletRequest request, Model model) {
+
+        HttpSession session = request.getSession();
+        String club = String.valueOf(session.getAttribute("club"));
+
+        ManageService service = new ManageService();
+        List<Member> list = service.getPermissionList(club);
+
+        model.addAttribute("list", list);
+
         return "memberList/permissionList";
     }
 }

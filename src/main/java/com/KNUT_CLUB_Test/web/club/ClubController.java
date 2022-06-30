@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,15 +57,20 @@ public class ClubController {
 
     @GetMapping("/clubJoin/membership")
 //    @RequestParam("club") String club
-    public String goMembership(HttpServletRequest request) {
+    public String goMembership() {
+        return "club/membership";
+    }
 
+    @PostMapping("/clubJoin/membership")
+    public String doMembership(@RequestParam("content") String motive, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String id = (String) session.getAttribute("id");
+        String clubName = (String) session.getAttribute("clubName");
 
         ManageService service = new ManageService();
-//        service.joinClub(id, club);
+        service.joinClub(id, clubName, motive);
 
-        return "club/membership";
+        return "redirect:/clubJoin";
     }
 
 }

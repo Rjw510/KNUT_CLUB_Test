@@ -24,7 +24,7 @@
         <form name="form" id="form" role="form" method="post" action="/clubJoin/membership">
             <div class="mb-3">
                 <label >동아리 이름</label>
-                <input type="text" class="form-control" name="club" readonly>
+                <input type="text" class="form-control" name="club" th:value="${session.clubName}"readonly>
             </div>
             <div class="mb-3">
                 <label>이름</label>

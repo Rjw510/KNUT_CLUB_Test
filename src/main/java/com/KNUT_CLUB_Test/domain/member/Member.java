@@ -4,6 +4,8 @@ import com.KNUT_CLUB_Test.domain.login.Login;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter @Setter
 public class Member {
     private int num;
@@ -16,6 +18,7 @@ public class Member {
     private String address;
     private String detailAddress;
     private String club;
+    private String motive;
 
     Login login = new Login();
 
@@ -45,12 +48,16 @@ public class Member {
         this.club = club;
     }
 
-    public Member(int num, String name, String studentID, String department, String phone, String club) {
+    public Member(int num, String name, String studentID, String department, String phone, String club, String motive) {
         this.num = num;
         this.name = name;
         this.studentID = studentID;
         this.department = department;
         this.phone = phone;
         this.club = club;
+        this.motive = motive;
     }
+
+
+
 }
