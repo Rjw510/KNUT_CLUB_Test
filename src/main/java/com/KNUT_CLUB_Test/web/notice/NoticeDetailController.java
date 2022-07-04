@@ -1,5 +1,6 @@
 package com.KNUT_CLUB_Test.web.notice;
 
+import com.KNUT_CLUB_Test.domain.notice.Comment;
 import com.KNUT_CLUB_Test.domain.notice.Notice;
 import com.KNUT_CLUB_Test.domain.notice.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class NoticeDetailController {
         NoticeService service = new NoticeService();
         List<Notice> list = service.getNoticeDetail(num);
 
-        model.addAttribute("list", list);
+        model.addAttribute("noticeList", list);
 
         return "notice/detail/noticeDetail";
     }
@@ -29,9 +30,11 @@ public class NoticeDetailController {
     public String goBoardDetail(@RequestParam("num") int num, Model model) {
 
         NoticeService service = new NoticeService();
-        List<Notice> list = service.getBoardDetail(num);
+        List<Notice> boardList = service.getBoardDetail(num);
+        List<Comment> commentList = service.getBoardComment(num);
 
-        model.addAttribute("list", list);
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("commentList", commentList);
 
         return "notice/detail/boardDetail";
     }

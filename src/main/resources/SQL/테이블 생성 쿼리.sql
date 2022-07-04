@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS MEMBER
     detailAddress VARCHAR(50)  NOT NULL,
     authority     INT          NOT NULL,
     club          VARCHAR(20),
+    motive        TEXT
     PRIMARY KEY(num)
 );
 
@@ -61,26 +62,28 @@ CREATE TABLE IF NOT EXISTS COMMENT
 # 동아리 홍보게시판 데이터베이스
 CREATE TABLE IF NOT EXISTS PROMOTION
 (
-    num         int          NOT NULL AUTO_INCREMENT,
-    campus      VARCHAR(10)  NOT NULL,
-    type        VARCHAR(10)  NOT NULL,
-    name        VARCHAR(10)  NOT NULL,
-    activity    VARCHAR(10)  NOT NULL,
-    introduce   VARCHAR(50)  NOT NULL,
-    promotion   VARCHAR(50)  NOT NULL,
+    num         int             NOT NULL AUTO_INCREMENT,
+    campus      VARCHAR(10)     NOT NULL,
+    type        VARCHAR(10)     NOT NULL,
+    name        VARCHAR(100)    NOT NULL,
+    activity    VARCHAR(10)     NOT NULL,
+    introduce   VARCHCAR(100)   NOT NULL,
+    promotion   TEXT            NOT NULL,
+    img         VARCHAR(30)
     PRIMARY KEY(num)
 );
 
 # 동아리 행사 데이터베이스
 CREATE TABLE IF NOT EXISTS EVENT
 (
-    num         int          NOT NULL AUTO_INCREMENT,
-    campus      VARCHAR(10)  NOT NULL,
-    type        VARCHAR(10)  NOT NULL,
-    name        VARCHAR(10)  NOT NULL,
-    field       VARCHAR(10)  NOT NULL,
-    introduce   VARCHAR(50)  NOT NULL,
-    promotion   VARCHAR(50)  NOT NULL,
+    num         int           NOT NULL AUTO_INCREMENT,
+    campus      VARCHAR(10)   NOT NULL,
+    type        VARCHAR(10)   NOT NULL,
+    name        VARCHAR(100)  NOT NULL,
+    field       VARCHAR(10)   NOT NULL,
+    introduce   VARCHAR(100)  NOT NULL,
+    promotion   TEXT          NOT NULL,
+    img         VARCHAR(30)
     PRIMARY KEY(num)
 );
 

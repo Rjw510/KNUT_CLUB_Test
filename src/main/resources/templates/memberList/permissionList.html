@@ -23,7 +23,7 @@
         </div>
     </form>
 
-    <form action="/delMember" method="post">
+    <form method="post">
         <table class="noticetable">
             <tr id="tableheader">
                 <th>이름</th>
@@ -42,10 +42,17 @@
                 <td th:onclick="|location.href='@{/permissionList/detail(num=${n.num})}'|" th:text="${n.department }">학과</td>
                 <td th:onclick="|location.href='@{/permissionList/detail(num=${n.num})}'|" th:text="${n.phone}">핸드폰</td>
                 <td th:onclick="|location.href='@{/permissionList/detail(num=${n.num})}'|" th:text="${n.club}">소속동아리</td>
-                <td><input type="checkbox" name="del_id"></td>  <!--th:value="${n.num}"-->
+                <td><input type="checkbox" name="permission_id" th:value="${n.num}"></td>  <!--th:value="${n.num}"-->
             </tr>
             </tbody>
         </table>
+    </div>
+    <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit" formaction="/permissionMember">승인</button>
+    <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit" formaction="/delNonMember">삭제</button>
+</div>
+
+<div class="footer">
+    <p>Footer</p>
 </div>
 </body>
 </html>

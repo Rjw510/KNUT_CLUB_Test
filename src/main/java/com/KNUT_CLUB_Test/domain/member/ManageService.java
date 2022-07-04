@@ -2,10 +2,7 @@ package com.KNUT_CLUB_Test.domain.member;
 
 import com.KNUT_CLUB_Test.domain.notice.Notice;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -272,5 +269,143 @@ public class ManageService {
             }
         }
         return list;
+    }
+
+    public int permissionMemberAll(int[] ids) {
+        int result = 0;
+
+        String params = "";
+
+        for (int i = 0; i < ids.length; i++) {
+            params += ids[i];
+            if (i < ids.length - 1)
+                params += ",";
+        }
+
+        String sql = "UPDATE MEMBER SET authority = 3 WHERE num IN ("+params+")";
+
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            st = conn.createStatement();
+
+            result = st.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (st != null)
+                    st.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return result;
+    }
+
+    public int delMemberAll(int[] ids) {
+        int result = 0;
+
+        String params = "";
+
+        for (int i=0; i<ids.length; i++) {
+            params += ids[i];
+            if(i<ids.length-1)
+                params += ",";
+        }
+
+        String sql = "UPDATE MEMBER SET club = '', motive = '', authority = 4 WHERE num IN ("+params+")";
+
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            st = conn.createStatement();
+
+            result = st.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (st != null)
+                    st.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return result;
+    }
+
+    public int delNonMemberAll(int[] ids) {
+        int result = 0;
+
+        String params = "";
+
+        for (int i=0; i<ids.length; i++) {
+            params += ids[i];
+            if(i<ids.length-1)
+                params += ",";
+        }
+
+        String sql = "UPDATE MEMBER SET club = '', motive = '', authority = 4 WHERE num IN ("+params+")";
+
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            st = conn.createStatement();
+
+            result = st.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (st != null)
+                    st.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return result;
     }
 }

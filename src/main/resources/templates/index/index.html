@@ -168,11 +168,11 @@
                 <tbody>
                 <tr th:each="b : ${boardList}">
                     <input type="hidden" name="n" th:value="${b.num}">
-                    <td th:text="${b.n}">-</td>
-                    <td th:text="${b.title }"><a th:href="@{notice/noticeDetail(num = ${n.num})}"></a></td>
-                    <td th:text="${b.writer}">-</td>
-                    <td th:text="${b.date}">-</td>
-                    <td>0</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.n}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.title }"><a th:href="@{notice/noticeDetail(num = ${n.num})}"></a></td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.writer}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.date}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.views}">조회수</td>
                 </tr>
                 </tbody>
             </table>

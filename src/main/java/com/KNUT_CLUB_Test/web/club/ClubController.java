@@ -57,7 +57,12 @@ public class ClubController {
 
     @GetMapping("/clubJoin/membership")
 //    @RequestParam("club") String club
-    public String goMembership() {
+    public String goMembership(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String id = (String) session.getAttribute("id");
+        if(id == null) {
+            return "redirect:/clubJoin";
+        }
         return "club/membership";
     }
 

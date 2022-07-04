@@ -646,4 +646,57 @@ public class NoticeService {
         }
         return list;
     }
+
+    public List<Comment> getBoardComment(int num) {
+        List<Comment> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM COMMENT WHERE board_num = " + num;
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String writer = rs.getString("writer");
+                Date date = rs.getDate("date");
+                String content = rs.getString("content");
+
+                Comment comment = new Comment(
+                        writer
+                        , date
+                        , content
+                );
+                list.add(comment);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return list;
+    }
 }

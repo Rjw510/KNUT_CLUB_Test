@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="leftcolumn">
-        <div class="card" th:each="n : ${list}">
+        <div class="card" th:each="n : ${noticeList}">
             <div class="detailheader">
                 <h2 th:text="${n.title }">제목</h2>
                 <div class="list">
@@ -26,10 +26,6 @@
             <div class="detailcontent" style="height:auto; ">
                 <p class="noticect" th:utext="${n.content}">글 내용</p>
             </div>
-            <div class="detailfooter">
-                <button type="button" onclick="location.href='/notice'">목록</button>
-            </div>
-
         </div>
     </div>
 </div>

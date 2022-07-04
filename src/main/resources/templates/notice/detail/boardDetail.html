@@ -12,7 +12,7 @@
 
 <div class="row">
     <div class="leftcolumn">
-        <div class="card" th:each="n : ${list}">
+        <div class="card" th:each="n : ${boardList}">
             <div class="detailheader">
                 <h2 th:text="${n.title }">제목</h2>
                 <div class="list">
@@ -27,9 +27,24 @@
                 <p class="noticect" th:utext="${n.content}">글 내용</p>
             </div>
             <div class="detailfooter">
+                <button type="button" onclick="location.href='/writeComment'">댓글달기</button>
                 <button type="button" onclick="location.href='/notice'">목록</button>
             </div>
 
+            <form action="/delNotice" method="post">
+                <table class="noticetable">
+                    <tr id="tableheader">
+                        <th>작성자</th>
+                        <th>날짜</th>
+                        <th>내용</th>
+                    </tr>
+
+                    <tbody th:each="b : ${commentList}">
+                    <tr>
+                        <td th:text="${b.writer}">작성자</td>
+                        <td th:text="${b.date }">날짜</td>
+                        <td th:text="${b.content}">내용</td>
+            </form>
         </div>
     </div>
 </div>

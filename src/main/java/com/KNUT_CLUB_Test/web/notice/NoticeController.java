@@ -47,7 +47,7 @@ public class NoticeController {
     }
 
     @PostMapping("/delNotice")
-    public String doNotice(@RequestParam("del_id") String[] delIds) {
+    public String delNotice(@RequestParam("del_id") String[] delIds) {
         NoticeService service = new NoticeService();
         int[] ids = new int[delIds.length];
 
