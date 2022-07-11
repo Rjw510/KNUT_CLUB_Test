@@ -24,29 +24,39 @@
                 </h2>
             </div>
             <ul class="sidemenu">
-                <li id="now"><a href="/event">동아리 행사</li>
+                <li id="now"><a href="/event">동아리 행사</a></li>
                 <!--<li><a href="#">우수동아리</a></li>-->
             </ul>
         </div>
     </div>
     <div class="column middle">
         <h1>동아리 행사</h1>
-            <form>
+            <form action="/event">
                 <select name="campus">
-                    <option value="basic">캠퍼스 선택</option>
-                    <option value="sport">충주</option>
-                    <option value="band">증평</option>
-                    <option value="volunteer">의왕</option>
+                    <option value="" th:selected="${#strings.equals(param.campus, 'campus')}">캠퍼스 선택</option>
+                    <option value="충주" th:selected="${#strings.equals(param.campus, 'chungju')}">충주</option>
+                    <option value="증평" th:selected="${#strings.equals(param.campus, 'jeungpyeong')}">증평</option>
+                    <option value="의왕" th:selected="${#strings.equals(param.campus, 'uiwang')}">의왕</option>
+                    <option value="전국" th:selected="${#strings.equals(param.campus, 'nationwide')}">전국</option>
                 </select>
                 <select name="category">
                     <option value="basic">종류 선택</option>
-                    <option value="sport">스포츠</option>
-                    <option value="band">밴드</option>
-                    <option value="volunteer">봉사</option>
+                    <option value="competition">대회</option>
+                    <option value="show">공연</option>
                 </select>
                 <input type="submit" value="조회">
             </form>
             <div class="products">
+                <th:block th:each="n : ${list}">
+                <div class="image_wrap">
+                    <a th:href="@{/event/detail(num=${n.num})}">
+                        <img th:src="${n.img}">
+                        <p class="name" th:text="${n.name}"></p>
+                        <p class="price" th:text="${n.date}"></p>
+                    </a>
+                </div>
+                </th:block>
+            <!--<div class="products">
                 <a href="#">
                     <img src="/img/grid_1.png">
                     <p class="name">테니스</p>
@@ -91,11 +101,10 @@
                     <img src="/img/grid_4.png">
                     <p class="name">축구</p>
                     <p class="price">신청 기간 : 2022-05-15(일)까지</p>
-                </a>
+                </a> -->
                 <div class="clearfix"></div>
             </div>
     </div>
-
 </div>
 
 <div class="footer">

@@ -5,189 +5,6 @@ body {
     margin: 0;
 }
 /* Style the header */
-.header {
-    background-color: #f1f1f1;
-    padding: 20px;
-    text-align: center;
-}
-/* pathbox */
-.pathbox{
-    background-color: gray;
-    width: 100%;
-    height: 50px;
-}
-.pathbox h2{
-    text-align: center;
-}
-/* Create three unequal columns that floats next to each other */
-.column {
-    float: left;
-    padding: 10px;
-}
-/* Left and right column */
-.column.side {
-    width: 25%;
-}
-/* Middle column */
-.column.middle {
-    width: 75%;
-}
-.column.middle h1{
-
-    margin-bottom: 30px;
-}
-.column.middle form{
-
-    margin-bottom: 10px;
-}
-.column.middle select{
-    width: 130px;
-    height: 30px;
-    font-size: 15px;
-    padding: 5px;
-}
-.column.middle input{
-    width: 50px;
-    height: 30px;
-    font-size: 15px;
-}
-.products {
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
-    width: 100%;
-    text-align: center;
-}
-
-.products img{
-    width: 225px;
-    height: 225px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    border: 2px solid #ccc;
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transition: all 0.3s ease-in-out;
-}
-
-.products img:hover {
-    transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-}
-
-.products a{
-    text-decoration: none;
-    color: black;
-    float: left;
-    font-size: 16px;
-    margin-right:10px;
-    margin-bottom: 10px;
-}
-.products .image_wrap{
-    min-width: 250px;
-    min-height: 350px;
-    width: 250px;
-    height: 350px;
-    float: left;
-}
-
-.products .name{
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.products .name:hover{
-    text-decoration: underline;
-    text-underline-offset: 5px;
-}
-
-.price{
-    margin-top: 4px;
-    margin-bottom: 80px;
-    font-size: 0;
-    font-size: 15px;
-
-}
-.clearfix{
-    clear: both;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-    .column.side, .column.middle {
-        width: 100%;
-    }
-}
-/* Style the footer */
-.footer {
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: center;
-}
-
-/* sidemenu */
-.sidewrapper{
-    padding: 30px;
-    margin-top: 50px;
-}
-.box{
-    border-left: 3px solid black;
-    border-right: 3px solid black;
-    border-bottom: 3px solid black;
-    height: 80px;
-    background-color: #eee;
-}
-
-.namebox{
-    border-bottom: 3px solid black;
-}
-
-.namebox h2{
-    padding-left: 10px;
-
-}
-
-#sidemenuname{
-    text-decoration: none;
-    text-align: center;
-}
-
-.sidemenu{
-    padding: 0;
-}
-
-.sidemenu li{
-    list-style: none;
-    border-bottom: 1px solid rgb(109, 13, 13);
-    text-align: center;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    font-size: 15px;
-}
-
-.sidemenu a{
-    text-decoration: none;
-    color: black;
-}
-
-.sidemenu #now{
-    font-weight: bold;
-    font-size: 20px;
-}
-
-/*header*/
 * {
     box-sizing: border-box;
     margin: 0;
@@ -195,6 +12,8 @@ body {
 }
 body {
     margin: 0;
+    width: 100%;
+    height: 100%;
 
 }
 
@@ -347,6 +166,7 @@ a {
     transition: ease 1s;
 }
 
+/* Style the top navigation bar */
 /*사이드 바 CSS*/
 * {
     padding:0;
@@ -542,4 +362,144 @@ input[id="menuicon"]:checked + ul + div {
 .login{
     margin-right: 20px;
 }
+/* Style the topnav links */
 
+/* Change color on hover */
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+}
+/* Left and right column */
+.column.side {
+    width: 25%;
+}
+.column.side h2{
+    text-align: center;
+}
+/* Middle column */
+.column.middle {
+    width: 70%;
+
+}
+
+table {
+    border: 1px #a39485 solid;
+    font-size: .9em;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+th {
+    text-align: left;
+}
+
+thead {
+    font-weight: bold;
+    color: #fff;
+    background: #73685d;
+}
+
+td, th {
+    padding: 1em .5em;
+    vertical-align: middle;
+}
+
+td {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background: #fff;
+}
+
+a {
+    color: #73685d;
+}
+.table_footer{
+    margin-top: 30px;
+}
+
+.table_footer .btns{
+    float: right;
+}
+
+.btns input{
+    width: 60px;
+    height: 30px;
+    padding: 3px;
+    background: #73685d;
+    color: white;
+    border: white;
+    transition: 0.35s;
+}
+
+
+.btns input:hover{
+    text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626;
+
+}
+
+@media all and (max-width: 768px) {
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        text-align: right;
+    }
+
+    table {
+        position: relative;
+        padding-bottom: 0;
+        border: none;
+        box-shadow: 0 0 10px rgba(0,0,0,.2);
+    }
+
+    thead {
+        float: left;
+        white-space: nowrap;
+    }
+
+    tbody {
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        white-space: nowrap;
+    }
+
+    tr {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    th {
+        border-bottom: 1px solid #a39485;
+    }
+
+    td {
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column.side, .column.middle {
+        width: 100%;
+    }
+}
+/* Style the footer */
+.footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+}

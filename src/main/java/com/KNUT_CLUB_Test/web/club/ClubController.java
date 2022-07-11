@@ -59,10 +59,8 @@ public class ClubController {
 //    @RequestParam("club") String club
     public String goMembership(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String id = (String) session.getAttribute("id");
-        if(id == null) {
-            return "redirect:/clubJoin";
-        }
+        String club = (String) session.getAttribute("club");
+
         return "club/membership";
     }
 

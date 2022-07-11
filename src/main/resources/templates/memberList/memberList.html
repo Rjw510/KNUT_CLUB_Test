@@ -1,54 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>회원리스트</title>
-    <link rel="stylesheet" href="/css/notice.css">
+    <title>회원 목록</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/memberList.css">
 </head>
 <body>
-<div class="column middle">
-    <h1><a href="/memberList">회원리스트</a></h1>
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
-    <form action="/memberList" method="get">
-        <div class="row">
+
+
+
+
+<div class="row">
+    <div class="column side">
+        <h2>회원 관리</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+    </div>
+    <div class="column middle">
+        <h2>회원 목록</h2>
+        <form action="/memberList" method="get">
             <div class="col-md-8 mb-3">
                 <select id="searchBox" class="custom-select d-block w-100" name="select">
                     <option value="이름" th:selected="${#strings.equals(param.select, 'name')}">이름</option>
                     <option value="학과" th:selected="${#strings.equals(param.select, 'department')}">학과</option>
                 </select> <input type="text" class="form-control" name="word"
-                                 placeholder="검색어" th:selected="${#strings.equals(param.word, '')}" required>
-                <!--                           placeholder="" th:value="${param.word}" required>-->
+                                     placeholder="검색어" th:selected="${#strings.equals(param.word, '')}" required>
                 <input type="submit" value="검색">
             </div>
-        </div>
-    </form>
-
-    <form action="/delMember" method="post">
-        <table class="noticetable">
-            <tr id="tableheader">
-                <th>이름</th>
-                <th>학번</th>
-                <th>학과</th>
-                <th>핸드폰</th>
-                <th>소속동아리</th>
-                <th scope="cols">선택</th>
-            </tr>
-
-            <tbody th:each="n : ${list}"> <!--th:each="n : ${list}"-->
+        </form>
+        <table>
+            <thead>
             <tr>
-                <!--th:onclick="|location.href='@{/memberList/detail(studentID=${n.studentID})}'|"-->
-                <input type="hidden" name="n" th:value="${n.num}">
+                <th>번호</th>
+                <th>이름</th>
+                <th>학과</th>
+                <th>학번</th>
+                <th>성별</th>
+                <th>휴대전화</th>
+                <th>선택</th>
+            </tr>
+            </thead>
+            <tbody th:each="n : ${list}">
+            <tr>
+                <td th:onclick="|location.href='@{/memberList/detail(num=${n.num})}'|" th:text="${n.n}">번호</td>
                 <td th:onclick="|location.href='@{/memberList/detail(num=${n.num})}'|" th:text="${n.name}">이름</td>
                 <td th:onclick="|location.href='@{/memberList/detail(num=${n.num})}'|" th:text="${n.studentID }">학번</td>
                 <td th:onclick="|location.href='@{/memberList/detail(num=${n.num})}'|" th:text="${n.department }">학과</td>
+                <td>여자</td>
                 <td th:onclick="|location.href='@{/memberList/detail(num=${n.num})}'|" th:text="${n.phone}">핸드폰</td>
-                <td th:onclick="|location.href='@{/memberList/detail(num=${n.num})}'|" th:text="${n.club}">소속동아리</td>
-                <td><input type="checkbox" name="del_id" th:value="${n.num}"></td>  <!--th:value="${n.num}"-->
+                <td><label><input type="checkbox"></label></td>
             </tr>
             </tbody>
         </table>
-        <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
-    </form>
+        <div class="table_footer">
+            <div class="btns">
+                <input type='submit' value="삭제">
+                <!--<button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit" formaction="/delMember">삭제</button>-->
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="footer">
+    <p>Footer</p>
+</div>
+
 </body>
+
 </html>

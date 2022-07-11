@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS NOTICE
     num     int         NOT NULL AUTO_INCREMENT,
     title   VARCHAR(30) NOT NULL,
     writer  VARCHAR(10) NOT NULL,
-    date    DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    date    DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     content text,
     views   INTEGER,
     PRIMARY KEY(num)
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS BOARD
     num     int         NOT NULL AUTO_INCREMENT,
     title   VARCHAR(30) NOT NULL,
     writer  VARCHAR(10) NOT NULL,
-    date    DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    date    DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     content text,
     views   INTEGER,
     PRIMARY KEY(num)
@@ -54,21 +54,23 @@ CREATE TABLE IF NOT EXISTS COMMENT
     num         INT NOT NULL AUTO_INCREMENT,
     board_num   VARCHAR(5) ,
     writer      VARCHAR(10)  NOT NULL,
-    date        DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    date        DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     content     text,
     PRIMARY KEY(num)
 )
+
+
 
 # 동아리 홍보게시판 데이터베이스
 CREATE TABLE IF NOT EXISTS PROMOTION
 (
     num         int             NOT NULL AUTO_INCREMENT,
+    activity    VARCHAR(10)     NOT NULL,
+    introduce   TEXT            NOT NULL,
+    promotion   TEXT            NOT NULL,
+    name        VARCHAR(100)    NOT NULL,
     campus      VARCHAR(10)     NOT NULL,
     type        VARCHAR(10)     NOT NULL,
-    name        VARCHAR(100)    NOT NULL,
-    activity    VARCHAR(10)     NOT NULL,
-    introduce   VARCHCAR(100)   NOT NULL,
-    promotion   TEXT            NOT NULL,
     img         VARCHAR(30)
     PRIMARY KEY(num)
 );
@@ -83,6 +85,7 @@ CREATE TABLE IF NOT EXISTS EVENT
     field       VARCHAR(10)   NOT NULL,
     introduce   VARCHAR(100)  NOT NULL,
     promotion   TEXT          NOT NULL,
+    date        DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     img         VARCHAR(30)
     PRIMARY KEY(num)
 );

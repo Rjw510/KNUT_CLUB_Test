@@ -13,7 +13,8 @@ public class ManageService {
 
         List<Member> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM MEMBER WHERE club = ? and authority = 3";
+        String sql = "SELECT @ROWNUM := @ROWNUM + 1 AS n, MEMBER.* " +
+                "FROM MEMBER, (SELECT @ROWNUM := 0)TMP WHERE club = ? and authority = 3";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -30,6 +31,7 @@ public class ManageService {
             rs = pst.executeQuery();
 
             while(rs.next()) {
+                int n = rs.getInt("n");
                 int num = rs.getInt("num");
                 String name  = rs.getString("name");
                 String studentID = rs.getString("studentID");
@@ -39,7 +41,8 @@ public class ManageService {
                 String motive = rs.getString("motive");
 
                 Member member = new Member(
-                        num
+                        n
+                        , num
                         , name
                         , department
                         , studentID
@@ -74,7 +77,8 @@ public class ManageService {
 
         List<Member> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM MEMBER WHERE club = ? and authority = 4";
+        String sql = "SELECT @ROWNUM := @ROWNUM + 1 AS n, MEMBER.* " +
+                "FROM MEMBER, (SELECT @ROWNUM := 0)TMP WHERE club = ? and authority = 4";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -91,6 +95,7 @@ public class ManageService {
             rs = pst.executeQuery();
 
             while(rs.next()) {
+                int n = rs.getInt("n");
                 int num = rs.getInt("num");
                 String name  = rs.getString("name");
                 String studentID = rs.getString("studentID");
@@ -100,7 +105,8 @@ public class ManageService {
                 String motive = rs.getString("motive");
 
                 Member member = new Member(
-                        num
+                        n
+                        , num
                         , name
                         , studentID
                         , department

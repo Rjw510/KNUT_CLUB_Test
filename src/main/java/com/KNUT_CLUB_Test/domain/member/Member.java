@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Getter @Setter
 public class Member {
+    private int n;
     private int num;
     private String name;
     private String department;
@@ -48,7 +49,8 @@ public class Member {
         this.club = club;
     }
 
-    public Member(int num, String name, String studentID, String department, String phone, String club, String motive) {
+    public Member(int n, int num, String name, String studentID, String department, String phone, String club, String motive) {
+        this.n = n;
         this.num = num;
         this.name = name;
         this.studentID = studentID;
@@ -59,5 +61,13 @@ public class Member {
     }
 
 
-
+    public Member(int num, String name, String department, String studentID, String phone, String club, String motive) {
+        this.num = num;
+        this.name = name;
+        this.department = department;
+        this.studentID = studentID;
+        this.phone = phone;
+        this.club = club;
+        this.motive = motive;
+    }
 }

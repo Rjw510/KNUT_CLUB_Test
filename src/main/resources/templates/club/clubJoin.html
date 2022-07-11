@@ -46,63 +46,15 @@
                 </select>
                 <input type="submit" value="조회">
             </form>
-
-            <!--<div class="products">
-                <a href="/clubJoin/wicked">
-                    <img src="/img/grid_1.jpg">
-                    <p class="name">위키드</p>
-                    <p class="price">야구동아리</p>
-                </a>
-                <a href="/clubJoin/perfect">
-                    <img src="/img/grid_2.jpg">
-                    <p class="name">퍼펙트</p>
-                    <p class="price">테니스 동아리</p>
-                </a>
-                <a href="/clubJoin/poseidon">
-                    <img src="/img/grid_3.jpg">
-                    <p class="name">포세이돈</p>
-                    <p class="price">밴드 동아리</p>
-                </a>
-                <a href="/clubJoin/return">
-                    <img src="/img/grid_4.jpg">
-                    <p class="name">RETURN</p>
-                    <p class="price">농구 동아리</p>
-                </a>
-                <a href="/clubJoin/perfect">
-                    <img src="/img/grid_1.jpg">
-                    <p class="name">위키드</p>
-                    <p class="price">야구동아리</p>
-                </a>
-                <a href="/clubJoin/perfect">
-                    <img src="/img/grid_2.jpg">
-                    <p class="name">퍼펙트</p>
-                    <p class="price">테니스 동아리</p>
-                </a>
-                <a href="/clubJoin/perfect">
-                    <img src="/img/grid_3.jpg">
-                    <p class="name">포세이돈</p>
-                    <p class="price">밴드 동아리</p>
-                </a>
-                <a href="/clubJoin/perfect">
-                    <img src="/img/grid_4.jpg">
-                    <p class="name">RETURN</p>
-                    <p class="price">농구 동아리</p>
-                </a>
-                <a href="/clubJoin/perfect">
-                    <img src="/img/grid_1.jpg">
-                    <p class="name">위키드</p>
-                    <p class="price">야구동아리</p>
-                </a>
-                <div class="clearfix"></div>
-            </div>-->
         <div class="products" >
             <th:block th:each="n : ${list}">
-            <a th:href="@{/clubJoin/detail(num=${n.num})}">
-<!--                <input type="hidden" name="n" th:value="${n.num}">-->
-                <img th:src="${n.img}">
-                <p class="name" th:text="${n.name}"></p>
-                <p class="price" th:text="${n.activity} + '동아리'"></p>
-            </a>
+            <div class="tag_wrap">
+                <a th:href="@{/clubJoin/detail(num=${n.num})}">
+                    <img th:src="${n.img}">
+                    <p class="name" th:text="${n.name}"></p>
+    <!--                <p class="price" th:text="${n.activity} + '동아리'"></p>-->
+                </a>
+            </div>
             </th:block>
             <div class="clearfix"></div>
         </div>

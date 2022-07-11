@@ -22,7 +22,7 @@ public class ClubDetailController {
     @GetMapping("/clubJoin/detail")
     public String goClubDetail(@RequestParam("num") int num, HttpServletRequest request, Model model) {
 
-        HttpSession session = request.getSession();
+//        HttpSession session = request.getSession();
 
         ClubService service = new ClubService();
         ManageService manageService = new ManageService();
@@ -30,9 +30,9 @@ public class ClubDetailController {
         String name = manageService.getClubName(num);
         List<Club> list = service.getClubDetail(num);
 
-        session.setAttribute("clubName", name);
         model.addAttribute("list", list);
+        model.addAttribute("name", name);
 
-        return "club/detail/clubJoinDetail";
+        return "/club/detail/clubJoinDetail";
     }
 }
