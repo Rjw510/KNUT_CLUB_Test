@@ -15,6 +15,7 @@ import java.util.List;
 
 public class JoinController {
 
+    //  chk_1, chk_2 값 받아서 페이지 이동
     @GetMapping("/check/join")
     public String goJoin() {
         return "join";
