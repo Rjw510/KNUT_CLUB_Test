@@ -1,8 +1,10 @@
 package com.KNUT_CLUB_Test.web.club;
 
-import com.KNUT_CLUB_Test.domain.club.Club;
-import com.KNUT_CLUB_Test.domain.club.ClubService;
-import com.KNUT_CLUB_Test.domain.member.ManageService;
+import com.KNUT_CLUB_Test.domain.clubservice.Club;
+import com.KNUT_CLUB_Test.domain.clubservice.service.ClubService;
+import com.KNUT_CLUB_Test.domain.memberservice.ManageService;
+import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +20,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ClubController {
 
+    private final ClubService clubService;
+    private final MemberService memberService;
+
     @GetMapping("/clubJoin")
-    public String goClubJoin(@RequestParam(value = "select", required = false) String field_, @RequestParam(value = "campus", required = false) String query_, @RequestParam(value = "type", required = false) String query2_,
+    public String goClubJoin(@RequestParam(value = "select", required = false) String field_,
+                             @RequestParam(value = "campus", required = false) String query_,
+                             @RequestParam(value = "type", required = false) String query2_,
                              @RequestParam(value = "p", required = false) String page_, Model model) {
 
         String field = "campus";
@@ -38,16 +45,21 @@ public class ClubController {
         if (query2_ != null && !query2_.equals(""))
             query2 = query2_;
 
-        int page = 1;
-        if (page_ != null && !page_.equals(""))
-            page = Integer.parseInt(page_);
+        List<Club> clubList = clubService.getClubList(field, field2, query, query2);
 
-        ClubService service = new ClubService();
-        List<Club> list = service.getClubList(field, field2, query, query2, page);
+        model.addAttribute("clubList", clubList);
 
-        model.addAttribute("list", list);
-        model.addAttribute("page", page_);
         return "club/clubJoin";
+    }
+
+    @GetMapping("/clubJoin/detail")
+    public String goClubDetail(@RequestParam("num") int num,
+                               Model model) {
+
+        List<Club> clubList = clubService.getClubDetail(num);
+        model.addAttribute("clubList", clubList);
+
+        return "/club/detail/clubJoinDetail";
     }
 
     @GetMapping("/joinManual")
@@ -55,12 +67,19 @@ public class ClubController {
         return "club/joinManual";
     }
 
-    @GetMapping("/clubJoin/membership")
-//    @RequestParam("club") String club
-    public String goMembership(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String club = (String) session.getAttribute("club");
 
+    /* 여기서부터~ */
+    @GetMapping("/clubJoin/membership")
+    public String goMembership(@RequestParam("name") String clubName,
+                               HttpSession session,
+                               Model model) {
+
+        System.out.println("clubName = " + clubName);
+        String studentID = (String) session.getAttribute("studentID");
+        List<Member> profile = memberService.getMemberClubJoin(studentID);
+
+        model.addAttribute("profile", profile);
+        model.addAttribute("clubName", clubName);
         return "club/membership";
     }
 

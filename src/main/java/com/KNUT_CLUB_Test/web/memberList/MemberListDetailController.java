@@ -1,7 +1,7 @@
 package com.KNUT_CLUB_Test.web.memberList;
 
-import com.KNUT_CLUB_Test.domain.member.ManageService;
-import com.KNUT_CLUB_Test.domain.member.Member;
+import com.KNUT_CLUB_Test.domain.memberservice.ManageService;
+import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +18,9 @@ public class MemberListDetailController {
     public String goMemberListDetail(@RequestParam("num") int num, Model model) {
 
         ManageService service = new ManageService();
-        List<Member> list = service.getMemberListDetail(num);
+//        List<Member> list = service.getMemberListDetail(num);
 
-        model.addAttribute("list", list);
+//        model.addAttribute("list", list);
 
         return "memberList/detail/memberListDetail";
     }
@@ -29,9 +29,9 @@ public class MemberListDetailController {
     public String goPermissionListDetail(@RequestParam("num") int num, Model model) {
 
         ManageService service = new ManageService();
-        List<Member> list = service.getMemberListDetail(num);
-
-        model.addAttribute("list", list);
+//        List<Member> list = service.getMemberListDetail(num);
+//
+//        model.addAttribute("list", list);
 
         return "memberList/detail/permissionListDetail";
     }

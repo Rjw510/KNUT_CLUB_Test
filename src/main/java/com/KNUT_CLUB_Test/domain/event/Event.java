@@ -16,10 +16,10 @@ public class Event {
     private String activity;
     private String introduce;
     private String promotion;
-    private Date date;
+    private String date;
     private String img;
 
-    public Event(int num, String name, Date date, String img) {
+    public Event(int num, String name, String date, String img) {
         this.num = num;
         this.name = name;
         this.date = date;

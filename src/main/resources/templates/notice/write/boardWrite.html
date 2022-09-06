@@ -29,6 +29,7 @@
             <div class="mb-3">
                 <label for="writer">작성자</label>
                 <input type="text" class="form-control" name="writer" id="writer" th:value="${session.name}" readonly>
+                <input onclick="change()" type="checkbox" value="익명" id="anonymous"> 익명
             </div>
             <!-- <div class="mb-3">
                  <label for="content">내용</label>
@@ -64,4 +65,15 @@
 </article>
 
 </body>
+<script>
+    function change()
+    {
+        document.getElementById("writer").value="익명";
+    }
+    // function change() // no ';' here
+    // {
+    //     if (this.value=="익명") this.value = "writer";
+    //     else this.value = "익명";
+    // }
+</script>
 </html>

@@ -11,66 +11,10 @@
 
 <body>
 
-<!--<div class="topnav">
+<th:block th:insert="fragments/header :: headerFragment"></th:block>
+<th:block th:insert="fragments/sidebar :: sideBarFragment"></th:block>
 
-    &lt;!&ndash;<a href="/login">login</a>&ndash;&gt;
-
-    <a href="/login" th:text="${session.login}">Login</a>
-
-    <a onclick="window.location.reload()">Home</a>
-    <div class="search-container">
-        <form action="/action_page.php">
-            <input type="text" placeholder="Search.." name="search">
-            <button type="submit">
-                <img id="searchicon" src="/img/search.png" alt=""><i
-                    class="fa fa-search"></i>
-            </button>
-        </form>
-    </div>
-</div>
-
-<div class="navbar">
-    <div class="logo">
-        <a onclick="window.location.reload()"><img src="/img/logo.jpg"></a>
-    </div>
-
-    <div id="menu">
-        <ul>
-            <li><a href="/notice">공지사항</a></li>
-            <li><a href="/board">자유게시판</a></li>
-            <li><a href="#">가입</a>
-                <ul>
-                    <li><a href="/joinClub/chungju">충주캠퍼스</a></li>
-                    <li><a href="/joinClub/uiwang">의왕캠퍼스</a></li>
-                    <li><a href="/joinClub/jeungpyeong">증평캠퍼스</a></li>
-                </ul>
-            </li>
-            <li><a href="#">소개</a>
-                <ul>
-                    <li><a href="#">동아리란?</a></li>
-                    <li><a href="#">가입 방법</a></li>
-                </ul>
-            </li>
-            <li><a href="#">행사</a>
-                <ul>
-                    <li><a href="#">동아리 행사</a></li>
-                    <li><a href="#">동아리 페어</a></li>
-                </ul>
-            </li>
-            &lt;!&ndash;<li><a href="#">회원관리</a>
-                <ul>
-                    <li><a href="/VIEW/memberlist/memberlist">회원목록</a></li>
-                    <li><a href="/VIEW/permission/permission">승인목록</a></li>
-                </ul>
-            </li>&ndash;&gt;
-        </ul>
-    </div>
-</div>-->
-
-<th:block th:replace="fragments/header :: headerFragment"></th:block>
-<th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
-
-
+<!-- 슬라이드 박스 -->
 <div class="slidebox">
     <input type="radio" name="slide" id="slide01" checked>
     <input type="radio" name="slide" id="slide02">
@@ -106,84 +50,59 @@
             </div>
         </li>
     </ul>
-    <!-- <ul class="paginglist">
-       <li>
-          <label for="slide01"></label>
-       </li>
-       <li>
-          <label for="slide02"></label>
-       </li>
-       <li>
-          <label for="slide03"></label>
-       </li>
-       <li>
-          <label for="slide04"></label>
-       </li>
-    </ul> -->
 </div>
 
 <div class="row">
-
+    <!-- 공지사항 -->
     <div class="column middle">
         <h2>공지사항</h2>
-
-        <form action="/notice" method="post">
-            <table class="noticetable">
-                <tr class="Tableh">
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>
-                </tr>
-
-
-                <tbody>
-                <tr th:each="n : ${noticeList}">
-                    <input type="hidden" name="n" th:value="${n.num}">
-                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.n}">번호</td>
-                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.title }">제목</td>
-                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.writer}">작성자</td>
-                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.date}">작성일</td>
-                    <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.views}">조회수</td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
+        <table class="noticetable">
+            <tr class="Tableh">
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회</th>
+            </tr>
+            <tbody>
+            <tr th:each="n : ${noticeList}">
+                <input type="hidden" name="n" th:value="${n.num}">
+                <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.n}">번호</td>
+                <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.title }">제목</td>
+                <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.writer}">작성자</td>
+                <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.date}">작성일</td>
+                <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.views}">조회수</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+
+    <!-- 자유게시판 -->
     <div class="column middle">
         <h2>자유게시판</h2>
-
-        <form action="/board" method="post">
-            <table class="noticetable">
-                <tr class="Tableh">
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                    <th>조회</th>
-                </tr>
-
-
-                <tbody>
-                <tr th:each="b : ${boardList}">
-                    <input type="hidden" name="n" th:value="${b.num}">
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.n}">-</td>
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.title }"><a th:href="@{notice/noticeDetail(num = ${n.num})}"></a></td>
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.writer}">-</td>
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.date}">-</td>
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.views}">조회수</td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
+        <table class="noticetable">
+            <tr class="Tableh">
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회</th>
+            </tr>
+            <tbody>
+            <tr th:each="b : ${boardList}">
+                <input type="hidden" name="n" th:value="${b.num}">
+                <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.n}">번호</td>
+                <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.title }">제목</td>
+                <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.writer}">작성자</td>
+                <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.date}">작성일</td>
+                <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.views}">조회수</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-
-
 </div>
 
-<div class="footer">
-    <p>Footer</p>
-</div>
+<!-- footer -->
+<th:block th:insert="/fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

@@ -1,7 +1,5 @@
 package com.KNUT_CLUB_Test.web.event;
 
-import com.KNUT_CLUB_Test.domain.club.Club;
-import com.KNUT_CLUB_Test.domain.club.ClubService;
 import com.KNUT_CLUB_Test.domain.event.Event;
 import com.KNUT_CLUB_Test.domain.event.EventService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller

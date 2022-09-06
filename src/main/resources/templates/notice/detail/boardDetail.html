@@ -4,6 +4,7 @@
     <title>자세한 페이지</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/noticedetail.css">
+    <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
 
 </head>
 <body>
@@ -11,27 +12,36 @@
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
 <div class="row">
-    <div class="leftcolumn">
-        <div class="card" th:each="n : ${boardList}">
+    <div class="leftcolumn" th:each="b : ${boardList}">
+        <form th:action="@{/board/boardDetail}" method="post" onsubmit="return deleteCheck()">
+        <div class="card">
+            <input type="hidden" name="del_num" th:value="${b.num}">
             <div class="detailheader">
-                <h2 th:text="${n.title }">제목</h2>
+                <h2 th:text="${b.title }">제목</h2>
                 <div class="list">
                     <ul class="detailheaderlist" >
-                        <li th:text="'작성자:' + ${n.title}">작성자></li>
-                        <li>조회 수 : 0</li>
-                        <li th:text="${'등록일:' + n.date}">작성일></li>
+                        <li th:text="'작성자:' + ${b.writer}">작성자></li>
+                        <li th:text="'조회수 : ' + ${b.views}">조회 수 : 0</li>
+                        <li th:text="'등록일:' + ${b.date}">작성일></li>
                     </ul>
                 </div>
             </div><!---->
             <div class="detailcontent" style="height:auto; ">
-                <p class="noticect" th:utext="${n.content}">글 내용</p>
+                <p class="noticect" th:utext="${b.content}">글 내용</p>
             </div>
+            <div th:if="${session.studentID == studentID}">
+                <button type="submit" th:text="삭제"></button>
+                <button type="button" th:onclick="|location.href='@{/board/update(num=${b.num})}'|"
+                        th:text="수정"></button>
+            </div>
+        </div>
+        </form>
             <div class="detailfooter">
                 <button type="button" onclick="location.href='/writeComment'">댓글달기</button>
-                <button type="button" onclick="location.href='/notice'">목록</button>
+                <button type="button" onclick="location.href='/board'">목록</button>
             </div>
 
-            <form action="/delNotice" method="post">
+            <form action="/delBoard" method="post">
                 <table class="noticetable">
                     <tr id="tableheader">
                         <th>작성자</th>
@@ -44,7 +54,9 @@
                         <td th:text="${b.writer}">작성자</td>
                         <td th:text="${b.date }">날짜</td>
                         <td th:text="${b.content}">내용</td>
+                    </tr>
             </form>
+
         </div>
     </div>
 </div>

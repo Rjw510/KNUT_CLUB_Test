@@ -45,7 +45,7 @@
             </div>
         </form>
 
-        <form action="/delNotice" method="post">
+        <form th:action="@{/notice/delNotice}" method="post">
             <table class="noticetable">
                 <tr id="tableheader">
                     <th>번호</th>
@@ -56,7 +56,7 @@
                     <th scope="cols">선택</th>
                 </tr>
 
-                <tbody th:each="n : ${list}">
+                <tbody th:each="n : ${noticeList}">
                 <tr>
                     <input type="hidden" name="n" th:value="${n.num}">
                     <td th:onclick="|location.href='@{/notice/detail(num=${n.num})}'|" th:text="${n.n}">번호</td>
@@ -74,19 +74,56 @@
                 </tbody>
             </table>
     </div>
-
 </div>
 
-<th:block th:if="${session.grade == 'admin'}">
-    <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
-    </form>
-    <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/notice/noticeWrite'"
-            type="submit">글쓰기
-    </button>
-</th:block>
+<div class="margin-top align-center pager">
+    <ul class="pagingwrap">
+        <li class="paging">
+            <div>
+                <th:block th:if="${startNum>1}">
+                    <a th:href="@{/notice(p=${(startNum-1)}, search=${param.search}, word=${word})}" th:text="이전"></a>
+                </th:block>
+                <th:block th:unless="${startNum>1}">
+                    <span onclick="alert('이전 페이지가 없습니다.')" th:text="이전"></span>
+                </th:block>
+            </div>
+        </li>
 
-<div class="footer">
-    <p>Footer</p>
-</div>
+        <li class="paging">
+            <ul class="list">
+                <th:block th:each="i : ${#numbers.sequence(0, 4)}">
+                    <th:block th:if="${(startNum+i) <= lastNum}">
+                        <li><a th:href="@{/notice(p=${startNum+i}, search=${param.search}, word=${param.word})}"
+                               th:text="${startNum+i}"></a></li>
+                    </th:block>
+                </th:block>
+            </ul>
+        </li>
+
+        <li class="paging">
+            <div>
+                <th:block th:if="${startNum+4<lastNum}">
+                    <a th:href="@{/notice(p=${startNum+5}, search=${param.search}, word=${param.word})}" th:text="다음">다음</a>
+                </th:block>
+                <th:block th:if="${startNum+4>=lastNum }">
+                    <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.')">다음</span>
+                </th:block>
+            </div>
+        </li>
+    </ul>
+
+    <div class="margin-top align-center pager">
+        <th:block th:if="${session.grade == 'admin'}">
+            <button id="deletebtn" class="btn btn-danger btn-lg btn-block"  type="submit">삭제
+            </button>
+            </form>
+            <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/notice/noticeWrite'"
+                    type="button">글쓰기
+            </button>
+        </th:block>
+    </div>
+
+        <!-- footer -->
+        <th:block th:insert="fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

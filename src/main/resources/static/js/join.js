@@ -256,3 +256,11 @@ function email_change() {
 	}
 }
 
+function check() {
+		window.open(
+			"/checkId.html",
+			"Check",
+			"width=400, height=300, top=50, left=50"
+		);
+}
+

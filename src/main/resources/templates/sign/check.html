@@ -17,7 +17,7 @@
 </header>
 
 <section>
-    <form action="/check/join" id="agreementform" method="get">
+    <form th:action="@{/check/join}" id="agreementform" method="post">
         <ul class="agreement_box">
             <li class="checkBox check1">
                 <ul class="clearfix">
@@ -31,8 +31,8 @@
                 <ul class="clearfix">
                     <li>이용약관 동의(필수)</li>
                     <li class="checkBtn">
-                        <input type="checkbox" name="chk_1" value='1' class="chk">
-                        <input type="hidden" name="chk_1" value='0'/>
+                        <input type="checkbox" th:field="${chk.chk_1}" class="chk">
+                        <!--<input type="hidden" name="chk_1" value='0'/>-->
                     </li>
                 </ul>
                 <textarea name="" id="">한국교통대학교 학생 여러분을 환영합니다.
@@ -117,7 +117,7 @@
                 <ul class="clearfix">
                     <span class="exception"><li>개인정보 수집 및 이용 동의(필수)</li></span>
                     <span class="checkBtnlast"><span class="checkBtn"></span>
-                <input type="checkbox" name="chk_2" value='1' class="chk">
+                <input type="checkbox" th:field="${chk.chk_2}" class="chk">
                 <input type="hidden" name="chk_2" value='0'/>
                         </span>
                 </ul>
@@ -125,10 +125,12 @@
         </ul>
         <ul class="footer clearfix">
             <li>
+                <!-- location.href='/login'" -->
                 <button class="fcBtn1" type="button" onclick="location.href='/login'">비동의</button>
             </li>
             <li>
-                <button class="fcBtn2" type="button" onclick="location.href='/check/join'">동의</button>
+                <!-- onclick="location.href='/check/join'" -->
+                <button class="fcBtn2" type="submit">동의</button>
             </li>
         </ul>
 

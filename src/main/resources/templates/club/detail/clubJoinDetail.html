@@ -10,26 +10,27 @@
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
-<div class="row" th:each="n : ${list}">
+
+<div class="row" th:each="c : ${clubList}">
     <div class="rightcolumn">
         <div class="card">
             <div class="clubimg">
 <!--                <img src="/img/perfect.jpg">-->
-                <img th:src="${n.img}">
+                <img th:src="${c.img}">
             </div>
-            <h2 th:text="${n.name}"></h2>
-            <button type="button" class="joinbtn" onclick="location.href='/clubJoin/membership'">가입</button>
+            <h2 th:text="${c.name}" name="name"></h2>
+            <button type="button" class="joinbtn" th:onclick="|location.href='@{/clubJoin/membership(name=${c.name}'|">가입</button>
         </div>
 
     </div>
     <div class="leftcolumn">
         <div class="card">
-            <h2 th:text="${n.name}"></h2>
+            <h2 th:text="${c.name}"></h2>
             <div class="main">
 <!--                <h3>#중앙동아리 #스포츠 #테니스</h3>-->
 <!--                <br>-->
 <!--                <br>-->
-                <p th:text="${n.introduce}">
+                <p th:text="${c.introduce}">
 <!--                    교통대 유일무이 테니스 동아리 퍼펙트<br>-->
 
 <!--                    대표자 : 신현식<br>-->
@@ -43,7 +44,7 @@
         </div>
         <div class="card">
             <div class="main">
-                <p th:text="${n.promotion}"></p>
+                <p th:text="${c.promotion}"></p>
 <!--                <h3>교통대 테니스 동아리 퍼펙트🎾</h3><br>-->
 <!--                <br>-->
 <!--                <p>주 2회(2시간) 정기모임 : 정기모임의 경우 자유롭게 공도 치고 선수출신 회장님이 직접 레슨을 진행합니다.<br>-->

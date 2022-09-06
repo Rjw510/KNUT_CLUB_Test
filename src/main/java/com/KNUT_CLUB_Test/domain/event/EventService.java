@@ -1,7 +1,5 @@
 package com.KNUT_CLUB_Test.domain.event;
 
-import com.KNUT_CLUB_Test.domain.club.Club;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -39,7 +37,7 @@ public class EventService {
             while (rs.next()) {
                 int num = rs.getInt("num");
                 String name = rs.getString("name");
-                Date date = rs.getDate("date");
+                String date = rs.getString("date");
                 String img = rs.getString("img");
 
                 Event event = new Event (

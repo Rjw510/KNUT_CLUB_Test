@@ -19,24 +19,24 @@
 </head>
 <body>
 <article>
-    <div class="container" role="main">
+    <div class="container" role="main" th:each="p : ${profile}">
         <h2>동아리 가입 신청</h2>
         <form name="form" id="form" role="form" method="post" action="/clubJoin/membership">
             <div class="mb-3">
                 <label >동아리 이름</label>
-                <input type="text" class="form-control" name="club" th:value="${session.clubName}"readonly>
+                <input type="text" class="form-control" name="club" th:value="${clubName}"readonly>
             </div>
             <div class="mb-3">
                 <label>이름</label>
-                <input type="text" class="form-control" name="name" th:value="${session.name}" readonly>
+                <input type="text" class="form-control" name="name" th:value="${p.name}" readonly>
             </div>
             <div class="mb-3">
                 <label>학과</label>
-                <input type="text" class="form-control" name="department" th:value="${session.department}" readonly>
+                <input type="text" class="form-control" name="department" th:value="${p.department}" readonly>
             </div>
             <div class="mb-3">
                 <label>휴대전화</label>
-                <input type="text" class="form-control" name="phone" th:value="${session.phone}" readonly>
+                <input type="text" class="form-control" name="phone" th:value="${p.phone}" readonly>
             </div>
             <div>
                 <label>지원동기</label>

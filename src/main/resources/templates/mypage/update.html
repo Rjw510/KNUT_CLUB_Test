@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/mypage.css">
+    <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
+    <title>Update</title>
+</head>
+<body>
+
+<th:block th:replace="fragments/header :: headerFragment"></th:block>
+<th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
+
+
+<div class="pathbox">
+    <p>pathbox</p>
+</div>
+<div class="row">
+
+    <div class="column middle" th:each="p : ${profile}">
+        <div class="wrapper">
+            <div class="row planBox premium text-center">
+                <div class="col-md-12 section1">
+                    <img id="profilepicture" src="/img/profile.PNG">
+                    <p th:text="${p.name} + '님의 마이페이지입니다'">이름></p>
+                </div>
+                <form th:action method="post" onsubmit="return updateCheck()">
+                <div class="col-md-12 section2">
+
+                    <div class="box">
+                        이름:<input type="text" name="name" id="name" th:placeholder="${p.name}">
+                    </div>
+                    <div class="box">
+                        학번:<input type="text" name="studentID" id="id" th:placeholder="${p.studentID}">
+                    </div>
+                    <div class="box">
+                        이메일:<input type="text"  name="email" id="email" th:placeholder="${p.email}">
+                    </div>
+                    <div class="box">
+                        학과:<input type="text"  name="department" id="department" th:placeholder="${p.department}">
+                    </div>
+                    <div class="box">
+                        가입된 동아리:<input type="text"  name="club" id="club" th:placeholder="${p.club}">
+                    </div>
+                        <!--<button type="submit" >수정</button>-->
+                        <button type="submit" >수정</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="footer">
+    <p>Footer</p>
+</div>
+
+</body>
+</html>

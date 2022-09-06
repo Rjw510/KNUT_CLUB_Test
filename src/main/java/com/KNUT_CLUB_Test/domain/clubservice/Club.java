@@ -1,4 +1,4 @@
-package com.KNUT_CLUB_Test.domain.club;
+package com.KNUT_CLUB_Test.domain.clubservice;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class Club {
     private int num;
     private String campus;
@@ -28,13 +29,17 @@ public class Club {
         this.img = img;
     }
 
-    // Club
-    public Club(int num, String campus, String type, String name, String activity, String img) {
-        this.num = num;
-        this.campus = campus;
-        this.type = type;
+    public Club(String name, String introduce, String promotion, String img) {
         this.name = name;
-        this.activity = activity;
+        this.introduce = introduce;
+        this.promotion = promotion;
+        this.img = img;
+    }
+
+    // Club
+    public Club(int num, String name, String img) {
+        this.num = num;
+        this.name = name;
         this.img = img;
     }
 }

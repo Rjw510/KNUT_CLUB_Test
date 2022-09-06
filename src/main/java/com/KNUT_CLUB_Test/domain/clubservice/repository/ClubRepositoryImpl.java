@@ -1,24 +1,23 @@
-package com.KNUT_CLUB_Test.domain.club;
+package com.KNUT_CLUB_Test.domain.clubservice.repository;
 
-import com.KNUT_CLUB_Test.domain.club.Club;
-import com.KNUT_CLUB_Test.domain.notice.Notice;
+import com.KNUT_CLUB_Test.domain.clubservice.Club;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class ClubService {
+@Repository
+public class ClubRepositoryImpl implements ClubRepository{
+    @Override
+    public List<Club> getClubList(String campus, String type, String cWord, String tWord) {
+        List<Club> clubList = new ArrayList<>();
 
-    public List<Club> getClubList(String field, String field2, String query, String query2, int page) {
-
-        List<Club> list = new ArrayList<>();
-//        select @rownum := @rownum+1 as n, promotion.* FROM promotion, (select @rownum := 0) tmp where campus like '%충주%' and type like '%%' ;
         String sql = "SELECT @ROWNUM := @ROWNUM +1 as n, PROMOTION.*"
-                + " FROM PROMOTION, (SELECT @ROWNUM := 0)TMP WHERE " + field + " Like ? and " + field2 + " LIKE ?";
+                + " FROM PROMOTION, (SELECT @ROWNUM := 0)TMP WHERE " + campus + " Like ? and " + type + " LIKE ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -32,28 +31,22 @@ public class ClubService {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
-            pst.setString(1, "%" + query + "%");
-            pst.setString(2, "%" + query2 + "%");
+            pst.setString(1, "%" + cWord + "%");
+            pst.setString(2, "%" + tWord + "%");
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
                 int num = rs.getInt("num");
-                String campus = rs.getString("campus");
-                String type = rs.getString("type");
                 String name = rs.getString("name");
-                String activity = rs.getString("activity");
                 String img = rs.getString("img");
 
                 Club club = new Club (
                         num
-                        , campus
-                        , type
                         , name
-                        , activity
                         , img
                 );
-                list.add(club);
+                clubList.add(club);
             }
         }
         catch (Exception e) {
@@ -73,13 +66,13 @@ public class ClubService {
                 System.out.println(e);
             }
         }
-        return list;
+        return clubList;
 
     }
 
+    @Override
     public List<Club> getClubDetail(int num) {
-
-        List<Club> list = new ArrayList<>();
+        List<Club> clubList = new ArrayList<>();
 
         String sql = "SELECT * FROM PROMOTION WHERE num= ? ";
 
@@ -100,24 +93,18 @@ public class ClubService {
             rs = pst.executeQuery();
 
             while (rs.next()) {
-                String campus = rs.getString("campus");
-                String type = rs.getString("type");
                 String name = rs.getString("name");
-                String activity = rs.getString("activity");
                 String introduce = rs.getString("introduce");
                 String promotion = rs.getString("promotion");
                 String img = rs.getString("img");
 
                 Club club = new Club (
-                        campus
-                        , type
-                        , name
-                        , activity
+                        name
                         , introduce
                         , promotion
                         , img
                 );
-                list.add(club);
+                clubList.add(club);
             }
         }
         catch (Exception e) {
@@ -137,6 +124,6 @@ public class ClubService {
                 System.out.println(e);
             }
         }
-        return list;
+        return clubList;
     }
 }

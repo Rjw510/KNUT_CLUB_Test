@@ -3,6 +3,7 @@
 }
 body {
     margin: 0;
+
 }
 /* Style the header */
 .header {
@@ -19,10 +20,12 @@ body {
 .pathbox h2{
     text-align: center;
 }
+
+
 /* Create three unequal columns that floats next to each other */
 .column {
     float: left;
-    padding: 10px;
+    padding: 50px;
 }
 /* Left and right column */
 .column.side {
@@ -31,6 +34,8 @@ body {
 /* Middle column */
 .column.middle {
     width: 75%;
+    height: 100%;
+    min-height: 800px;
 }
 .column.middle h1{
     margin-bottom: 30px;

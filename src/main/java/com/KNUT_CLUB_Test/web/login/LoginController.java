@@ -1,104 +1,92 @@
 package com.KNUT_CLUB_Test.web.login;
 
-import com.KNUT_CLUB_Test.domain.login.LoginService;
-import com.KNUT_CLUB_Test.domain.member.Member;
-import com.KNUT_CLUB_Test.domain.member.MemberService;
-import com.KNUT_CLUB_Test.domain.notice.Notice;
-import com.KNUT_CLUB_Test.domain.notice.NoticeService;
+import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
+import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
+import com.KNUT_CLUB_Test.domain.noticeservice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+@Slf4j
 @Controller
+@RequestMapping("/login")
 @RequiredArgsConstructor
 public class LoginController {
 
-    @GetMapping("/login")
-    public String goLogin(HttpServletRequest request) {
+    private final MemberService memberService;
+    private final NoticeService noticeService;
 
-        HttpSession session = request.getSession();
-
-        String login = "Login";
-        session.setAttribute("login", login);
-
-        return "login";
+    @GetMapping
+    public String goLogin(Model model) {
+        model.addAttribute("login", new Member());
+        return "/sign/login";
     }
 
     @GetMapping("/logout")
-    public String goLogout(HttpServletRequest request, Model model) {
+    public String goLogout(HttpServletRequest request,
+                           Model model) {
 
         HttpSession session = request.getSession();
         session.invalidate();
 
-        NoticeService noticeService = new NoticeService();
-        List<Notice> noticeList = noticeService.getNoticeList();
-        List<Notice> boardList = noticeService.getBoardList();
-
-        model.addAttribute("noticeList", noticeList);
-        model.addAttribute("boardList", boardList);
-
-        return "index/index";
+        return "redirect:/";
     }
 
-    @PostMapping("/")
-    public String doLogin(@RequestParam("studentID") String id, @RequestParam("password") String pw,
-                          HttpServletRequest request, Model model) {
+    @PostMapping
+    public String doLogin(HttpServletRequest request,
+                          HttpServletResponse response,
+                          @ModelAttribute("login") Member member,
+                          Model model) throws IOException {
 
-        HttpSession session = request.getSession();
+        log.info("학번 : {}", member.getStudentID());
+        log.info("비밀번호 : {}", member.getPassword());
 
-        // 회원 정보 저장
-        session.setAttribute("id", id);
-        id = (String) session.getAttribute("id");
+        String name = memberService.getMemberName(member.getStudentID());
+        String club = memberService.getMemberClub(member.getStudentID());
+        String grade = memberService.getMemberGrade(member.getStudentID());
 
-        // 서비스 생성
-        LoginService service = new LoginService();
-        MemberService memberService = new MemberService();
-        NoticeService noticeService = new NoticeService();
+        log.info("권한 : {}", grade);
 
-        String name = memberService.getMemberName(id);
-        String club = memberService.getMemberClub(id);
-        String authority = memberService.getMemberAuthority(id);
-        String department = memberService.getMemberDepartment(id);
-        String phone = memberService.getMemberPhone(id);
+        String loginCheck = memberService.Login(member);
+        List<Notice> noticeList = noticeService.getNoticeSelect();
+        List<Notice> boardList = noticeService.getBoardSelect();
 
-        int check = service.LoginCheck(id, pw);
-
-        String grade = "";
-        if (authority.equals("0") || authority.equals("1") || authority.equals("2")) {
+        /* authority */
+        if (grade.equals("관리자") || grade.equals("회장") || grade.equals("부회장")) {
             grade = "admin";
         }
         else {
             grade = "user";
         }
 
-        // 공지사항 & 자유게시판
-        List<Notice> noticeList = noticeService.getNoticeList();
-        List<Notice> boardList = noticeService.getBoardList();
-
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);
 
-        session.setAttribute("id", id);
+        /* session */
+        HttpSession session = request.getSession();
+        session.setAttribute("studentID", member.getStudentID());
         session.setAttribute("grade", grade);
         session.setAttribute("name", name);
-        session.setAttribute("department", department);
-        session.setAttribute("phone", phone);
         session.setAttribute("club", club);
 
-        if (check == 1) {
-            return "index/index";
+        if (loginCheck.equals(member.getStudentID())) {
+            model.addAttribute("url", "/");
+            return "/alert";
         }
         else {
-            return "redirect:/login";
+            model.addAttribute("message", "아이디 또는 패스워드가 잘못되었습니다");
+            model.addAttribute("url", "/login");
+            return "/alert";
         }
     }
 }

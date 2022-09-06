@@ -5,6 +5,7 @@
 }
 body {
     margin: 0;
+
 }
 
 
@@ -166,7 +167,8 @@ a {
 /* Middle column */
 .column.middle {
     width: 50%;
-    margin-bottom: 20px;
+    margin-bottom: 150px;
+    margin-top: 100px;
 
 }
 
@@ -185,6 +187,10 @@ a {
     .column.middle {
         width: 100%;
     }
+}
+
+.row{
+    /*margin-bottom: 300px;*/
 }
 /* Style the footer */
 .footer {
@@ -421,6 +427,10 @@ td{
     padding-top: 20px;
 }
 
+td:hover{
+    cursor: pointer;
+}
+
 table {
     border-collapse: collapse;
 }
@@ -445,7 +455,7 @@ tr:hover {
     margin:0 auto;
     text-align:center;
     height: 500px;
-    margin-top: 50px;
+    margin-top: 100px;
 
 }
 .slidebox img {
@@ -560,4 +570,107 @@ label.right {
     75% {left:100%;}
     98% {left:100%;}
     100% {left:0%;}
+}
+
+/* footer */
+footer {
+    background-color: #272727;
+    border-top: 1px solid #333;
+
+}
+footer .s_logo{
+    width: 20%;
+    height: 100%;
+}
+footer .inner {
+    width: 79%;
+}
+footer .s_logo{
+    float: left;
+    display: flex;
+    min-width: 360px;
+    min-height: 55px;
+    margin-top: 50px;
+}
+footer .s_logo img{
+    width: 250px;
+    height: 50px;
+    margin-left: 80px;
+}
+footer .menu {
+    display: flex;
+    justify-content: center;
+
+}
+footer .menu li {
+    position: relative;
+    list-style: none;
+}
+footer .menu li::before {
+    content: "";
+    width: 3px;
+    height: 3px;
+    background-color: #555;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -1px;
+    margin: auto;
+}
+footer .menu li:last-child::before {
+    display: none;
+}
+footer .menu li a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 15px;
+    display: block;
+}
+footer .menu li a.green {
+    color: #669900
+}
+footer .btn-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+}
+footer .btn-group .btn {
+    margin-right: 20px;
+    text-decoration: none;
+    min-width: 30px;
+    min-height: 30px;
+}
+footer .btn-group img{
+    width: 30px;
+    height: 30px;
+}
+footer .btn-group .btn:last-child {
+    margin-right: 0px;
+}
+footer .info {
+
+    text-align: center;
+
+}
+footer .info span {
+    margin-right: 20px;
+    color: #999;
+    font-size: 12px;
+}
+footer .info span:last-child {
+    margin-right: 0;
+}
+footer .copyright {
+    color: #999;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 30px;
+
+}
+footer .logo {
+    margin: 30px auto 0;
 }

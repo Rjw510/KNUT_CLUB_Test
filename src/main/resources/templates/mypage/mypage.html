@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/mypage.css">
+    <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
     <title>MyPage</title>
 </head>
 <body>
@@ -11,49 +12,50 @@
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
-
 <div class="pathbox">
     <p>pathbox</p>
 </div>
 <div class="row">
 
-    <div class="column middle" th:each="profile : ${profile}">
+    <div class="column middle" th:each="p : ${profile}">
         <div class="wrapper">
             <div class="row planBox premium text-center">
                 <div class="col-md-12 section1">
                     <img id="profilepicture" src="img/profile.PNG">
 
-                    <p th:text="${profile.name} + '님의 마이페이지입니다'">이름></p>
+                    <p th:text="${p.name} + '님의 마이페이지입니다'">이름></p>
                 </div>
+                <form th:action="@{/mypage/delete}" method="post" onsubmit="return deleteCheck()">
                 <div class="col-md-12 section2">
 
                     <div class="box">
-                        <p th:text="'이름 : ' + ${profile.name}">이름 : </p><br>
+                        <p th:text="'이름 : ' + ${p.name}">이름 : </p><br>
 
                     </div>
                     <div class="box">
-                        <p th:text="'학번 : ' + ${profile.studentID}">학번 : </p><br>
+                        <p th:text="'학번 : ' + ${p.studentID}">학번 : </p><br>
                     </div>
                     <div class="box">
-                        <p th:text="'이메일 :' + ${profile.email}">이메일 : </p><br>
+                        <p th:text="'이메일 :' + ${p.email}">이메일 : </p><br>
                     </div>
                     <div class="box">
-                        <p th:text="'학번 : ' + ${profile.department}">학과 : </p><br>
+                        <p th:text="'학번 : ' + ${p.department}">학과 : </p><br>
                     </div>
                     <div class="box">
-                        <p th:text="'가입 된 동아리 : ' + ${profile.club}"> : </p><br>
+                        <p th:text="'가입 된 동아리 : ' + ${p.club}"> : </p><br>
                     </div>
+                        <button type="button" onclick="location.href='/mypage/update'" >회원정보 수정</button>
+                        <button type="submit" >회원 탈퇴</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 
 
 </div>
-
-<div class="footer">
-    <p>Footer</p>
-</div>
-
 </body>
+<!-- footer -->
+<th:block th:insert="/fragments/footer :: footerFragment"></th:block>
+
 </html>
