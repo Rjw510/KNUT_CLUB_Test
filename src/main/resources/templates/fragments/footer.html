@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lnag="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="footerFragment">
     <head>
         <link rel="stylesheet" th:href="@{/css/footer.css}">
+
     </head>
 
     <footer>
         <div class="s_logo">
-            <a href="https://www.ut.ac.kr/kor.do"><img th:src="@{/img/footer/schoolLogo.png}"></a>
+            <a href="https://www.ut.ac.kr/kor.do"><img
+                    th:src="@{/img/footer/schoolLogo.png}"></a>
         </div>
         <div class="inner">
             <ul class="menu">
@@ -18,32 +20,32 @@
 
             <div class="btn-group">
                 <a href="https://ko-kr.facebook.com/" target="blank" class="btn btn--white"><img
-                        src="/img/footer/facebooklogo.png"></a>
+                        th:src="@{/img/footer/facebooklogo.png}"></a>
                 <a href="https://www.instagram.com/" target="blank" class="btn btn--white"><img
-                        src="/img/footer/instagramlogo.png"></a>
+                        th:src="@{/img/footer/instagramlogo.png}"></a>
                 <a href="https://twitter.com/?lang=ko" target="blank" class="btn btn--white"><img
-                        src="/img/footer/twitters.png"></a>
+                        th:src="@{/img/footer/twitters.png}"></a>
             </div>
 
             <div class="info_wrapper">
-                <div class="info">
-                    <span>Developer</span>
-                    <span>한국교통대학교 컴퓨터 공학과 류지원</span>
-                    <span>TEL : 010-3277-2742/E-Mail : kng05310@a.ut.ac.kr</span>
-                    <span>학번 : 1726066</span>
-                </div>
-                <div class="info">
-                    <span>Developer</span>
-                    <span>한국교통대학교 컴퓨터 공학과 김종원</span>
-                    <span>TEL : 010-3350-4222/E-Mail : kng05310@a.ut.ac.kr</span>
-                    <span>학번 : 1726010</span>
-                </div>
-                <div class="info">
-                    <span>Developer</span>
-                    <span>한국교통대학교 컴퓨터 공학과 신현식</span>
-                    <span>TEL : 010-5898-2284/E-Mail : kng05310@a.ut.ac.kr</span>
-                    <span>학번 : 1726025</span>
-                </div>
+              <div class="info">
+                  <span>Developer</span>
+                  <span>한국교통대학교 컴퓨터 공학과 류지원</span>
+                  <span>TEL : 010-3277-2742/E-Mail : wonn970510@gmail.com</span>
+                  <span>학번 : 1726066</span>
+              </div>
+              <div class="info">
+                  <span>Developer</span>
+                  <span>한국교통대학교 컴퓨터 공학과 김종원</span>
+                  <span>TEL : 010-3350-4222/E-Mail : kng05310@a.ut.ac.kr</span>
+                  <span>학번 : 1726010</span>
+              </div>
+              <div class="info">
+                  <span>Developer</span>
+                  <span>한국교통대학교 컴퓨터 공학과 신현식</span>
+                  <span>TEL : 010-5898-2284/E-Mail : kng05310@a.ut.ac.kr</span>
+                  <span>학번 : 1726025</span>
+              </div>
             </div>
 
 
@@ -62,4 +64,3 @@
     </footer>
 </th:block>
 </html>
-

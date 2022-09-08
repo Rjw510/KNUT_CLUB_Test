@@ -14,6 +14,8 @@ public interface MemberRepository {
 
     String getMemberGrade(String studentID);
 
+    void getJoin(Member member,String birth,String gender);
+
     List<Member> getMemberProfile(String studentID);
 
     void getMemberUpdate(Member member);

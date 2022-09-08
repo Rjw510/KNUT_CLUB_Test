@@ -20,15 +20,16 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping("/notice")
-    public String goNotice(@RequestParam(value = "search", required = false) String field_,
+    public String goNotice(@RequestParam(value = "select", required = false) String field_,
                            @RequestParam(value = "word", required = false) String query_,
                            @RequestParam(value = "p", required = false) String page_,
+                           HttpSession session,
                            Model model) {
 
         String field = "title";
         if (field_ != null && !field_.equals(""))
             field = field_;
-
+        
         String query = "";
         if (query_ != null && !query_.equals(""))
             query = query_;
@@ -46,9 +47,14 @@ public class NoticeController {
         if (count % 10 != 0)
             lastNum = lastNum + 1;
 
+        String admin = (String) session.getAttribute("admin");
+        session.setAttribute("admin", admin);
+
         model.addAttribute("startNum", startNum);
         model.addAttribute("lastNum", lastNum);
         model.addAttribute("noticeList", noticeList);
+
+
 
         return "notice/notice";
     }
@@ -58,13 +64,13 @@ public class NoticeController {
                                  HttpSession session,
                                  Model model) {
 
-        String studentID = (String) session.getAttribute("studentID");
+//        String studentID = (String) session.getAttribute("id");
 
         List<Notice> list = noticeService.getNoticeDetail(num);
         noticeService.updateViews(num);
 
         model.addAttribute("noticeList", list);
-        model.addAttribute("studentID", studentID);
+//        model.addAttribute("studentID", studentID);
 
         return "notice/detail/noticeDetail";
     }
@@ -100,6 +106,7 @@ public class NoticeController {
         return "notice/write/noticeWrite";
     }
 
+    /* 공지사항 글쓰기 */  // 텍스트는 가능하지만 사진이 들어가면 전송 불가
     @PostMapping("/notice/noticeWrite")
     public String doNoticeWrite(@RequestParam("title") String title,
                                 @RequestParam("writer") String writer,
@@ -112,7 +119,7 @@ public class NoticeController {
         return "redirect:/notice";
     }
 
-    @PostMapping("/notice/delNotice")
+    @PostMapping("/delNotice")
     public String delNotice(@RequestParam("del_id") String[] delIds) {
 
         int[] ids = new int[delIds.length];

@@ -200,7 +200,6 @@ function findAddr() {
 /* 전화번호 자동완성 */ 
 var mobile = document.getElementById('mobile_1');
 
-
 mobile.onkeyup = function() {
 	console.log(this.value);
 	this.value = autoHypenPhone(this.value);
@@ -262,5 +261,23 @@ function check() {
 			"Check",
 			"width=400, height=300, top=50, left=50"
 		);
+}
+
+function email_change(){
+
+	if(document.email.options[document.join.email.selectedIndex].value == '0'){
+		document.join.email2.disabled = true;
+		document.join.email2.value = "";
+	}
+
+	if(document.email.options[document.join.email.selectedIndex].value == '9'){
+		document.join.email2.disabled = false;
+		document.join.email2.value = "";
+		document.join.email2.focus();
+
+	} else{
+		document.join.email2.disabled = true;
+		document.join.email2.value = document.join.email.options[document.join.email.selectedIndex].value;
+	}
 }
 

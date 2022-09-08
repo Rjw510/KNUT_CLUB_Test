@@ -3,35 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" href="/css/join.css">
-    <script type="text/javascript" src="/js/join.js"></script>
+    <link rel="stylesheet" th:href="@{/css/join.css}">
+    <script type="text/javascript" th:src="@{/js/join.js}"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-
 </head>
 
 <body>
-
 <!-- header -->
 <div id="header">
-    <a href="/"><img src="/img/header-logo2.jpg" id="logo"></a>
+    <a th:href="@{/}"><img th:src="@{/img/join/header-logo2.jpg}" id="logo"></a>
 </div>
 
 
 <!-- wrapper -->
 <div id="wrapper">
-    <form action="/join" name="join" method="post">
+    <form th:action="@{/check/join}" name="join" method="post">
 
         <!-- content-->
         <div id="content">
-
 
             <!-- NAME -->
             <div>
                 <h3 class="join_title"><label for="name">이름</label></h3>
                 <span class="box int_name">
-                      <input type="text" name="name" id="name" class="int" maxlength="20">
+                      <input type="text" th:field="${join.name}" id="name" class="int" maxlength="20">
                   </span>
                 <span class="error_next_box"></span>
             </div>
@@ -42,7 +38,7 @@
                     <label for="studentID">학번</label>
                 </h3>
                 <span class="box int_id">
-                        <input type="text" name="studentID" id="id" class="int" maxlength="20">
+                        <input type="text" th:field="${join.studentID}" id="id" class="int" maxlength="20">
                 </span>
                 <span class="error_next_box"></span>
             </div>
@@ -51,9 +47,9 @@
             <div>
                 <h3 class="join_title"><label for="password">비밀번호</label></h3>
                 <span class="box int_pass">
-                        <input type="password" name="password" id="pswd1" class="int" maxlength="20">
+                        <input type="password" th:field="${join.password}" id="pswd1" class="int" maxlength="20">
                         <span id="alertTxt">사용불가</span>
-                        <img src="/img/unlock2.jpg" id="pswd1_img1" class="pswdImg">
+                        <img th:src="@{/img/join/unlock2.jpg}" id="pswd1_img1" class="pswdImg">
                     </span>
                 <span class="error_next_box"></span>
             </div>
@@ -63,7 +59,7 @@
                 <h3 class="join_title"><label for="pswd2">비밀번호 재확인</label></h3>
                 <span class="box int_pass_check">
                         <input type="password" id="pswd2" class="int" maxlength="20">
-                        <img src="/img/unlock2.jpg" id="pswd2_img1" class="pswdImg">
+                        <img th:src="@{/img/join/unlock2.jpg}" id="pswd2_img1" class="pswdImg">
                     </span>
                 <span class="error_next_box"></span>
             </div>
@@ -72,7 +68,7 @@
             <div>
                 <h3 class="join_title"><label for="name">학과</label></h3>
                 <span class="box int_name">
-                        <input type="text" id="name" name="department" class="int" maxlength="20">
+                        <input type="text" id="name" th:field="${join.department}" class="int" maxlength="20">
                     </span>
                 <span class="error_next_box"></span>
             </div>
@@ -85,14 +81,14 @@
                     <!-- BIRTH_YY -->
                     <div id="bir_yy">
                             <span class="box">
-                                <input type="text" name="yy" id="yy" class="int" maxlength="4" placeholder="년(4자)">
+                                <input type="text" th:field="${join.birth_yy}" id="yy" class="int" maxlength="4" placeholder="년(4자)">
                             </span>
                     </div>
 
                     <!-- BIRTH_MM -->
                     <div id="bir_mm">
                             <span class="box">
-                                <select id="mm" name="mm" class="sel">
+                                <select id="mm" name="birth_mm" class="sel" required>
                                     <option>월</option>
                                     <option value="01">1</option>
                                     <option value="02">2</option>
@@ -113,7 +109,7 @@
                     <!-- BIRTH_DD -->
                     <div id="bir_dd">
                             <span class="box">
-                                <input type="text" name="dd" id="dd" class="int" maxlength="2" placeholder="일">
+                                <input type="text" th:field="${join.birth_dd}" id="dd" class="int" maxlength="2" placeholder="일">
                             </span>
                     </div>
 
@@ -134,47 +130,43 @@
                 <span class="error_next_box">필수 정보입니다.</span>
             </div>
 
-            <!-- EMAIL -->
+            <!--EMAIL-->
             <div>
                 <h3 class="join_title"><label for="email">이메일</label></h3>
 
                 <div id="email-wrap">
                     <div id="domain-first">
                         <span class="box">
-                            <input class="input" type="text" name="email_id" value="이메일" style="border:0 solid black;" onfocus="this.value='';">
+                            <input class="input" type="text" th:field="${join.email}" style="border:0 solid black;" onfocus="this.value='';">
                         </span>
                     </div>
-                    @
-                    <div id="domain-middle">
-                        <span class="box">
-                            <input class ="input" type="text" name="email_domain" style="border:0 solid black;" disabled >
-                        </span>
-                    </div>
-                    <div id="domain-last">
-                        <span class="box">
-                            <select name="domain" onchange="email_change(this.value)">
-                                <option value="" >선택하세요</option>
-                                <option value="1">직접입력</option>
-                                <option value="a.ut.ac.kr">a.ut.ac.kr</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="nate.com">nate.com</option>
-                                <option value="daum.com">daum.com</option>
-                                <option value="gmail.com">gmail.com</option>
-                            </select>
-                        </span>
-                    </div>
+
+<!--                    <div id="domain-middle">-->
+<!--                        <span class="box">-->
+<!--                            <input class ="input" type="text" name="email_domain" style="border:0 solid black;" disabled >-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                    <div id="domain-last">-->
+<!--                        <span class="box">-->
+<!--                            <select name="domain" onchange="email_change(this.value)">-->
+<!--                                <option value="" >선택하세요</option>-->
+<!--                                <option value="1">직접입력</option>-->
+<!--                                <option value="a.ut.ac.kr">a.ut.ac.kr</option>-->
+<!--                                <option value="naver.com">naver.com</option>-->
+<!--                                <option value="nate.com">nate.com</option>-->
+<!--                                <option value="daum.com">daum.com</option>-->
+<!--                                <option value="gmail.com">gmail.com</option>-->
+<!--                            </select>-->
+<!--                        </span>-->
+<!--                    </div>-->
                 </div>
-            </div>
-
-
-
-
+<!--            </div>-->
 
             <!-- MOBILE -->
             <div>
                 <h3 class="join_title"><label for="phoneNo">휴대전화</label></h3>
                 <span class="box int_mobile">
-                        <input type="tel" name="phone" id="mobile_1" class="int" maxlength="16">
+                        <input type="tel" th:field="${join.phone}" id="mobile_1" class="int" maxlength="16">
                     </span>
                 <!--  <span class="box int_mobile">
                      <input type="tel" name="phone_2"  id="mobile_2" class="int" maxlength="16">
@@ -190,21 +182,15 @@
                 <h3 class="join_title2">주소</h3>
                 <input id="member_post" type="button" value='주소찾기' readonly onclick="findAddr();">
 
-
                 <span class="box int_address">
-                    <input type="text" class="form-control" id="address" name="address"><br>
-
-
+                    <input type="text" class="form-control" id="address" th:field="${join.address}"><br>
                   </span>
             </div>
 
             <div>
                 <h3 class="join_title">상세 주소</h3>
-
                 <span class="box int_address">
-                    <input type="text" class="form-control" id="address" name="detailAddress"><br>
-
-
+                    <input type="text" class="form-control" id="address" th:field="${join.detailAddress}"><br>
                   </span>
             </div>
 
@@ -229,42 +215,41 @@
                     <span>가입하기</span>
                 </button>
             </div>
-    </form>
 </div>
 </div>
-<script type="text/javascript">
 
-    function email_change(){
+<!--<script type="text/javascript">-->
 
-        if(document.email.options[document.join.email.selectedIndex].value == '0'){
+<!--    function email_change(){-->
 
-            document.join.email2.disabled = true;
+<!--        if(document.email.options[document.join.email.selectedIndex].value == '0'){-->
 
-            document.join.email2.value = "";
+<!--            document.join.email2.disabled = true;-->
 
-        }
+<!--            document.join.email2.value = "";-->
 
-        if(document.email.options[document.join.email.selectedIndex].value == '9'){
+<!--        }-->
 
-            document.join.email2.disabled = false;
+<!--        if(document.email.options[document.join.email.selectedIndex].value == '9'){-->
 
-            document.join.email2.value = "";
+<!--            document.join.email2.disabled = false;-->
 
-            document.join.email2.focus();
+<!--            document.join.email2.value = "";-->
 
-        } else{
+<!--            document.join.email2.focus();-->
 
-            document.join.email2.disabled = true;
+<!--        } else{-->
 
-            document.join.email2.value = document.join.email.options[document.join.email.selectedIndex].value;
+<!--            document.join.email2.disabled = true;-->
 
-        }
+<!--            document.join.email2.value = document.join.email.options[document.join.email.selectedIndex].value;-->
 
-    }
+<!--        }-->
 
-</script>
+<!--    }-->
+
+<!--</script>-->
 
 </div>
-<script src="/js/join.js"></script>
 </body>
 </html>

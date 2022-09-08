@@ -72,64 +72,64 @@ public class MemberService {
 //        return list;
 //    }
 
-    public List<Member> getMemberProfile(String studentID) {
-
-        List<Member> list = new ArrayList<>();
-
-        String sql = "SELECT name, email, studentID, department, club FROM MEMBER WHERE studentID = ?;";
-
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, studentID);
-
-            rs = pst.executeQuery();
-
-            while (rs.next()) {
-                String name = rs.getString("name");
-                String email = rs.getString("email");
-                String department = rs.getString("department");
-                String club = rs.getString("club");
-                studentID = rs.getString("studentID");
-
-                Member member = new Member(
-                        name
-                        , email
-                        , studentID
-                        , department
-                        , club
-                );
-                list.add(member);
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            try {
-                if (rs != null)
-                    rs.close();
-
-                if (pst != null)
-                    pst.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        return list;
-    }
+//    public List<Member> getMemberProfile(String studentID) {
+//
+//        List<Member> list = new ArrayList<>();
+//
+//        String sql = "SELECT name, email, studentID, department, club FROM MEMBER WHERE studentID = ?;";
+//
+//        Connection conn = null;
+//        PreparedStatement pst = null;
+//        ResultSet rs = null;
+//
+//        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+//        String dbID = "root";
+//        String dbPassword = "root";
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+//            pst = conn.prepareStatement(sql);
+//            pst.setString(1, studentID);
+//
+//            rs = pst.executeQuery();
+//
+//            while (rs.next()) {
+//                String name = rs.getString("name");
+//                String email = rs.getString("email");
+//                String department = rs.getString("department");
+//                String club = rs.getString("club");
+//                studentID = rs.getString("studentID");
+//
+//                Member member = new Member(
+//                        name
+//                        , email
+//                        , studentID
+//                        , department
+//                        , club
+//                );
+//                list.add(member);
+//            }
+//        }
+//        catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        finally {
+//            try {
+//                if (rs != null)
+//                    rs.close();
+//
+//                if (pst != null)
+//                    pst.close();
+//
+//                if (conn != null)
+//                    conn.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        return list;
+//    }
 
     public String getMemberName(String id) {
         String name = "";

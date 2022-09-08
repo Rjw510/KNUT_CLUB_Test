@@ -178,9 +178,18 @@ section{
 
 }
 
-
-
 #studentID{
+    width: 400px;
+    margin-bottom: 50px;
+    border: none;
+    border-bottom: 2px solid rgb(109, 13, 13);
+    outline: none;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+
+#id{
     width: 400px;
     margin-bottom: 50px;
     border: none;

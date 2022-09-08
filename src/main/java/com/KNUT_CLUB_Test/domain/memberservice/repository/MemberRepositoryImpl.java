@@ -192,6 +192,67 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public void getJoin(Member member, String birth, String gender) {
+
+        List<Member> memberList = new ArrayList<>();
+
+        String sql = "INSERT INTO MEMBER(name, studentID, password, department, birth, gender, email," +
+                " phone, address, detailAddress) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        int rs = 0;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, member.getName());
+            pst.setString(2, member.getStudentID());
+            pst.setString(3, member.getPassword());
+            pst.setString(4, member.getDepartment());
+            pst.setString(5, birth);
+            pst.setString(6, gender);
+            pst.setString(7, member.getEmail());
+            pst.setString(8, member.getPhone());
+            pst.setString(9, member.getAddress());
+            pst.setString(10, member.getDetailAddress());
+
+            rs = pst.executeUpdate();
+
+//            Member member = new Member (
+//                    name
+//                    ,studentID
+//                    ,password
+//                    ,department
+//                    ,birth
+//                    ,gender
+//                    ,email
+//                    ,phone
+//                    ,address
+//                    ,detailAddress
+//            );
+            memberList.add(member);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Override
     public List<Member> getMemberProfile(String studentID) {
 
         List<Member> profile = new ArrayList<>();

@@ -44,7 +44,7 @@
             </div>
         </form>
 
-        <form th:action="@{/board/delBoard}" method="post">
+        <form action="/delBoard" method="post">
             <table class="noticetable">
                 <tr id="tableheader">
                     <th>번호</th>
@@ -55,19 +55,19 @@
                     <th scope="cols">선택</th>
                 </tr>
 
-                <tbody th:each="b : ${boardList}">
+                <tbody th:each="n : ${list}">
                 <tr>
-                    <input type="hidden" name="n" th:value="${b.num}">
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.n}">-</td>
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.title }"></td>
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.writer}">-</td>
-                    <td th:onclick="|location.href='@{/board/detail(num=${b.num})}'|" th:text="${b.date}">-</td>
+                    <input type="hidden" name="n" th:value="${n.num}">
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.n}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.title }"></td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.writer}">-</td>
+                    <td th:onclick="|location.href='@{/board/detail(num=${n.num})}'|" th:text="${n.date}">-</td>
                     <td>0</td>
-                    <th:block th:if="${session.name} == ${b.writer}">
-                        <td><input type="checkbox" name="del_id" th:value="${b.num}"></td>
+                    <th:block th:if="${session.name} == ${n.writer}">
+                        <td><input type="checkbox" name="del_id" th:value="${n.num}"></td>
                     </th:block>
-                    <th:block th:if="${session.name} != ${b.writer}">
-                        <td><input type="checkbox" name="'del_id" th:value="${b.num}" disabled></td>
+                    <th:block th:if="${session.name} != ${n.writer}">
+                        <td><input type="checkbox" name="'del_id" th:value="${n.num}" disabled></td>
                     </th:block>
                 </tr>
                 </tbody>
@@ -76,52 +76,19 @@
 </div>
 
 
-<div class="margin-top align-center pager">
-    <ul class="pagingwrap">
-        <li class="moving">
-            <div>
-                <th:block th:if="${startNum>1}">
-                    <a th:href="@{/board(p=${(startNum-1)}, search=${param.search}, word=${word})}" th:text="이전"></a>
-                </th:block>
-                <th:block th:unless="${startNum>1}">
-                    <span onclick="alert('이전 페이지가 없습니다.')" th:text="이전"></span>
-                </th:block>
-            </div>
-        </li>
+<div>
+    <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
+</div>
+</form>
+<div>
+    <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/board/boardWrite'"
+            style="float:right;" type="submit">글쓰기
+    </button>
+</div>
+</div>
 
-        <li>
-            <ul class="list">
-                <th:block th:each="i : ${#numbers.sequence(0, 4)}">
-                    <th:block th:if="${(startNum+i) <= lastNum}">
-                        <li><a th:href="@{/board(p=${startNum+i}, search=${param.search}, word=${param.word})}"
-                               th:text="${startNum+i}"></a></li>
-                    </th:block>
-                </th:block>
-            </ul>
-        </li>
-
-        <li class="moving">
-            <div>
-                <th:block th:if="${startNum+4<lastNum}">
-                    <a th:href="@{/board(p=${startNum+5}, search=${param.search}, word=${param.word})}" th:text="다음">다음</a>
-                </th:block>
-                <th:block th:if="${startNum+4>=lastNum }">
-                    <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.')">다음</span>
-                </th:block>
-            </div>
-        </li>
-    </ul>
-
-    <div class="margin-top align-center pager">
-            <button id="deletebtn" class="btn btn-danger btn-lg btn-block"  type="submit">삭제
-            </button>
-            </form>
-            <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/board/boardWrite'"
-                    type="submit">글쓰기
-            </button>
-    </div>
-
-    <!-- footer -->
-    <th:block th:insert="fragments/footer :: footerFragment"></th:block>
+<div class="footer">
+    <p>Footer</p>
+</div>
 </body>
 </html>

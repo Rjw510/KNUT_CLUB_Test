@@ -4,7 +4,7 @@
 <head>
     <title>공지사항</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" th:href="@{/css/notice.css}">
 </head>
 
 <body>
@@ -20,24 +20,25 @@
     <div class="column side">
         <ul class="sidemenu">
             <h2>Menu</h2>
-            <li id="now"><a href="/notice">공지사항</a></li>
-            <li><a href="/board">자유게시판</a></li>
-            <li><a href="/clubJoin">동아리</a></li>
-            <li><a href="/aboutClub">소개</a></li>
-            <li><a href="/event">행사</a></li>
+            <li id="now"><a th:href="@{/notice}">공지사항</a></li>
+            <li><a th:href="@{/board}">자유게시판</a></li>
+            <li><a th:href="@{/clubJoin}">동아리</a></li>
+            <li><a th:href="@{/aboutClub}">소개</a></li>
+            <li><a th:href="@{/event}">행사</a></li>
         </ul>
     </div>
 
     <div class="column middle">
-        <h1><a href="/notice">공지사항</a></h1>
+        <h1><a th:href="@{/notice}">공지사항</a></h1>
 
-        <form action="/notice" method="get">
+        <form th:action="@{/notice}" method="get">
             <div class="row">
                 <div class="col-md-8 mb-3">
                     <select id="searchBox" class="custom-select d-block w-100" name="select">
                         <option value="title" th:selected="${#strings.equals(param.select, 'title')}">제목</option>
                         <option value="writer" th:selected="${#strings.equals(param.select, 'writer')}">작성자</option>
-                    </select> <input type="text" class="form-control" name="word"
+                    </select>
+                    <input type="text" class="form-control" name="word"
                                      placeholder="검색어" th:selected="${#strings.equals(param.word, '')}" required>
                     <!--                           placeholder="" th:value="${param.word}" required>-->
                     <input type="submit" value="검색">
@@ -45,7 +46,7 @@
             </div>
         </form>
 
-        <form th:action="@{/notice/delNotice}" method="post">
+        <form th:action="@{/delNotice}" method="post">
             <table class="noticetable">
                 <tr id="tableheader">
                     <th>번호</th>
@@ -113,17 +114,17 @@
     </ul>
 
     <div class="margin-top align-center pager">
-        <th:block th:if="${session.grade == 'admin'}">
+        <th:block th:if="${session.admin == 'admin'}">
             <button id="deletebtn" class="btn btn-danger btn-lg btn-block"  type="submit">삭제
             </button>
             </form>
-            <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/notice/noticeWrite'"
+            <button id="writebtn" class="btn btn-success btn-lg btn-block" th:onclick="|location.href='@{/notice/noticeWrite}'|"
                     type="button">글쓰기
             </button>
         </th:block>
     </div>
 
-        <!-- footer -->
-        <th:block th:insert="fragments/footer :: footerFragment"></th:block>
+    <!-- footer -->
+    <th:block th:insert="fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

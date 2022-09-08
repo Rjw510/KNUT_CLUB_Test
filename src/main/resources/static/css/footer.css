@@ -1,7 +1,7 @@
 footer {
   background-color: white;
   border-top: 1px solid #333;
-  min-height: 270px;
+  margin-top: 100px;
   
 }
 footer .s_logo{
@@ -26,6 +26,7 @@ footer .s_logo img{
 footer .menu {
   display: flex;
   justify-content: center;
+
   
 }
 footer .menu li {
@@ -48,7 +49,7 @@ footer .menu li:last-child::before {
 }
 footer .menu li a {
   text-decoration: none;
-  color: #ccc;
+  color: #999;
   font-size: 12px;
   font-weight: 700;
   padding: 15px;
@@ -77,18 +78,17 @@ footer .btn-group img{
 footer .btn-group .btn:last-child {
   margin-right: 0px;
 }
-footer info_wrapper{
-  margin-left: auto;
-  margin-right: auto;
+footer .info_wrapper{
+  margin-left: 600px;
 }
 footer .info {
-  text-align: center;
-  margin-left: 500px;
+
+
 }
 footer .info span {
+  margin-right: 20px;
   color: #999;
   font-size: 12px;
-
 }
 footer .info span:last-child {
   margin-right: 0;
@@ -98,9 +98,11 @@ footer .copyright {
   font-size: 12px;
   text-align: center;
   margin-top: 30px;
-  margin-left: 500px;
+  justify-content: center;
+  margin-left: 400px;
   
 }
 footer .logo {
   margin: 30px auto 0;
 }
+

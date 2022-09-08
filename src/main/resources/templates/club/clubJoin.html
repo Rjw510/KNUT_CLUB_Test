@@ -47,11 +47,11 @@
                 <input type="submit" value="조회">
             </form>
         <div class="products" >
-            <th:block th:each="c : ${clubList}">
+            <th:block th:each="n : ${list}">
             <div class="tag_wrap">
-                <a th:href="@{/clubJoin/detail(num=${c.num})}">
-                    <img th:src="${c.img}">
-                    <p class="name" th:text="${c.name}"></p>
+                <a th:href="@{/clubJoin/detail(num=${n.num})}">
+                    <img th:src="${n.img}">
+                    <p class="name" th:text="${n.name}"></p>
     <!--                <p class="price" th:text="${n.activity} + '동아리'"></p>-->
                 </a>
             </div>
@@ -61,8 +61,9 @@
     </div>
 </div>
 
-<!-- footer -->
-<th:block th:insert="/fragments/footer :: footerFragment"></th:block>
+<div class="footer">
+    <p>Footer</p>
+</div>
 
 </body>
 </html>

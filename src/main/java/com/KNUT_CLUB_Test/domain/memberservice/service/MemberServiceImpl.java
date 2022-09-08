@@ -34,6 +34,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public void getJoin(Member member, String birth, String gender) {
+        memberRepository.getJoin(member, birth, gender);
+    }
+
+    @Override
     public List<Member> getMemberProfile(String studentID) {
         return memberRepository.getMemberProfile(studentID);
     }

@@ -476,3 +476,25 @@ input[id="menuicon"]:checked + ul + div {
 .login{
     margin-right: 20px;
 }
+
+/* 조회수 */
+button{
+    min-width: 40px;
+    min-height: 40px;
+    background: none;
+    border: none;
+}
+
+.thimg{
+    width: 30px;
+    height: 30px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.thimg:hover{
+    -webkit-transform: scale(1.3);
+    transform: scale(1.3);
+}
