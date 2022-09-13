@@ -102,6 +102,94 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
+    public String getMemberEmail(String studentID) {
+        String email = "";
+
+        String sql = "SELECT email FROM MEMBER WHERE studentID = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, studentID);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                email = rs.getString("email");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return email;
+    }
+
+    @Override
+    public String getMemberDepartment(String studentID) {
+        String department = "";
+
+        String sql = "SELECT department FROM MEMBER WHERE studentID = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, studentID);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                department = rs.getString("department");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return department;
+    }
+
+    @Override
     public String getMemberClub(String studentID) {
 
         String club = "";
@@ -147,9 +235,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public String getMemberGrade(String studentID) {
+    public boolean getMemberGrade(String studentID) {
 
-        String authority = "";
+        boolean grade = false;
 
         String sql = "SELECT grade FROM MEMBER WHERE studentID = ?";
 
@@ -168,7 +256,7 @@ public class MemberRepositoryImpl implements MemberRepository {
             rs = pst.executeQuery();
 
             if(rs.next()) {
-                authority = rs.getString("grade");
+                grade = rs.getBoolean("grade");
             }
         }
         catch (Exception e) {
@@ -188,16 +276,17 @@ public class MemberRepositoryImpl implements MemberRepository {
                 System.out.println(e);
             }
         }
-        return authority;
+        return grade;
     }
 
     @Override
-    public void getJoin(Member member, String birth, String gender) {
+    public boolean getJoin(Member member, String birth, String gender) {
 
         List<Member> memberList = new ArrayList<>();
+        boolean check = false;
 
         String sql = "INSERT INTO MEMBER(name, studentID, password, department, birth, gender, email," +
-                " phone, address, detailAddress) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " phone, address, detailAddress, grade) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -222,21 +311,17 @@ public class MemberRepositoryImpl implements MemberRepository {
             pst.setString(9, member.getAddress());
             pst.setString(10, member.getDetailAddress());
 
-            rs = pst.executeUpdate();
-
-//            Member member = new Member (
-//                    name
-//                    ,studentID
-//                    ,password
-//                    ,department
-//                    ,birth
-//                    ,gender
-//                    ,email
-//                    ,phone
-//                    ,address
-//                    ,detailAddress
-//            );
-            memberList.add(member);
+            if (member.getName().equals("") || member.getStudentID().equals("") || member.getPassword().equals("") ||
+                    member.getDepartment().equals("") || birth.equals("") || gender.equals("") ||
+                    member.getEmail().equals("") || member.getPhone().equals("") || member.getAddress().equals("") ||
+                    member.getDetailAddress().equals("") ) {
+                check = false;
+            }
+            else {
+                rs = pst.executeUpdate();
+                memberList.add(member);
+                check =  true;
+            }
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -250,6 +335,7 @@ public class MemberRepositoryImpl implements MemberRepository {
                 System.out.println(e);
             }
         }
+        return check;
     }
 
     @Override
@@ -257,7 +343,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 
         List<Member> profile = new ArrayList<>();
 
-        String sql = "SELECT name, email, studentID, department, club FROM MEMBER WHERE studentID = ?;";
+        String sql = "SELECT name, email, studentID, department, club, grade FROM MEMBER WHERE studentID = ?;";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -278,9 +364,11 @@ public class MemberRepositoryImpl implements MemberRepository {
             while (rs.next()) {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
+                studentID = rs.getString("studentID");
                 String department = rs.getString("department");
                 String club = rs.getString("club");
-                studentID = rs.getString("studentID");
+                boolean grade = rs.getBoolean("grade");
+
 
                 Member member = new Member(
                         name
@@ -288,6 +376,7 @@ public class MemberRepositoryImpl implements MemberRepository {
                         , studentID
                         , department
                         , club
+                        , grade
                 );
                 profile.add(member);
             }
@@ -313,7 +402,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public void getMemberUpdate(Member member) {
+    public void getMemberUpdate(String name,String studentID,String email,String department,String club) {
 
         String sql = "UPDATE MEMBER SET name = ?, studentID = ?, email = ?, department = ?, club = ? WHERE studentID = ?";
 
@@ -328,12 +417,12 @@ public class MemberRepositoryImpl implements MemberRepository {
         try {
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
-            pst.setString(1, member.getName());
-            pst.setString(2, member.getStudentID());
-            pst.setString(3, member.getEmail());
-            pst.setString(4, member.getDepartment());
-            pst.setString(5, member.getClub());
-            pst.setString(6, member.getStudentID());
+            pst.setString(1, name);
+            pst.setString(2, studentID);
+            pst.setString(3, email);
+            pst.setString(4, department);
+            pst.setString(5, club);
+            pst.setString(6, studentID);
             int rs = pst.executeUpdate();
         }
         catch (Exception e) {
@@ -389,314 +478,314 @@ public class MemberRepositoryImpl implements MemberRepository {
         }
     }
 
-    @Override
-    public List<Member> getMemberList(String club, int page) {
-
-        List<Member> memberList = new ArrayList<>();
-
-        String sql = "SELECT @ROWNUM := @ROWNUM + 1 AS n, MEMBER.* " +
-                "FROM MEMBER, (SELECT @ROWNUM := ?)TMP WHERE club = ? and grade = '회원'";
-
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            pst = conn.prepareStatement(sql);
-            pst.setInt(1, (page - 1) * 10);
-            pst.setString(2, club);
-            rs = pst.executeQuery();
-
-            while(rs.next()) {
-                int n = rs.getInt("n");
-                int num = rs.getInt("num");
-                String name  = rs.getString("name");
-                String studentID = rs.getString("studentID");
-                String department = rs.getString("department");
-                String phone = rs.getString("phone");
-                club = rs.getString("club");
-
-                Member member = new Member(
-                    n
-                    , num
-                    , name
-                    , studentID
-                    , department
-                    , phone
-                    ,club
-                );
-                memberList.add(member);
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            try {
-                if (rs != null)
-                    rs.close();
-
-                if (pst != null)
-                    pst.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        return memberList;
-    }
-
-    @Override
-    public List<Member> getPermissionList(String club, int page) {
-        List<Member> memberList = new ArrayList<>();
-
-        String sql = "SELECT @ROWNUM := @ROWNUM + 1 AS n, MEMBER.* " +
-                "FROM MEMBER, (SELECT @ROWNUM := ?)TMP WHERE club = ? and grade = '비회원'";
-
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            pst = conn.prepareStatement(sql);
-            pst.setInt(1, (page - 1) * 10);
-            pst.setString(2, club);
-            rs = pst.executeQuery();
-
-            while(rs.next()) {
-                int n = rs.getInt("n");
-                int num = rs.getInt("num");
-                String name  = rs.getString("name");
-                String studentID = rs.getString("studentID");
-                String department = rs.getString("department");
-                String phone = rs.getString("phone");
-                club = rs.getString("club");
-
-                Member member = new Member(
-                        n
-                        , num
-                        , name
-                        , studentID
-                        , department
-                        , phone
-                        ,club
-                );
-                memberList.add(member);
-            }
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            try {
-                if (rs != null)
-                    rs.close();
-
-                if (pst != null)
-                    pst.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        return memberList;
-    }
-
-
-    @Override
-    public int getMemberCount(String club) {
-        int count = 0;
-
-        String sql = "SELECT COUNT(num) as count FROM MEMBER WHERE club = ? and grade = '회원'";
-
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, club);
-            rs = pst.executeQuery();
-
-            if(rs.next())
-                count = rs.getInt("count");
-
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-
-                if (pst != null)
-                    pst.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        return count;
-    }
-
-    @Override
-    public int getPermissionCount(String club) {
-        int count = 0;
-
-        String sql = "SELECT COUNT(num) as count FROM MEMBER WHERE club = ? and grade = '비회원'";
-
-        Connection conn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, club);
-            rs = pst.executeQuery();
-
-            if(rs.next())
-                count = rs.getInt("count");
-
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-
-                if (pst != null)
-                    pst.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        return count;
-    }
-
-    @Override
-    public int delMemberAll(int[] ids) {
-        int result = 0;
-
-        String params = "";
-
-        for (int i=0; i<ids.length; i++) {
-            params += ids[i];
-            if(i<ids.length-1)
-                params += ",";
-        }
-
-        String sql = "UPDATE MEMBER SET club = '', motive = '', authority = 4 WHERE num IN ("+params+")";
-
-        Connection conn = null;
-        Statement st = null;
-        ResultSet rs = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            st = conn.createStatement();
-
-            result = st.executeUpdate(sql);
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-
-                if (st != null)
-                    st.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public int delNonMemberAll(int[] ids) {
-        int result = 0;
-
-        String params = "";
-
-        for (int i=0; i<ids.length; i++) {
-            params += ids[i];
-            if(i<ids.length-1)
-                params += ",";
-        }
-
-        String sql = "UPDATE MEMBER SET club = '', motive = '', authority = 4 WHERE num IN ("+params+")";
-
-        Connection conn = null;
-        Statement st = null;
-        ResultSet rs = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            st = conn.createStatement();
-
-            result = st.executeUpdate(sql);
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-
-                if (st != null)
-                    st.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        return result;
-    }
-
+//    @Override
+//    public List<Member> getMemberList(String club, int page) {
+//
+//        List<Member> memberList = new ArrayList<>();
+//
+//        String sql = "SELECT @ROWNUM := @ROWNUM + 1 AS n, MEMBER.* " +
+//                "FROM MEMBER, (SELECT @ROWNUM := ?)TMP WHERE club = ? and grade = '회원'";
+//
+//        Connection conn = null;
+//        PreparedStatement pst = null;
+//        ResultSet rs = null;
+//
+//        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+//        String dbID = "root";
+//        String dbPassword = "root";
+//
+//        try {
+//            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+//            pst = conn.prepareStatement(sql);
+//            pst.setInt(1, (page - 1) * 10);
+//            pst.setString(2, club);
+//            rs = pst.executeQuery();
+//
+//            while(rs.next()) {
+//                int n = rs.getInt("n");
+//                int num = rs.getInt("num");
+//                String name  = rs.getString("name");
+//                String studentID = rs.getString("studentID");
+//                String department = rs.getString("department");
+//                String phone = rs.getString("phone");
+//                club = rs.getString("club");
+//
+//                Member member = new Member(
+//                    n
+//                    , num
+//                    , name
+//                    , studentID
+//                    , department
+//                    , phone
+//                    ,club
+//                );
+//                memberList.add(member);
+//            }
+//        }
+//        catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        finally {
+//            try {
+//                if (rs != null)
+//                    rs.close();
+//
+//                if (pst != null)
+//                    pst.close();
+//
+//                if (conn != null)
+//                    conn.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        return memberList;
+//    }
+//
+//    @Override
+//    public List<Member> getPermissionList(String club, int page) {
+//        List<Member> memberList = new ArrayList<>();
+//
+//        String sql = "SELECT @ROWNUM := @ROWNUM + 1 AS n, MEMBER.* " +
+//                "FROM MEMBER, (SELECT @ROWNUM := ?)TMP WHERE club = ? and grade = '비회원'";
+//
+//        Connection conn = null;
+//        PreparedStatement pst = null;
+//        ResultSet rs = null;
+//
+//        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+//        String dbID = "root";
+//        String dbPassword = "root";
+//
+//        try {
+//            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+//            pst = conn.prepareStatement(sql);
+//            pst.setInt(1, (page - 1) * 10);
+//            pst.setString(2, club);
+//            rs = pst.executeQuery();
+//
+//            while(rs.next()) {
+//                int n = rs.getInt("n");
+//                int num = rs.getInt("num");
+//                String name  = rs.getString("name");
+//                String studentID = rs.getString("studentID");
+//                String department = rs.getString("department");
+//                String phone = rs.getString("phone");
+//                club = rs.getString("club");
+//
+//                Member member = new Member(
+//                        n
+//                        , num
+//                        , name
+//                        , studentID
+//                        , department
+//                        , phone
+//                        ,club
+//                );
+//                memberList.add(member);
+//            }
+//        }
+//        catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        finally {
+//            try {
+//                if (rs != null)
+//                    rs.close();
+//
+//                if (pst != null)
+//                    pst.close();
+//
+//                if (conn != null)
+//                    conn.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        return memberList;
+//    }
+//
+//
+//    @Override
+//    public int getMemberCount(String club) {
+//        int count = 0;
+//
+//        String sql = "SELECT COUNT(num) as count FROM MEMBER WHERE club = ? and grade = '회원'";
+//
+//        Connection conn = null;
+//        PreparedStatement pst = null;
+//        ResultSet rs = null;
+//
+//        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+//        String dbID = "root";
+//        String dbPassword = "root";
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+//            pst = conn.prepareStatement(sql);
+//            pst.setString(1, club);
+//            rs = pst.executeQuery();
+//
+//            if(rs.next())
+//                count = rs.getInt("count");
+//
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        } finally {
+//            try {
+//                if (rs != null)
+//                    rs.close();
+//
+//                if (pst != null)
+//                    pst.close();
+//
+//                if (conn != null)
+//                    conn.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        return count;
+//    }
+//
+//    @Override
+//    public int getPermissionCount(String club) {
+//        int count = 0;
+//
+//        String sql = "SELECT COUNT(num) as count FROM MEMBER WHERE club = ? and grade = '비회원'";
+//
+//        Connection conn = null;
+//        PreparedStatement pst = null;
+//        ResultSet rs = null;
+//
+//        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+//        String dbID = "root";
+//        String dbPassword = "root";
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+//            pst = conn.prepareStatement(sql);
+//            pst.setString(1, club);
+//            rs = pst.executeQuery();
+//
+//            if(rs.next())
+//                count = rs.getInt("count");
+//
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        } finally {
+//            try {
+//                if (rs != null)
+//                    rs.close();
+//
+//                if (pst != null)
+//                    pst.close();
+//
+//                if (conn != null)
+//                    conn.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        return count;
+//    }
+//
+//    @Override
+//    public int delMemberAll(int[] ids) {
+//        int result = 0;
+//
+//        String params = "";
+//
+//        for (int i=0; i<ids.length; i++) {
+//            params += ids[i];
+//            if(i<ids.length-1)
+//                params += ",";
+//        }
+//
+//        String sql = "UPDATE MEMBER SET club = '', motive = '', authority = 4 WHERE num IN ("+params+")";
+//
+//        Connection conn = null;
+//        Statement st = null;
+//        ResultSet rs = null;
+//
+//        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+//        String dbID = "root";
+//        String dbPassword = "root";
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+//            st = conn.createStatement();
+//
+//            result = st.executeUpdate(sql);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        } finally {
+//            try {
+//                if (rs != null)
+//                    rs.close();
+//
+//                if (st != null)
+//                    st.close();
+//
+//                if (conn != null)
+//                    conn.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        return result;
+//    }
+//
+//    @Override
+//    public int delNonMemberAll(int[] ids) {
+//        int result = 0;
+//
+//        String params = "";
+//
+//        for (int i=0; i<ids.length; i++) {
+//            params += ids[i];
+//            if(i<ids.length-1)
+//                params += ",";
+//        }
+//
+//        String sql = "UPDATE MEMBER SET club = '', motive = '', authority = 4 WHERE num IN ("+params+")";
+//
+//        Connection conn = null;
+//        Statement st = null;
+//        ResultSet rs = null;
+//
+//        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+//        String dbID = "root";
+//        String dbPassword = "root";
+//
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+//            st = conn.createStatement();
+//
+//            result = st.executeUpdate(sql);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        } finally {
+//            try {
+//                if (rs != null)
+//                    rs.close();
+//
+//                if (st != null)
+//                    st.close();
+//
+//                if (conn != null)
+//                    conn.close();
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//        }
+//        return result;
+//    }
+//
     @Override
     public List<Member> getMemberClubJoin(String studentID) {
         List<Member> memberList = new ArrayList<>();

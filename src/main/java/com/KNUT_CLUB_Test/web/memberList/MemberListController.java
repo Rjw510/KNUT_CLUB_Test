@@ -1,5 +1,6 @@
 package com.KNUT_CLUB_Test.web.memberList;
 
+import com.KNUT_CLUB_Test.domain.adminservice.service.AdminService;
 import com.KNUT_CLUB_Test.domain.memberservice.ManageService;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
@@ -18,16 +19,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberListController {
 
-    private final MemberService memberService;
+    private final AdminService adminService;
 
     @GetMapping("/memberList")
-    public String goMemberList(@RequestParam(value = "search", required = false) String field_,
+    public String goMemberList(@RequestParam(value = "select", required = false) String field_,
                                @RequestParam(value = "word", required = false) String query_,
                                @RequestParam(value = "p", required = false) String page_,
                                HttpSession session,
                                Model model) {
 
-        String field = "title";
+        String field = "name";
         if (field_ != null && !field_.equals(""))
             field = field_;
 
@@ -39,10 +40,11 @@ public class MemberListController {
         if (page_ != null && !page_.equals(""))
             page = Integer.parseInt(page_);
 
-        String club = String.valueOf(session.getAttribute("club"));
+        String id = (String) session.getAttribute("id");
+        String club = adminService.getAdminClub(id);
 
-        List<Member> memberList = memberService.getMemberList(club, page);
-        int count = memberService.getMemberCount(club);
+        List<Member> memberList = adminService.getMemberList(club, field, query, page);
+        int count = adminService.getMemberCount(club, field, query);
         int startNum = page - (page - 1) % 5;
         int lastNum = (int) Math.ceil(count / 10);
 
@@ -56,26 +58,26 @@ public class MemberListController {
         return "memberList/memberList";
     }
 
-    @PostMapping("/delMember")
+    @PostMapping("/memberList/delMember")
     public String delMember(@RequestParam("del_id") String[] delIds) {
         int[] ids = new int[delIds.length];
 
         for (int i = 0; i < delIds.length; i++)
             ids[i] = Integer.parseInt(delIds[i]);
 
-        int result = memberService.delMemberAll(ids);
+        int result = adminService.delMemberAll(ids);
 
         return "redirect:/memberList";
     }
 
     @GetMapping("/permissionList")
-    public String goPermissionList(@RequestParam(value = "search", required = false) String field_,
+    public String goPermissionList(@RequestParam(value = "select", required = false) String field_,
                                    @RequestParam(value = "word", required = false) String query_,
                                    @RequestParam(value = "p", required = false) String page_,
                                    HttpSession session,
                                    Model model) {
 
-        String field = "title";
+        String field = "name";
         if (field_ != null && !field_.equals(""))
             field = field_;
 
@@ -87,23 +89,23 @@ public class MemberListController {
         if (page_ != null && !page_.equals(""))
             page = Integer.parseInt(page_);
 
-        String club = String.valueOf(session.getAttribute("club"));
+        String id = (String) session.getAttribute("id");
+        String club = adminService.getAdminClub(id);
 
-        List<Member> memberList = memberService.getPermissionList(club, page);
-        int count = memberService.getPermissionCount(club);
+        List<Member> permissionList = adminService.getPermissionList(club, field, query, page);
+        int count = adminService.getPermissionCount(club, field, query);
         int startNum = page - (page - 1) % 5;
         int lastNum = (int) Math.ceil(count / 10);
 
         if (count % 10 != 0)
             lastNum = lastNum + 1;
 
-        model.addAttribute("memberList", memberList);
+        model.addAttribute("permissionList", permissionList);
         model.addAttribute("startNum", startNum);
         model.addAttribute("lastNum", lastNum);
 
-        return "memberList/memberList";
+        return "memberList/permissionList";
     }
-
 //    @PostMapping("/permissionMember")
 //    public String permissionMember(@RequestParam("permission_id") String[] permissionIds) {
 //        int[] ids = new int[permissionIds.length];
@@ -116,15 +118,15 @@ public class MemberListController {
 //        return "redirect:/permissionList";
 //    }
 
-    @PostMapping("/delNonMember")
+    @PostMapping("/permissionList/delNonMember")
     public String delNonMember(@RequestParam("permission_id") String[] permissionIds) {
         int[] ids = new int[permissionIds.length];
 
         for (int i = 0; i < permissionIds.length; i++)
             ids[i] = Integer.parseInt(permissionIds[i]);
 
-        int result = memberService.delNonMemberAll(ids);
+        int result = adminService.delNonMemberAll(ids);
 
-        return "redirect:/memberList";
+        return "redirect:/permissionList";
     }
 }

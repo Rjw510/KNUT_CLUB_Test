@@ -16,6 +16,7 @@ public class Notice {
     private Date date;
     private String content;
     private int views;
+    private boolean chk;
 
     public Notice(String title, String writer, String content) {
         this.title = title;
@@ -30,6 +31,33 @@ public class Notice {
         this.writer = writer;
         this.date = date;
         this.views = views;
+    }
+
+    public Notice(int num, String title, String writer, Date date, String content, int views, boolean chk) {
+        this.num = num;
+        this.title = title;
+        this.writer = writer;
+        this.date = date;
+        this.content = content;
+        this.views = views;
+        this.chk = chk;
+    }
+
+    public Notice(String title, String writer, String content, boolean chk) {
+        this.title = title;
+        this.writer = writer;
+        this.content = content;
+        this.chk = chk;
+    }
+
+    public Notice(int n, int num, String title, String writer, Date date, int views, boolean chk) {
+        this.n = n;
+        this.num = num;
+        this.title = title;
+        this.writer = writer;
+        this.date = date;
+        this.views = views;
+        this.chk = chk;
     }
 
     public Notice(int num, String title, String writer, Date date, String content, int views) {

@@ -1,7 +1,9 @@
 package com.KNUT_CLUB_Test.web.event;
 
-import com.KNUT_CLUB_Test.domain.event.Event;
-import com.KNUT_CLUB_Test.domain.event.EventService;
+
+
+import com.KNUT_CLUB_Test.domain.eventsrvice.Event;
+import com.KNUT_CLUB_Test.domain.eventsrvice.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventController {
 
+    private final EventService eventService;
+
     @GetMapping("/event")
-    public String goEvent(@RequestParam(value = "select", required = false) String field_, @RequestParam(value = "campus", required = false) String query_, @RequestParam(value = "type", required = false) String query2_,
-                             @RequestParam(value = "p", required = false) String page_, Model model) {
+    public String goEvent(@RequestParam(value = "select", required = false) String field_,
+                          @RequestParam(value = "campus", required = false) String query_,
+                          @RequestParam(value = "type", required = false) String query2_,
+                          @RequestParam(value = "p", required = false) String page_, Model model) {
 
         String field = "campus";
         if (field_ != null && !field_.equals(""))
@@ -38,11 +44,25 @@ public class EventController {
         if (page_ != null && !page_.equals(""))
             page = Integer.parseInt(page_);
 
-        EventService service = new EventService();
-        List<Event> list = service.getEventList(field, field2, query, query2, page);
+        List<Event> list = eventService.getEventList(field, field2, query, query2, page);
 
         model.addAttribute("list", list);
         model.addAttribute("page", page_);
         return "event/event";
+    }
+
+    @GetMapping("/event/detail")
+    public String goClubDetail(@RequestParam("num") int num,
+                               Model model) {
+
+        List<Event> eventList = eventService.getEventDetail(num);
+        model.addAttribute("eventList", eventList);
+
+        return "/event/detail/eventDetail";
+    }
+
+    @GetMapping("/event/write")
+    public String goEventWrite() {
+        return "/event/eventWrite";
     }
 }

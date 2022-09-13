@@ -1,10 +1,8 @@
-package com.KNUT_CLUB_Test.domain.event;
+package com.KNUT_CLUB_Test.domain.eventsrvice;
 
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Getter
 @Setter
@@ -23,6 +21,14 @@ public class Event {
         this.num = num;
         this.name = name;
         this.date = date;
+        this.img = img;
+    }
+
+    /* eventDetail */
+    public Event(String name, String introduce, String promotion, String img) {
+        this.name = name;
+        this.introduce = introduce;
+        this.promotion = promotion;
         this.img = img;
     }
 }

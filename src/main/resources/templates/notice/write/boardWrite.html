@@ -14,6 +14,7 @@
 
     <!--    JavaScript-->
     <script type="text/javascript" src="/js/summerNote.js"></script>
+    <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
 
     <title>동아리 관리 프로그램</title>
 </head>
@@ -21,7 +22,7 @@
 <article>
     <div class="container" role="main">
         <h2>자유게시판 글쓰기</h2>
-        <form name="form" id="form" role="form" method="post" action="/board/boardWrite">
+        <form name="form" id="form" role="form" method="post" action="/board/boardWrite" onsubmit="return writeCheck()">
             <div class="mb-3">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
@@ -29,7 +30,7 @@
             <div class="mb-3">
                 <label for="writer">작성자</label>
                 <input type="text" class="form-control" name="writer" id="writer" th:value="${session.name}" readonly>
-                <input onclick="change()" type="checkbox" value="익명" id="anonymous"> 익명
+                <input type="checkbox" th:field="${anonymous.chk}" th:text="익명">
             </div>
             <!-- <div class="mb-3">
                  <label for="content">내용</label>

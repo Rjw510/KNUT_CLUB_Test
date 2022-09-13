@@ -21,4 +21,9 @@ public class ClubServiceImpl implements ClubService{
     public List<Club> getClubDetail(int num) {
         return clubRepository.getClubDetail(num);
     }
+
+    @Override
+    public void joinClub(String id, String club, String motive) {
+        clubRepository.joinClub(id, club, motive);
+    }
 }

@@ -10,29 +10,21 @@ public interface MemberRepository {
 
     String getMemberName(String studentID);
 
+    String getMemberEmail(String studentID);
+
+    String getMemberDepartment(String studentID);
+
     String getMemberClub(String studentID);
 
-    String getMemberGrade(String studentID);
+    boolean getMemberGrade(String studentID);
 
-    void getJoin(Member member,String birth,String gender);
+    boolean getJoin(Member member,String birth,String gender);
 
     List<Member> getMemberProfile(String studentID);
 
-    void getMemberUpdate(Member member);
+    void getMemberUpdate(String name,String studentID,String email,String department,String club);
 
     void getMemberDelete(String studentID);
-
-    List<Member> getMemberList(String club, int page);
-
-    List<Member> getPermissionList(String club, int page);
-
-    int getMemberCount(String club);
-
-    int getPermissionCount(String club);
-
-    int delMemberAll(int[] ids);
-
-    int delNonMemberAll(int[] ids);
 
     List<Member> getMemberClubJoin(String studentID);
 

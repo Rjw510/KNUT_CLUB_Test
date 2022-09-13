@@ -39,10 +39,10 @@
                     <option value="의왕" th:selected="${#strings.equals(param.campus, 'uiwang')}">의왕</option>
                     <option value="전국" th:selected="${#strings.equals(param.campus, 'nationwide')}">전국</option>
                 </select>
-                <select name="category">
+                <select name="type">
                     <option value="basic">종류 선택</option>
-                    <option value="competition">대회</option>
-                    <option value="show">공연</option>
+                    <option value="대회">대회</option>
+                    <option value="공연">공연</option>
                 </select>
                 <input type="submit" value="조회">
             </form>
@@ -107,9 +107,8 @@
     </div>
 </div>
 
-<div class="footer">
-    <p>Footer</p>
-</div>
+<!-- footer -->
+<th:block th:insert="fragments/footer :: footerFragment"></th:block>
 
 </body>
 </html>

@@ -17,7 +17,6 @@ public class Club {
     private String promotion;
     private String img;
 
-    // ClubDetail
     public Club(String campus, String type, String name, String activity,
                 String introduce, String promotion, String img) {
         this.campus = campus;

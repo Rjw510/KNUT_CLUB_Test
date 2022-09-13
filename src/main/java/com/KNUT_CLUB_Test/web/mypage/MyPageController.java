@@ -10,10 +10,7 @@ import com.KNUT_CLUB_Test.domain.noticeservice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,13 +24,16 @@ public class MyPageController {
     private final MemberService memberService;
     private final NoticeService noticeService;
 
+    /* 회원 마이페이지 이동 */
     @GetMapping
     public String goMyPage(HttpSession session, Model model) {
 
         String studentID = (String) session.getAttribute("id");
 
         if (studentID == null) {
-            return "/login";
+            model.addAttribute("message", "로그인 후 이용부탁드립니다.");
+            model.addAttribute("url", "/index");
+            return "/alert";
         }
         else {
             List<Member> profile = memberService.getMemberProfile(studentID);
@@ -42,6 +42,7 @@ public class MyPageController {
         }
     }
 
+    /* 관리자 마이페이지 이동 */
     @GetMapping("/admin")
     public String goMyPageAdmin(HttpSession session, Model model) {
 
@@ -56,6 +57,7 @@ public class MyPageController {
         }
     }
 
+    /* 회원 마이페이지 이동 */
     @GetMapping("/update")
     public String goMypageUpdate(HttpSession session, Model model) {
 
@@ -67,11 +69,33 @@ public class MyPageController {
         return "/mypage/update";
     }
 
-    /* 회원 마이페이지 정보 수정 */    // 현재 하나의 정보만 변경하는 것이 불가능 -> 수정 필요
+    /* 회원 마이페이지 정보 수정 */
     @PostMapping("/update")
-    public String doMyPageUpdate(@ModelAttribute Member member) {
+    public String doMyPageUpdate(@RequestParam("name") String name,
+                                 @RequestParam("email") String email,
+                                 @RequestParam("department") String department,
+                                 @RequestParam("club") String club,
+                                 HttpSession session) {
 
-        memberService.getMemberUpdate(member);
+        String studentID = (String) session.getAttribute("id");
+
+        if (name.equals("")) {
+            name = memberService.getMemberName(studentID);
+        }
+
+        if (email.equals("")) {
+            email = memberService.getMemberEmail(studentID);
+        }
+
+        if (department.equals("")) {
+            department = memberService.getMemberDepartment(studentID);
+        }
+
+        if (club.equals("")) {
+            club = memberService.getMemberClub(studentID);
+        }
+
+        memberService.getMemberUpdate(name, studentID, email, department, club);
         return "redirect:/mypage";
     }
 

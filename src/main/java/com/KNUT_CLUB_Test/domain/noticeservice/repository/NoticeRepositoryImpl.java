@@ -80,8 +80,8 @@ public class NoticeRepositoryImpl implements NoticeRepository {
 
         List<Notice> boardList = new ArrayList<>();
 
-        String sql = "SELECT @ROWNUM := @ROWNUM +1 AS n, NOTICE.*"
-                + " FROM NOTICE, (SELECT @ROWNUM := 0)TMP ORDER BY date DESC limit 5;";
+        String sql = "SELECT @ROWNUM := @ROWNUM +1 AS n, BOARD.*"
+                + " FROM BOARD, (SELECT @ROWNUM := 0)TMP ORDER BY date DESC limit 5;";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -237,6 +237,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
                 int views = rs.getInt("views");
+                boolean chk = rs.getBoolean("anonymous");
 
                 Notice notice = new Notice(
                         n
@@ -245,6 +246,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                         , writer
                         , date
                         , views
+                        , chk
                 );
                 boardList.add(notice);
             }
@@ -444,6 +446,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 Date date = rs.getDate("date");
                 String content = rs.getString("content");
                 int views = rs.getInt("views");
+                boolean chk = rs.getBoolean("anonymous");
 
                 Notice notice = new Notice(
                         num
@@ -452,6 +455,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                         , date
                         , content
                         , views
+                        , chk
                 );
                 list.add(notice);
             }
@@ -525,10 +529,12 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     @Override
-    public List<Notice> writeBoard(String title, String writer, String content) {
+    public List<Notice> writeBoard(String title, String writer, String content, boolean chk) {
         List<Notice> boardWrite= new ArrayList<>();
 
-        String sql = "INSERT INTO BOARD(title, writer, content) VALUES (?, ?, ?)";
+        String anonymous = "익명";
+
+        String sql = "INSERT INTO BOARD(title, writer, content, anonymous) VALUES (?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -544,6 +550,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             pst.setString(1, title);
             pst.setString(2, writer);
             pst.setString(3, content);
+            pst.setBoolean(4, chk);
 
 
             int rs = pst.executeUpdate();
@@ -552,6 +559,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                     title
                     , writer
                     , content
+                    , chk
             );
             boardWrite.add(notice);
 
@@ -776,10 +784,10 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     @Override
-    public void getNoticeUpdate(String content, int num) {
+    public void getNoticeUpdate(String title, String content, int num) {
         List<Notice> list = new ArrayList<>();
 
-        String sql = "UPDATE NOTICE SET content = ? WHERE num = ?";
+        String sql = "UPDATE NOTICE SET title = ?, content = ? WHERE num = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -792,8 +800,9 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         try {
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
-            pst.setString(1, content);
-            pst.setInt(2, num);
+            pst.setString(1, title);
+            pst.setString(2, content);
+            pst.setInt(3, num);
             int rs = pst.executeUpdate();
         }
         catch (Exception e) {
@@ -813,10 +822,10 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     @Override
-    public void getBoardUpdate(String content, int num) {
+    public void getBoardUpdate(String title, String content, int num, boolean chk) {
         List<Notice> list = new ArrayList<>();
 
-        String sql = "UPDATE BOARD SET content = ? WHERE num = ?";
+        String sql = "UPDATE BOARD SET title = ?, content = ?, anonymous = ? WHERE num = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -829,8 +838,11 @@ public class NoticeRepositoryImpl implements NoticeRepository {
         try {
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
-            pst.setString(1, content);
-            pst.setInt(2, num);
+            pst.setString(1, title);
+            pst.setString(2, content);
+            pst.setBoolean(3, chk);
+            pst.setInt(4, num);
+
             int rs = pst.executeUpdate();
         }
         catch (Exception e) {
@@ -847,5 +859,91 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 System.out.println(e);
             }
         }
+    }
+
+    @Override
+    public String getNoticeWriter(int num) {
+        String writer = "";
+        String sql = "SELECT writer FROM NOTICE WHERE num = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, num);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                writer = rs.getString("writer");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return writer;
+    }
+
+    @Override
+    public String getBoardWriter(int num) {
+        String writer = "";
+        String sql = "SELECT writer FROM BOARD WHERE num = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, num);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                writer = rs.getString("writer");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return writer;
     }
 }

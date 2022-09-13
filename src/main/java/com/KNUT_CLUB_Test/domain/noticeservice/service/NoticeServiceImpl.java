@@ -59,8 +59,8 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public List<Notice> writeBoard(String title, String writer, String content) {
-        return noticeRepository.writeBoard(title, writer, content);
+    public List<Notice> writeBoard(String title, String writer, String content, boolean chk) {
+        return noticeRepository.writeBoard(title, writer, content, chk);
     }
 
     @Override
@@ -89,12 +89,22 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public void getNoticeUpdate(String content, int num) {
-        noticeRepository.getNoticeUpdate(content, num);
+    public void getNoticeUpdate(String title, String content, int num) {
+        noticeRepository.getNoticeUpdate(title, content, num);
     }
 
     @Override
-    public void getBoardUpdate(String content, int num) {
-        noticeRepository.getBoardUpdate(content, num);
+    public void getBoardUpdate(String title, String content, int num, boolean chk) {
+        noticeRepository.getBoardUpdate(title, content, num, chk);
+    }
+
+    @Override
+    public String getNoticeWriter(int num) {
+        return noticeRepository.getNoticeWriter(num);
+    }
+
+    @Override
+    public String getBoardWriter(int num) {
+        return noticeRepository.getBoardWriter(num);
     }
 }

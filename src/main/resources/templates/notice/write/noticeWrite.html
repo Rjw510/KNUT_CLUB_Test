@@ -13,7 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
     <!--    JavaScript-->
-    <script type="text/javascript" src="/js/summerNote.js"></script>
+    <script type="text/javascript" th:src="@{/js/summerNote.js}"></script>
+    <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
     <title>동아리 관리 프로그램</title>
 
 </head>
@@ -21,7 +22,7 @@
 <article>
     <div class="container" role="main">
         <h2>공지사항 글쓰기</h2>
-        <form name="form" id="form" role="form" method="post" action="/notice/noticeWrite">
+        <form name="form" id="form" role="form" method="post" th:action="@{/notice/noticeWrite}" onsubmit="return writeCheck()">
             <div class="mb-3">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">

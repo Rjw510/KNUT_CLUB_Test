@@ -1,6 +1,6 @@
-package com.KNUT_CLUB_Test.domain.clubservice.repository;
+package com.KNUT_CLUB_Test.domain.eventsrvice.repository;
 
-import com.KNUT_CLUB_Test.domain.clubservice.Club;
+import com.KNUT_CLUB_Test.domain.eventsrvice.Event;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -11,13 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ClubRepositoryImpl implements ClubRepository{
-    @Override
-    public List<Club> getClubList(String campus, String type, String cWord, String tWord) {
-        List<Club> clubList = new ArrayList<>();
+public class EventRepositoryImpl implements EventRepository{
 
-        String sql = "SELECT @ROWNUM := @ROWNUM +1 as n, PROMOTION.*"
-                + " FROM PROMOTION, (SELECT @ROWNUM := 0)TMP WHERE " + campus + " Like ? and " + type + " LIKE ?";
+    @Override
+    public List<Event> getEventList(String field, String field2, String query, String query2, int page) {
+
+        List<Event> eventList = new ArrayList<>();
+
+        String sql = "SELECT @ROWNUM := @ROWNUM +1 as n, EVENT.*"
+                + " FROM EVENT, (SELECT @ROWNUM := 0)TMP WHERE " + field + " Like ? and " + field2 + " LIKE ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -31,22 +33,24 @@ public class ClubRepositoryImpl implements ClubRepository{
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
-            pst.setString(1, "%" + cWord + "%");
-            pst.setString(2, "%" + tWord + "%");
+            pst.setString(1, "%" + query + "%");
+            pst.setString(2, "%" + query2 + "%");
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
                 int num = rs.getInt("num");
                 String name = rs.getString("name");
+                String date = rs.getString("date");
                 String img = rs.getString("img");
 
-                Club club = new Club (
+                Event event = new Event(
                         num
                         , name
+                        , date
                         , img
                 );
-                clubList.add(club);
+                eventList.add(event);
             }
         }
         catch (Exception e) {
@@ -66,15 +70,14 @@ public class ClubRepositoryImpl implements ClubRepository{
                 System.out.println(e);
             }
         }
-        return clubList;
-
+        return eventList;
     }
 
     @Override
-    public List<Club> getClubDetail(int num) {
-        List<Club> clubList = new ArrayList<>();
+    public List<Event> getEventDetail(int num) {
+        List<Event> eventList = new ArrayList<>();
 
-        String sql = "SELECT * FROM PROMOTION WHERE num= ? ";
+        String sql = "SELECT * FROM EVENT WHERE num= ? ";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -98,13 +101,13 @@ public class ClubRepositoryImpl implements ClubRepository{
                 String promotion = rs.getString("promotion");
                 String img = rs.getString("img");
 
-                Club club = new Club (
+                 Event event = new Event(
                         name
                         , introduce
                         , promotion
                         , img
                 );
-                clubList.add(club);
+                eventList.add(event);
             }
         }
         catch (Exception e) {
@@ -124,42 +127,6 @@ public class ClubRepositoryImpl implements ClubRepository{
                 System.out.println(e);
             }
         }
-        return clubList;
-    }
-
-    @Override
-    public void joinClub(String id, String club, String motive) {
-
-        String sql = "UPDATE MEMBER SET club = ?, motive = ?, grade = 0 WHERE studentID = ?";
-
-        Connection conn = null;
-        PreparedStatement pst = null;
-
-        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
-        String dbID = "root";
-        String dbPassword = "root";
-
-        try {
-            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, club);
-            pst.setString(2, motive);
-            pst.setString(3, id);
-            int rs = pst.executeUpdate();
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            try {
-                if (pst != null)
-                    pst.close();
-
-                if (conn != null)
-                    conn.close();
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
+        return eventList;
     }
 }

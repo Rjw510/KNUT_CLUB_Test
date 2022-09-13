@@ -5,10 +5,12 @@ import com.KNUT_CLUB_Test.domain.clubservice.service.ClubService;
 import com.KNUT_CLUB_Test.domain.memberservice.ManageService;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
+import com.KNUT_CLUB_Test.domain.noticeservice.Anonymous;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,7 +29,9 @@ public class ClubController {
     public String goClubJoin(@RequestParam(value = "select", required = false) String field_,
                              @RequestParam(value = "campus", required = false) String query_,
                              @RequestParam(value = "type", required = false) String query2_,
-                             @RequestParam(value = "p", required = false) String page_, Model model) {
+                             @RequestParam(value = "p", required = false) String page_,
+                             Model model,
+                             HttpSession session) {
 
         String field = "campus";
         if (field_ != null && !field_.equals(""))
@@ -46,6 +50,7 @@ public class ClubController {
             query2 = query2_;
 
         List<Club> clubList = clubService.getClubList(field, field2, query, query2);
+        String admin = (String) session.getAttribute("admin");
 
         model.addAttribute("clubList", clubList);
 
@@ -67,32 +72,54 @@ public class ClubController {
         return "club/joinManual";
     }
 
-
-    /* 여기서부터~ */
     @GetMapping("/clubJoin/membership")
     public String goMembership(@RequestParam("name") String clubName,
                                HttpSession session,
                                Model model) {
 
-        System.out.println("clubName = " + clubName);
-        String studentID = (String) session.getAttribute("studentID");
+        String studentID = (String) session.getAttribute("id");
+        boolean grade = memberService.getMemberGrade(studentID);
         List<Member> profile = memberService.getMemberClubJoin(studentID);
 
-        model.addAttribute("profile", profile);
-        model.addAttribute("clubName", clubName);
-        return "club/membership";
+
+
+        if (studentID == null) {
+            model.addAttribute("message", "로그인 후 이용해주세요.");
+            model.addAttribute("url", "/clubJoin");
+            return "alert";
+        }
+        else {
+            if (grade == true) {
+                model.addAttribute("message", "하나의 동아리만 가입이 가능합니다. 탈퇴 후 이용해주세요.");
+                model.addAttribute("url", "/clubJoin");
+                return "alert";
+            }
+            else {
+                model.addAttribute("profile", profile);
+                model.addAttribute("clubName", clubName);
+                return "/club/membership";
+            }
+        }
     }
 
+    /* 한명의 인원은 하나의 동아리 가입만 가능 */
     @PostMapping("/clubJoin/membership")
-    public String doMembership(@RequestParam("content") String motive, HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    public String doMembership(@RequestParam("content") String motive,
+                               @RequestParam("club") String clubName,
+                               HttpSession session,
+                               Model model) {
         String id = (String) session.getAttribute("id");
-        String clubName = (String) session.getAttribute("clubName");
+        clubService.joinClub(id, clubName, motive);
 
-        ManageService service = new ManageService();
-        service.joinClub(id, clubName, motive);
+        model.addAttribute("message", "가입을 축하드립니다. 승인 후 이용가능합니다.");
+        model.addAttribute("url", "/clubJoin");
 
-        return "redirect:/clubJoin";
+        return "/alert";
+    }
+
+    @GetMapping("/club/create")
+    public String goClubCreate() {
+        return "/club/clubCreate";
     }
 
 }

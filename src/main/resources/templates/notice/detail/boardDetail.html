@@ -17,10 +17,15 @@
         <div class="card">
             <input type="hidden" name="del_num" th:value="${b.num}">
             <div class="detailheader">
-                <h2 th:text="${b.title }">제목</h2>
+                <h2 th:text="${b.title}">제목</h2>
                 <div class="list">
                     <ul class="detailheaderlist" >
-                        <li th:text="'작성자:' + ${b.writer}">작성자></li>
+                        <th:block th:if="${b.chk == true}">
+                            <li th:text="'작성자:' + '익명'">작성자></li>
+                        </th:block>
+                        <th:block th:if="${b.chk == false}">
+                            <li th:text="'작성자:' + ${b.writer}">작성자></li>
+                        </th:block>
                         <li th:text="'조회수 : ' + ${b.views}">조회 수 : 0</li>
                         <li th:text="'등록일:' + ${b.date}">작성일></li>
                     </ul>
@@ -29,7 +34,7 @@
             <div class="detailcontent" style="height:auto; ">
                 <p class="noticect" th:utext="${b.content}">글 내용</p>
             </div>
-            <div th:if="${session.studentID == studentID}">
+            <div th:if="${writer == name}">
                 <button type="submit" th:text="삭제"></button>
                 <button type="button" th:onclick="|location.href='@{/board/update(num=${b.num})}'|"
                         th:text="수정"></button>

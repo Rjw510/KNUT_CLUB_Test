@@ -21,6 +21,7 @@ public class Member {
     private String detailAddress;
     private String club;
     private String motive;
+    private boolean grade;
 
     private String studentID;
     private String password;
@@ -32,13 +33,14 @@ public class Member {
     }
 
     /* 회원관리 */
-    public Member(int n, int num, String name, String department, String phone, String club, String studentID) {
+    public Member(int n, int num, String name, String studentID, String department, String phone, String gender, boolean grade) {
         this.n = n;
         this.num = num;
         this.name = name;
         this.department = department;
+        this.gender = gender;
         this.phone = phone;
-        this.club = club;
+        this.grade = grade;
         this.studentID = studentID;
     }
 
@@ -81,12 +83,13 @@ public class Member {
 //    }
 //
     /* 마이페이지 */
-    public Member(String name, String email, String studentID, String department, String club) {
+    public Member(String name, String email, String studentID, String department, String club, boolean grade) {
         this.name = name;
         this.email = email;
         this.studentID = studentID;
         this.department = department;
         this.club = club;
+        this.grade = grade;
     }
 //
 //    public Member(int n, int num, String name, String department, String gender, String grade, String studentID) {

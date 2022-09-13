@@ -5,6 +5,7 @@
     <title>공지사항</title>
     <meta charset="utf-8">
     <link rel="stylesheet" th:href="@{/css/notice.css}">
+    <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
 </head>
 
 <body>
@@ -46,7 +47,7 @@
             </div>
         </form>
 
-        <form th:action="@{/delNotice}" method="post">
+        <form th:action="@{/delNotice}" method="post" onsubmit="return deleteCheck()">
             <table class="noticetable">
                 <tr id="tableheader">
                     <th>번호</th>
@@ -123,6 +124,7 @@
             </button>
         </th:block>
     </div>
+</div>
 
     <!-- footer -->
     <th:block th:insert="fragments/footer :: footerFragment"></th:block>

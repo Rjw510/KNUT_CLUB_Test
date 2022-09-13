@@ -4,14 +4,7 @@
     <title>승인 목록</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/css/permissionList.css">
-    <!--    <script>-->
-    <!--        function popup(){-->
-    <!--            var url = "test";-->
-    <!--            var name = "popup test";-->
-    <!--            var option = "width = 500, height = 500, top = 100, left = 200, location = no"-->
-    <!--            window.open(url, name, option);-->
-    <!--        }-->
-    <!--    </script>-->
+    <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
 </head>
 <body>
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
@@ -19,24 +12,26 @@
 
 
 <div class="row">
+
     <div class="column side">
         <h2>회원 관리</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
     </div>
+
     <div class="column middle">
         <h2>승인 목록</h2>
         <form action="/permissionList" method="get">
             <div class="col-md-8 mb-3">
                 <select id="searchBox" class="custom-select d-block w-100" name="select">
-                    <option value="이름" th:selected="${#strings.equals(param.select, 'name')}">이름</option>
-                    <option value="학과" th:selected="${#strings.equals(param.select, 'department')}">학과</option>
+                    <option value="name" th:selected="${#strings.equals(param.select, 'name')}">이름</option>
+                    <option value="department" th:selected="${#strings.equals(param.select, 'department')}">학과</option>
                 </select> <input type="text" class="form-control" name="word"
                                  placeholder="검색어" th:selected="${#strings.equals(param.word, '')}" required>
                 <input type="submit" value="검색">
             </div>
         </form>
 
-        <form th:action="@{/permissionList/delMember}" method="post">
+        <form th:action="@{/permissionList/delNonMember}" method="post" onsubmit="return deleteCheck()">
             <table>
                 <thead>
                 <tr>
@@ -46,81 +41,75 @@
                     <th>학과</th>
                     <th>성별</th>
                     <th>휴대전화</th>
-                    <th>가입 신청서 보기</th>
                     <th>선택</th>
-
                 </tr>
                 </thead>
-                <tbody th:each="p : ${persmissionList}">
+
+                <tbody th:each="p : ${permissionList}">
                 <tr>
                     <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.n}">번호</td>
-                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.name}">이름
-                    </td>
-                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|"
-                        th:text="${p.studentID }">학번
-                    </td>
-                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|"
-                        th:text="${p.department }">학과
-                    </td>
-                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.gender}">
-                        성별
-                    </td>
-                    <td th:onclick="|location.href='@{/permissionList/detail(num=${n.num})}'|" th:text="${p.phone}">
-                        핸드폰
-                    </td>
-                    <td class="open"><a href="javascript:popup()" target="_blank">열기</a></td>
-                    <td><label><input type="checkbox"></label></td>
+                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.name}">이름</td>
+                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.department }">학과</td>
+                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.studentID }">학번</td>
+                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.gender}">성별</td>
+                    <td th:onclick="|location.href='@{/permissionList/detail(num=${p.num})}'|" th:text="${p.phone}">휴대전화</td>
+                    <td><label><input type="checkbox" name="permission_id" th:value="${p.num}"></label></td>
                 </tr>
-
                 </tbody>
             </table>
 
             <div class="margin-top align-center pager">
+                <ul class="pagingwrap">
+                    <li class="paging">
+                        <div>
+                            <th:block th:if="${startNum>1}">
+                                <a th:href="@{/memberList(p=${(startNum-1)}, search=${param.search}, word=${word})}"
+                                   th:text="이전"></a>
+                            </th:block>
+                            <th:block th:unless="${startNum>1}">
+                                <span onclick="alert('이전 페이지가 없습니다.')" th:text="이전"></span>
+                            </th:block>
+                        </div>
+                    </li>
 
-                <div>
-                    <th:block th:if="${startNum>1}">
-                        <a th:href="@{/memberList(p=${(startNum-1)}, search=${param.search}, word=${word})}"
-                           th:text="이전"></a>
-                    </th:block>
-                    <th:block th:unless="${startNum>1}">
-                        <span onclick="alert('이전 페이지가 없습니다.')" th:text="이전"></span>
-                    </th:block>
-                </div>
 
-                <ul class="list">
-                    <th:block th:each="i : ${#numbers.sequence(0, 4)}">
-                        <th:block th:if="${(startNum+i) <= lastNum}">
-                            <li><a th:href="@{/memberList(p=${startNum+i}, search=${param.search}, word=${param.word})}"
-                                   th:text="${startNum+i}"></a></li>
-                        </th:block>
-                    </th:block>
+                    <li class="paging">
+                        <ul class="list">
+                            <th:block th:each="i : ${#numbers.sequence(0, 4)}">
+                                <th:block th:if="${(startNum+i) <= lastNum}">
+                                    <li>
+                                        <a th:href="@{/memberList(p=${startNum+i}, search=${param.search}, word=${param.word})}"
+                                           th:text="${startNum+i}"></a></li>
+                                </th:block>
+                            </th:block>
+                        </ul>
+                    </li>
+
+                    <li class="paging">
+                        <div>
+                            <th:block th:if="${startNum+4<lastNum}">
+                                <a th:href="@{/memberList(p=${startNum+5}, search=${param.search}, word=${param.word})}"
+                                   th:text="다음">다음</a>
+                            </th:block>
+                            <th:block th:if="${startNum+4>=lastNum }">
+                                <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.')">다음</span>
+                            </th:block>
+                        </div>
+                    </li>
                 </ul>
+            </div>
 
-                <div>
-                    <th:block th:if="${startNum+4<lastNum}">
-                        <a th:href="@{/notice(p=${startNum+5}, search=${param.search}, word=${param.word})}"
-                           th:text="다음">다음</a>
-                    </th:block>
-                    <th:block th:if="${startNum+4>=lastNum }">
-                        <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.')">다음</span>
-                    </th:block>
-                </div>
-
-                <div class="table_footer">
-                    <div class="btns">
-                        <input type='submit' value="승인">
-                        <input type='submit' value="거부">
-                    </div>
+            <div class="table_footer">
+                <div class="btns">
+                    <input type='submit' value="승인">
+                    <input type='submit' value="삭제">
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<div class="footer">
-    <p>Footer</p>
-</div>
-
+<!-- footer -->
+<th:block th:insert="fragments/footer :: footerFragment"></th:block>
 </body>
-
 </html>

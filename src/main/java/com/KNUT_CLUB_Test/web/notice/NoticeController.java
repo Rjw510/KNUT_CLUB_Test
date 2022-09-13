@@ -1,6 +1,9 @@
 package com.KNUT_CLUB_Test.web.notice;
 
 
+import com.KNUT_CLUB_Test.domain.adminservice.service.AdminService;
+import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
+import com.KNUT_CLUB_Test.domain.noticeservice.Anonymous;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import com.KNUT_CLUB_Test.domain.noticeservice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +21,10 @@ import java.util.List;
 public class NoticeController {
 
     private final NoticeService noticeService;
+    private final AdminService adminService;
+    private final MemberService memberService;
 
+    /* 공지사항 페이지 이동 */
     @GetMapping("/notice")
     public String goNotice(@RequestParam(value = "select", required = false) String field_,
                            @RequestParam(value = "word", required = false) String query_,
@@ -54,27 +60,33 @@ public class NoticeController {
         model.addAttribute("lastNum", lastNum);
         model.addAttribute("noticeList", noticeList);
 
-
-
         return "notice/notice";
     }
 
+    /* 공지사항 자세한 페이지 이동 */
     @GetMapping("/notice/detail")
     public String goNoticeDetail(@RequestParam("num") int num,
                                  HttpSession session,
                                  Model model) {
 
-//        String studentID = (String) session.getAttribute("id");
+        String id = (String) session.getAttribute("id");
 
         List<Notice> list = noticeService.getNoticeDetail(num);
+
+        String name = adminService.getAdminName(id);
+        String writer = noticeService.getNoticeWriter(num);
+
         noticeService.updateViews(num);
 
         model.addAttribute("noticeList", list);
-//        model.addAttribute("studentID", studentID);
+        model.addAttribute("name", name);
+        model.addAttribute("writer", writer);
+
 
         return "notice/detail/noticeDetail";
     }
 
+    /* 공지사항 수정 페이지 이동 */   // 이전 내용이 표시되지 않음
     @GetMapping("/notice/update")
     public String goNoticeUpdate(@RequestParam("num") int num,
                                  Model model) {
@@ -85,22 +97,25 @@ public class NoticeController {
         return "/notice/update/noticeUpdate";
     }
 
+    /* 공지사항 수정 */
     @PostMapping("/notice/update")
-    public String doNoticeUpdate(@RequestParam("content") String content,
+    public String doNoticeUpdate(@RequestParam("title") String title,
+                                 @RequestParam("content") String content,
                                  @RequestParam("num") int num,
                                  Model model) {
 
-        noticeService.getNoticeUpdate(content, num);
+        noticeService.getNoticeUpdate(title, content, num);
         return "redirect:/notice";
     }
 
-
+    /* 공지사항 자세한 페이지에서 삭제 */
     @PostMapping("/notice/noticeDetail")
     public String delNoticeDetail(@RequestParam("del_num") int num) {
         noticeService.delNotice(num);
         return "redirect:/notice";
     }
 
+    /* 공지사항 글쓰기 페이지 이동 */
     @GetMapping("/notice/noticeWrite")
     public String goNoticeWrite() {
         return "notice/write/noticeWrite";
@@ -119,6 +134,7 @@ public class NoticeController {
         return "redirect:/notice";
     }
 
+    /* 공지사항 삭제 */
     @PostMapping("/delNotice")
     public String delNotice(@RequestParam("del_id") String[] delIds) {
 
@@ -150,6 +166,7 @@ public class NoticeController {
         if (page_ != null && !page_.equals(""))
             page = Integer.parseInt(page_);
 
+
         List<Notice> boardList = noticeService.getBoardList(field, query, page);
         int count = noticeService.getBoardCount(field, query);
         int startNum = page - (page - 1) % 5;
@@ -169,13 +186,17 @@ public class NoticeController {
     public String goBoardDetail(@RequestParam("num") int num,
                                 HttpSession session,
                                 Model model) {
-        String studentID = (String) session.getAttribute("studentID");
+        String id = (String) session.getAttribute("id");
+
+        String name = memberService.getMemberName(id);
+        String writer = noticeService.getBoardWriter(num);
 
         List<Notice> list = noticeService.getBoardDetail(num);
         noticeService.updateViews(num);
 
         model.addAttribute("boardList", list);
-        model.addAttribute("studentID", studentID);
+        model.addAttribute("name", name);
+        model.addAttribute("writer", writer);
 
         return "notice/detail/boardDetail";
     }
@@ -185,17 +206,23 @@ public class NoticeController {
                                  Model model) {
 
         List<Notice> boardUpdate = noticeService.getBoardDetail(num);
+
+        model.addAttribute("anonymous", new Anonymous());
         model.addAttribute("boardUpdate", boardUpdate);
 
         return "/notice/update/boardUpdate";
     }
 
-        @PostMapping("/board/update")
-    public String doBoardUpdate(@RequestParam("content") String content,
-                                 @RequestParam("num") int num,
-                                 Model model) {
+    @PostMapping("/board/update")
+    public String doBoardUpdate(@RequestParam("title") String title,
+                                @RequestParam("content") String content,
+                                @RequestParam("num") int num,
+                                @ModelAttribute Anonymous anonymous,
+                                Model model) {
 
-        noticeService.getBoardUpdate(content, num);
+        Boolean chk = anonymous.getChk();
+
+        noticeService.getBoardUpdate(title, content, num, chk);
         return "redirect:/board";
     }
 
@@ -206,23 +233,41 @@ public class NoticeController {
     }
 
     @GetMapping("/board/boardWrite")
-    public String goBoardWrite() {
-        return "notice/write/boardWrite";
+    public String goBoardWrite(HttpSession session,
+                               Model model) {
+
+        String id = (String) session.getAttribute("id");
+
+        if (id == null) {
+            model.addAttribute("message", "로그인 후 이용해주세요.");
+            model.addAttribute("url", "/board");
+            return "alert";
+        }
+        else {
+            model.addAttribute("anonymous", new Anonymous());
+            return "/notice/write/boardWrite";
+        }
+
+
+
     }
 
     @PostMapping("/board/boardWrite")
-    public String doBoardeWrite(@RequestParam("title") String title,
-                                @RequestParam("writer") String writer,
-                                @RequestParam("content") String content,
-                                Model model) {
+    public String doBoardWrite(@RequestParam("title") String title,
+                               @RequestParam("writer") String writer,
+                               @RequestParam("content") String content,
+                               @ModelAttribute Anonymous anonymous,
+                               Model model) {
 
-        List<Notice> boardWrite = noticeService.writeBoard(title, writer, content);
+        Boolean chk = anonymous.getChk();
+
+        List<Notice> boardWrite = noticeService.writeBoard(title, writer, content, chk);
         model.addAttribute("boardWrite", boardWrite);
 
         return "redirect:/board";
     }
 
-    @PostMapping("/board/delBoard")
+    @PostMapping("/delBoard")
     public String delBoard(@RequestParam("del_id") String[] delIds) {
 
         int[] ids = new int[delIds.length];

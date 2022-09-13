@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 @Slf4j
@@ -39,7 +40,7 @@ public class JoinController {
         return "/sign/joinAdmin";
     }
 
-    /* 회원 회원가입 */ // 현재 빈칸이 있어도 회원가입이 가능 -> 수정 필요
+    /* 회원 회원가입 */
     @PostMapping()
     public String doJoin(@ModelAttribute("join") Member member,
                          @RequestParam("birth_mm") String mm,
@@ -49,16 +50,21 @@ public class JoinController {
         log.info("회원 회원가입");
         String birth = member.getBirth_yy()+"."+mm+"."+member.getBirth_dd();
 
-        memberService.getJoin(member, birth, gender);
+        boolean check = memberService.getJoin(member, birth, gender);
         List<Notice> noticeList = noticeService.getNoticeSelect();
         List<Notice> boardList = noticeService.getBoardSelect();
 
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);
 
-        model.addAttribute("message", "회원가입이 완료되었습니다.");
-        model.addAttribute("url", "/index");
-
+        if (check == true) {
+            model.addAttribute("message", "회원가입이 완료되었습니다.");
+            model.addAttribute("url", "/index");
+        }
+        else {
+            model.addAttribute("message", "필수 정보가 비어있습니다.");
+            model.addAttribute("url", "/check/join");
+        }
         return "/alert";
     }
 

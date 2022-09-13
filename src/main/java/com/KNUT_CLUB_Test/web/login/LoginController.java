@@ -50,10 +50,14 @@ public class LoginController {
         log.info("학번 : {}", member.getStudentID());
         log.info("비밀번호 : {}", member.getPassword());
 
+        /* sideBar */
         String name = memberService.getMemberName(member.getStudentID());
         String club = memberService.getMemberClub(member.getStudentID());
 
+        /* login Check */
         String loginCheck = memberService.Login(member);
+
+        /* notice & board */
         List<Notice> noticeList = noticeService.getNoticeSelect();
         List<Notice> boardList = noticeService.getBoardSelect();
 
@@ -63,17 +67,15 @@ public class LoginController {
         session.setAttribute("id", member.getStudentID());
         session.setAttribute("name", name);
         session.setAttribute("club", club);
-        session.setAttribute("grade", "user");
 
         if (loginCheck.equals(member.getStudentID())) {
             model.addAttribute("url", "/index");
-            return "/alert";
         }
         else {
             model.addAttribute("message", "아이디 또는 패스워드가 잘못되었습니다");
             model.addAttribute("url", "/login");
-            return "/alert";
         }
+        return "/alert";
     }
 
     /* 관리자 로그인 */
@@ -81,6 +83,7 @@ public class LoginController {
     public String doAdminLogin(HttpSession session,
                                @ModelAttribute("adminLogin") Admin admin,
                                Model model) {
+
         log.info("관리자 로그인");
         log.info("아이디 : {}", admin.getId());
         log.info("비밀번호 : {}", admin.getPassword());

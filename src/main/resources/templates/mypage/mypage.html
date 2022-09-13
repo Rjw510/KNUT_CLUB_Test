@@ -31,7 +31,6 @@
 
                     <div class="box">
                         <p th:text="'이름 : ' + ${profile.name}">이름 : </p><br>
-
                     </div>
                     <div class="box">
                         <p th:text="'학번 : ' + ${profile.studentID}">학번 : </p><br>
@@ -42,7 +41,10 @@
                     <div class="box">
                         <p th:text="'학번 : ' + ${profile.department}">학과 : </p><br>
                     </div>
-                    <div class="box">
+                    <div class="box" th:if="${profile.grade} == false">
+                        <p th:text="'가입 된 동아리 : 없음 '"> : </p><br>
+                    </div>
+                    <div class="box" th:if="${profile.grade} == true">
                         <p th:text="'가입 된 동아리 : ' + ${profile.club}"> : </p><br>
                     </div>
                         <button type="button" th:onclick="|location.href='@{/mypage/update}'|" >회원정보 수정</button>

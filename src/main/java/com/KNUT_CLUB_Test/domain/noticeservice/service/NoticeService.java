@@ -24,7 +24,7 @@ public interface NoticeService {
 
     List<Notice> writeNotice(String title, String writer, String content);
 
-    List<Notice> writeBoard(String title, String writer, String content);
+    List<Notice> writeBoard(String title, String writer, String content, boolean chk);
 
     void updateViews(int num);
 
@@ -36,7 +36,11 @@ public interface NoticeService {
 
     void delBoard(int num);
 
-    void getNoticeUpdate(String content, int num);
+    void getNoticeUpdate(String title, String content, int num);
 
-    void getBoardUpdate(String content, int num);
+    void getBoardUpdate(String title, String content, int num, boolean chk);
+
+    String getNoticeWriter(int num);
+
+    String getBoardWriter(int num);
 }

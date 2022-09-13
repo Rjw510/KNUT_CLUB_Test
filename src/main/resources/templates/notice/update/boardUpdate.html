@@ -21,19 +21,20 @@
 <body>
 <article>
     <div class="container" role="main" th:each="b : ${boardUpdate}">
-        <h2>공지사항 글수정</h2>
+        <h2>자유게시판 글수정</h2>
         <form name="form" id="form" role="form" method="post" action="/board/update" onsubmit="return updateCheck()">
             <input type="hidden" name="num" th:value="${b.num}">
             <div class="mb-3">
                 <label for="title">제목</label>
-                <input type="text" class="form-control" name="title" id="title" th:placeholder="${b.title}">
+                <input type="text" class="form-control" name="title" id="title" th:vlaue="${b.title}">
             </div>
             <div class="mb-3">
                 <label for="writer">작성자</label>
-                <input type="text" class="form-control" name="writer" id="writer" th:value="${session.name}" readonly>
+                <input type="text" class="form-control" name="writer" id="writer" th:value="${b.writer}" readonly>
+                <input type="checkbox" th:field="${anonymous.chk}" th:text="익명">
             </div>
             <div>
-                <textarea id="summernote" name="content" ></textarea>
+                <textarea id="summernote" name="content" th:data="${b.content}"></textarea>
             </div>
             <script>
                 $('summernote').val("${content.SUMMERNOTE}");

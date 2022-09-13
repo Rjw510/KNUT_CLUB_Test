@@ -26,14 +26,14 @@
             <input type="hidden" name="num" th:value="${n.num}">
             <div class="mb-3">
                 <label for="title">제목</label>
-                <input type="text" class="form-control" name="title" id="title" th:placeholder="${n.title}">
+                <input type="text" class="form-control" name="title" id="title" th:value="${n.title}">
             </div>
             <div class="mb-3">
                 <label for="writer">작성자</label>
-                <input type="text" class="form-control" name="writer" id="writer" th:value="${session.name}" readonly>
+                <input type="text" class="form-control" name="writer" id="writer" th:value="${n.writer}" readonly>
             </div>
             <div>
-                <textarea id="summernote" name="content" ></textarea>
+                <textarea id="summernote" name="content" th:data="${n.content}"></textarea>
             </div>
             <script>
                 $('summernote').val("${content.SUMMERNOTE}");
