@@ -38,6 +38,7 @@
                         </button>
                     </div>
                 </div>
+                <button class="findBtn" id="findPassword" type="button" onclick="findPw();"><strong>비밀번호 찾기</strong></button>
             </form>
         </div>
         <!-- 관리자 로그인 -->
@@ -56,7 +57,7 @@
                     <!--<button id="second-btn" type="submit"><strong>로그인</strong></button>-->
                     <button id="second-btn" type="submit"><strong>로그인</strong></button>
                     <div class="links">
-                        <button class="links-btn" type="button" th:onclick="|location.href='@{/check/admin}'|">
+                        <button style="margin-top: 50px" class="links-btn" type="button" th:onclick="|location.href='@{/check/admin}'|">
                             <strong>관리자 회원가입</strong>
                         </button>
                     </div>

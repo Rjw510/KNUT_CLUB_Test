@@ -2,6 +2,7 @@ package com.KNUT_CLUB_Test.domain.memberservice.service;
 
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.repository.MemberRepository;
+import com.KNUT_CLUB_Test.web.form.JoinForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,8 +45,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean getJoin(Member member, String birth, String gender) {
-        return memberRepository.getJoin(member, birth, gender);
+    public boolean getJoin(JoinForm joinForm, String birth, String gender) {
+        return memberRepository.getJoin(joinForm, birth, gender);
     }
 
     @Override

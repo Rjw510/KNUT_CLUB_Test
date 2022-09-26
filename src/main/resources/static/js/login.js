@@ -13,3 +13,23 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
+/* 수정필요 ㅡㅡ */
+function findPw(){
+    var find = window.open("", "new window", "width=400,height=250");
+    find.document.write(
+        "<html>" +
+        "<head>" +
+            "<title>비밀번호 찾기</title>" +
+        "</head>" +
+        "<body>" +
+            "<form action='/findPassword' method='post'>" +
+                "<h1>비밀번호 찾기</h1><br>" +
+                "<p>학번 : </p>" +
+                "<input style='height: 20px' name='studentId' type='text'>\n" +
+                "<p>이름 : </p>" +
+                "<input style='height: 20px' name='name' type='text'>" +
+                "<button  style='margin-left: 15px' id='findBtn' type='submit' value='찾기' >" +
+            "</form>" +
+        "</body>" +
+        "</html>");
+}

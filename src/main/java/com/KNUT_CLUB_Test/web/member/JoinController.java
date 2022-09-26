@@ -6,6 +6,7 @@ import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import com.KNUT_CLUB_Test.domain.noticeservice.service.NoticeService;
+import com.KNUT_CLUB_Test.web.form.JoinForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class JoinController {
     /* 회원 회원가입 페이지 이동*/
     @GetMapping
     public String goJoin(Model model) {
-        model.addAttribute("join", new Member());
+        model.addAttribute("join", new JoinForm());
         return "/sign/join";
     }
 
@@ -42,29 +43,39 @@ public class JoinController {
 
     /* 회원 회원가입 */
     @PostMapping()
-    public String doJoin(@ModelAttribute("join") Member member,
-                         @RequestParam("birth_mm") String mm,
+    public String doJoin(@ModelAttribute("join") JoinForm joinForm,
+                         @RequestParam("birth_mm") String birth_mm,
                          @RequestParam("gender") String gender,
                          Model model) {
 
-        log.info("회원 회원가입");
-        String birth = member.getBirth_yy()+"."+mm+"."+member.getBirth_dd();
+        log.info("studentId : {}", joinForm.getStudentId());
+        log.info("password : {}", joinForm.getPassword());
+        log.info("name : {}", joinForm.getName());
+        log.info("birth_yy : {}", joinForm.getBirth_yy());
+        log.info("birth_mm : {}", birth_mm);
+        log.info("birth_dd : {}", joinForm.getBirth_dd());
+        log.info("gender : {}", gender);
+        log.info("email : {}", joinForm.getEmail());
+        log.info("phone : {}", joinForm.getPhone());
+        log.info("address : {}", joinForm.getAddress());
+        log.info("detailAddress : {}", joinForm.getDetailAddress());
 
-        boolean check = memberService.getJoin(member, birth, gender);
+        boolean check = memberService.getJoin(joinForm, birth_mm, gender);
         List<Notice> noticeList = noticeService.getNoticeSelect();
         List<Notice> boardList = noticeService.getBoardSelect();
 
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);
 
-        if (check == true) {
-            model.addAttribute("message", "회원가입이 완료되었습니다.");
-            model.addAttribute("url", "/index");
-        }
-        else {
-            model.addAttribute("message", "필수 정보가 비어있습니다.");
-            model.addAttribute("url", "/check/join");
-        }
+//        if (check == true) {
+//            model.addAttribute("message", "회원가입이 완료되었습니다.");
+//            model.addAttribute("url", "/index");
+//        }
+//        else {
+//            model.addAttribute("message", "필수 정보가 비어있습니다.");
+//            model.addAttribute("url", "/check/join");
+//        }
+
         return "/alert";
     }
 

@@ -2,6 +2,7 @@ package com.KNUT_CLUB_Test.domain.memberservice.repository;
 
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
+import com.KNUT_CLUB_Test.web.form.JoinForm;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -280,9 +281,9 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public boolean getJoin(Member member, String birth, String gender) {
+    public boolean getJoin(JoinForm joinForm, String birth, String gender) {
 
-        List<Member> memberList = new ArrayList<>();
+        List<JoinForm> memberList = new ArrayList<>();
         boolean check = false;
 
         String sql = "INSERT INTO MEMBER(name, studentID, password, department, birth, gender, email," +
@@ -300,26 +301,26 @@ public class MemberRepositoryImpl implements MemberRepository {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
-            pst.setString(1, member.getName());
-            pst.setString(2, member.getStudentID());
-            pst.setString(3, member.getPassword());
-            pst.setString(4, member.getDepartment());
+            pst.setString(1, joinForm.getName());
+            pst.setString(2, joinForm.getStudentId());
+            pst.setString(3, joinForm.getPassword());
+            pst.setString(4, joinForm.getDepartment());
             pst.setString(5, birth);
             pst.setString(6, gender);
-            pst.setString(7, member.getEmail());
-            pst.setString(8, member.getPhone());
-            pst.setString(9, member.getAddress());
-            pst.setString(10, member.getDetailAddress());
+            pst.setString(7, joinForm.getEmail());
+            pst.setString(8, joinForm.getPhone());
+            pst.setString(9, joinForm.getAddress());
+            pst.setString(10,joinForm.getDetailAddress());
 
-            if (member.getName().equals("") || member.getStudentID().equals("") || member.getPassword().equals("") ||
-                    member.getDepartment().equals("") || birth.equals("") || gender.equals("") ||
-                    member.getEmail().equals("") || member.getPhone().equals("") || member.getAddress().equals("") ||
-                    member.getDetailAddress().equals("") ) {
+            if (joinForm.getName().equals("") || joinForm.getStudentId().equals("") || joinForm.getPassword().equals("") ||
+                    joinForm.getDepartment().equals("") || birth.equals("") || gender.equals("") ||
+                    joinForm.getEmail().equals("") || joinForm.getPhone().equals("") || joinForm.getAddress().equals("") ||
+                    joinForm.getDetailAddress().equals("") ) {
                 check = false;
             }
             else {
                 rs = pst.executeUpdate();
-                memberList.add(member);
+                memberList.add(joinForm);
                 check =  true;
             }
         } catch (Exception e) {

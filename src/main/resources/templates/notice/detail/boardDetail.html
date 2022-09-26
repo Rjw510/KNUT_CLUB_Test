@@ -3,7 +3,7 @@
 <head>
     <title>자세한 페이지</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/noticedetail.css">
+    <link rel="stylesheet" href="/css/boardDetail.css">
     <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
 
 </head>
@@ -41,28 +41,34 @@
             </div>
         </div>
         </form>
-            <div class="detailfooter">
-                <button type="button" onclick="location.href='/writeComment'">댓글달기</button>
-                <button type="button" onclick="location.href='/board'">목록</button>
+<!--        <div class="detailfooter">-->
+<!--            <button type="button" onclick="location.href='/writeComment'">댓글달기</button>-->
+<!--            <button type="button" onclick="location.href='/board'">목록</button>-->
+<!--        </div>-->
+        <div class="commentWrapper">
+            <div class="commentSpace">
+                <input type="text" maxlength="500" placeholder="500자까지 입력가능합니다.">
             </div>
 
-            <form action="/delBoard" method="post">
-                <table class="noticetable">
-                    <tr id="tableheader">
-                        <th>작성자</th>
-                        <th>날짜</th>
-                        <th>내용</th>
-                    </tr>
-
-                    <tbody th:each="b : ${commentList}">
-                    <tr>
-                        <td th:text="${b.writer}">작성자</td>
-                        <td th:text="${b.date }">날짜</td>
-                        <td th:text="${b.content}">내용</td>
-                    </tr>
-            </form>
-
         </div>
+
+<!--            <form action="/delBoard" method="post">-->
+<!--                <table class="noticetable">-->
+<!--                    <tr id="tableheader">-->
+<!--                        <th>작성자</th>-->
+<!--                        <th>날짜</th>-->
+<!--                        <th>내용</th>-->
+<!--                    </tr>-->
+
+<!--                    <tbody th:each="b : ${commentList}">-->
+<!--                    <tr>-->
+<!--                        <td th:text="${b.writer}">작성자</td>-->
+<!--                        <td th:text="${b.date }">날짜</td>-->
+<!--                        <td th:text="${b.content}">내용</td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </form>-->
     </div>
 </div>
 

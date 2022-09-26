@@ -1,6 +1,7 @@
 package com.KNUT_CLUB_Test.domain.memberservice.service;
 
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.web.form.JoinForm;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface MemberService {
 
     boolean getMemberGrade(String studentID);
 
-    boolean getJoin(Member member, String birth, String gender);
+    boolean getJoin(JoinForm joinForm, String birth, String gender);
 
     List<Member> getMemberProfile(String studentID);
 

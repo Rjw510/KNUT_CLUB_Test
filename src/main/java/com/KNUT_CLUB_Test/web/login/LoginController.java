@@ -113,4 +113,13 @@ public class LoginController {
             return "/alert";
         }
     }
+
+//    @PostMapping("/findPassword")
+//    public String doFindPassword(@RequestParam("studentId") String studentId,
+//                                 @RequestParam("name") String name) {
+//
+//        System.out.println("studentId = " + studentId);
+//        System.out.println("name = " + name);
+//        return "index";
+//    }
 }

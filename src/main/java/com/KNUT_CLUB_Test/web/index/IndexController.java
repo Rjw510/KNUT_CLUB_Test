@@ -14,6 +14,11 @@ public class IndexController {
 
     private final NoticeService noticeService;
 
+    @GetMapping("/")
+    public String goMain() {
+        return "redirect:/index";
+    }
+
     @GetMapping("/index")
     public String goIndex(Model model) {
 

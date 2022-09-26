@@ -65,7 +65,7 @@ section{
 }
 
 .login-form{
-    height: 600px;
+    height: 700px;
     width: 500px;
     display: block;
     margin-left: auto;
@@ -210,4 +210,20 @@ section{
     font-size: 20px;
 }
 
+.findBtn{
+    background: linear-gradient(to right, rgb(109, 13, 13), red);
+    background-position: left;
+    background-size: 200%;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+    margin-inline: 50px;
+    width: 400px;
+    height: 50px;
+    font-size: 25px;
+    margin-top: 50px;
+
+}
 
