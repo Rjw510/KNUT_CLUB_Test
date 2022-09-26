@@ -10,6 +10,7 @@ var userName = document.querySelector('#name');
 var yy = document.querySelector('#yy');
 var mm = document.querySelector('#mm');
 var dd = document.querySelector('#dd');
+var department = document.querySelector('#department');
 var gender = document.querySelector('#gender');
 var email = document.querySelector('#email');
 var mobile = document.querySelector('#mobile');

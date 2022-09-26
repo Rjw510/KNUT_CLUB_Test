@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3 class="join_title"><label>인증번호</label></h3>
+<div id="email-wrap">
+    <div id="domain-first">
+        <span class="box">
+            <form th:action="@{/check/mailValid}" method="post">
+                <input class="input" type="text" name="number">
+                <button type="submit">인증</button>
+            </form>
+        </span>
+    </div>
+</div>
+</body>
+</html>
