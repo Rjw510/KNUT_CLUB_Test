@@ -18,6 +18,7 @@ public class EventController {
 
     private final EventService eventService;
 
+    /* 검색기능 이상 -> 수정 필요 */
     @GetMapping("/event")
     public String goEvent(@RequestParam(value = "select", required = false) String field_,
                           @RequestParam(value = "campus", required = false) String query_,

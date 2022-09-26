@@ -63,9 +63,9 @@
 
             <!-- DEPARTMENT -->
             <div>
-                <h3 class="join_title"><label for="name">이름</label></h3>
+                <h3 class="join_title"><label for="name">학과</label></h3>
                 <span class="box int_name">
-                            <input type="text" id="name" th:field="*{department}" class="int" maxlength="20">
+                            <input type="text" id="department" th:field="*{department}" class="int" maxlength="20">
                         </span>
                 <span class="error_next_box"></span>
             </div>
@@ -128,13 +128,15 @@
             </div>
 
             <!-- EMAIL -->
-            <div>
-                <h3 class="join_title"><label for="email">이메일</label><input style="margin-left: 10px" type="button" value='이메일 인증' id="emailCk" readonly onclick="winpopup();"></h3>
-                <span class="box int_email">
-                            <input type="text" id="email" th:field="*{email}" class="int" maxlength="100" placeholder="이메일 형식은 @a.ut.ac.kr 도메인만 사용가능합니다.">
-                        </span>
-                <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span>
-            </div>
+<!--            <div>-->
+<!--                <h3 class="join_title"><label for="email">이메일</label><input style="margin-left: 10px" type="button" value='이메일 인증' id="emailCk" readonly onclick="winpopup();"></h3>-->
+<!--                <span class="box int_email">-->
+<!--                            <input type="text" id="email" th:field="*{email}" class="int" maxlength="100" placeholder="이메일 형식은 @a.ut.ac.kr 도메인만 사용가능합니다.">-->
+<!--                        </span>-->
+<!--                <span class="error_next_box">이메일 주소를 다시 확인해주세요.</span>-->
+<!--            </div>-->
+
+
 
             <!-- MOBILE -->
             <div>

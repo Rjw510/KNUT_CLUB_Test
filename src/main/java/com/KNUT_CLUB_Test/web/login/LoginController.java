@@ -68,6 +68,8 @@ public class LoginController {
         session.setAttribute("name", name);
         session.setAttribute("club", club);
 
+        log.info("권한 : {}", session.getAttribute("admin"));
+
         if (loginCheck.equals(member.getStudentID())) {
             model.addAttribute("url", "/index");
         }
@@ -85,11 +87,11 @@ public class LoginController {
                                Model model) {
 
         log.info("관리자 로그인");
-        log.info("아이디 : {}", admin.getId());
+        log.info("아이디 : {}", admin.getClubId());
         log.info("비밀번호 : {}", admin.getPassword());
 
-        String name = adminService.getAdminName(admin.getId());
-        String club = adminService.getAdminClub(admin.getId());
+        String name = adminService.getAdminName(admin.getClubId());
+        String club = adminService.getAdminClub(admin.getClubId());
 
         String loginCheck = adminService.Login(admin);
         List<Notice> noticeList = noticeService.getNoticeSelect();
@@ -98,12 +100,14 @@ public class LoginController {
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);
 
-        session.setAttribute("id", admin.getId());
+        session.setAttribute("id", admin.getClubId());
         session.setAttribute("name", name);
         session.setAttribute("club", club);
         session.setAttribute("admin", "admin");
 
-        if (loginCheck.equals(admin.getId())) {
+        log.info("권한 : {}", session.getAttribute("admin"));
+
+        if (loginCheck.equals(admin.getClubId())) {
             model.addAttribute("url", "/index");
             return "/alert";
         }

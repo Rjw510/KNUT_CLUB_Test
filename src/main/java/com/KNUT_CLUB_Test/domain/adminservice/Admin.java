@@ -11,6 +11,6 @@ public class Admin {
     private String name;
 
     /* 로그인 */
-    private String id;
+    private String clubId;
     private String password;
 }

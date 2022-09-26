@@ -2,6 +2,7 @@ package com.KNUT_CLUB_Test.domain.adminservice.service;
 
 import com.KNUT_CLUB_Test.domain.adminservice.Admin;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.web.form.AdminJoinForm;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface AdminService {
     int delMemberAll(int[] ids);
 
     int delNonMemberAll(int[] ids);
+
+    boolean getJoin(AdminJoinForm joinForm);
 }

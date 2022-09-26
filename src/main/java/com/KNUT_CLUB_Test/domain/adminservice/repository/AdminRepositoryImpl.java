@@ -2,6 +2,8 @@ package com.KNUT_CLUB_Test.domain.adminservice.repository;
 
 import com.KNUT_CLUB_Test.domain.adminservice.Admin;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.web.form.AdminJoinForm;
+import com.KNUT_CLUB_Test.web.form.JoinForm;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -14,7 +16,7 @@ public class AdminRepositoryImpl implements AdminRepository{
     @Override
     public String Login(Admin admin) {
 
-        String sql = "SELECT id FROM ADMIN WHERE id = ? and password = ?";
+        String sql = "SELECT clubId FROM ADMIN WHERE clubId = ? and password = ?";
 
         String id = "";
 
@@ -29,12 +31,12 @@ public class AdminRepositoryImpl implements AdminRepository{
         try {
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
-            pst.setString(1, admin.getId());
+            pst.setString(1, admin.getClubId());
             pst.setString(2, admin.getPassword());
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                id = rs.getString("id");
+                id = rs.getString("clubId");
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -59,7 +61,7 @@ public class AdminRepositoryImpl implements AdminRepository{
     public String getAdminName(String id) {
         String name = "";
 
-        String sql = "SELECT name FROM ADMIN WHERE id = ?";
+        String sql = "SELECT name FROM ADMIN WHERE clubId = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -103,7 +105,7 @@ public class AdminRepositoryImpl implements AdminRepository{
     public String getAdminClub(String id) {
         String club = "";
 
-        String sql = "SELECT club FROM ADMIN WHERE id = ?";
+        String sql = "SELECT clubName FROM ADMIN WHERE clubId = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -120,7 +122,7 @@ public class AdminRepositoryImpl implements AdminRepository{
             rs = pst.executeQuery();
 
             if(rs.next()) {
-                club = rs.getString("club");
+                club = rs.getString("clubName");
             }
         }
         catch (Exception e) {
@@ -458,5 +460,60 @@ public class AdminRepositoryImpl implements AdminRepository{
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean getJoin(AdminJoinForm joinForm) {
+
+        List<AdminJoinForm> adminList = new ArrayList<>();
+        boolean check = false;
+
+        String sql = "INSERT INTO ADMIN(clubId, clubName, password, name, email, phone, permission)" +
+                "values (?, ?, ?, ?, ?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        int rs = 0;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, joinForm.getClubId());
+            pst.setString(2, joinForm.getClubName());
+            pst.setString(3, joinForm.getPassword());
+            pst.setString(4, joinForm.getName());
+            pst.setString(5, joinForm.getEmail());
+            pst.setString(6, joinForm.getPhone());
+            pst.setBoolean(7, false);
+
+            if (joinForm.getClubId().equals("") || joinForm.getPassword().equals("") || joinForm.getName().equals("") ||
+                joinForm.getEmail().equals("") || joinForm.getPhone().equals("")) {
+                check = false;
+            }
+            else {
+                rs = pst.executeUpdate();
+                adminList.add(joinForm);
+                check =  true;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return check;
     }
 }

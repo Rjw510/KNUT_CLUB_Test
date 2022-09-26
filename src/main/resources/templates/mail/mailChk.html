@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3 class="join_title"><label>이메일</label></h3>
+<div id="email-wrap">
+    <div id="domain-first">
+        <span class="box">
+            <form th:action="@{/check/mailChk}" method="post">
+                <input class="input" type="text" name="email">
+                <button type="submit">인증번호 발송</button>
+            </form>
+        </span>
+    </div>
+</div>
+</body>
+</html>

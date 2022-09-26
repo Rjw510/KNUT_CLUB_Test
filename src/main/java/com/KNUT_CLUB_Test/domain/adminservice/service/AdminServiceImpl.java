@@ -3,6 +3,7 @@ package com.KNUT_CLUB_Test.domain.adminservice.service;
 import com.KNUT_CLUB_Test.domain.adminservice.Admin;
 import com.KNUT_CLUB_Test.domain.adminservice.repository.AdminRepository;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.web.form.AdminJoinForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +58,10 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int delNonMemberAll(int[] ids) {
         return adminRepository.delNonMemberAll(ids);
+    }
+
+    @Override
+    public boolean getJoin(AdminJoinForm joinForm) {
+        return adminRepository.getJoin(joinForm);
     }
 }

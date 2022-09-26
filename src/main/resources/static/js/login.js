@@ -13,7 +13,7 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
-/* 수정필요 ㅡㅡ */
+/* 수정필요 */
 function findPw(){
     var find = window.open("", "new window", "width=400,height=250");
     find.document.write(
