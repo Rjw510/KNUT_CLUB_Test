@@ -1,5 +1,6 @@
 package com.KNUT_CLUB_Test.domain.noticeservice.service;
 
+import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import com.KNUT_CLUB_Test.domain.noticeservice.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -106,5 +107,10 @@ public class NoticeServiceImpl implements NoticeService{
     @Override
     public String getBoardWriter(int num) {
         return noticeRepository.getBoardWriter(num);
+    }
+
+    @Override
+    public List<Comment> getBoardComment(int num) {
+        return noticeRepository.getBoardComment(num);
     }
 }

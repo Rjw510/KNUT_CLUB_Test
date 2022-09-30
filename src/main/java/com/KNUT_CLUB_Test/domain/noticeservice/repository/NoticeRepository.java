@@ -1,5 +1,6 @@
 package com.KNUT_CLUB_Test.domain.noticeservice.repository;
 
+import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 
 import java.util.List;
@@ -43,5 +44,7 @@ public interface NoticeRepository {
     String getNoticeWriter(int num);
 
     String getBoardWriter(int num);
+
+    List<Comment> getBoardComment(int num);
 
 }

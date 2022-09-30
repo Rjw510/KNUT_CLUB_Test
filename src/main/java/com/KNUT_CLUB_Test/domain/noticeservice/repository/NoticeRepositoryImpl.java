@@ -1,6 +1,7 @@
 package com.KNUT_CLUB_Test.domain.noticeservice.repository;
 
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import org.springframework.stereotype.Repository;
 
@@ -945,5 +946,64 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             }
         }
         return writer;
+    }
+
+    @Override
+    public List<Comment> getBoardComment(int boardNum) {
+
+        List<Comment> commentList = new ArrayList<>();
+
+        String sql = "SELECT @ROWNUM := @ROWNUM +1 AS n, COMMENT.*"
+                + " FROM COMMENT, (SELECT @ROWNUM := ?)TMP WHERE board_num = ? ORDER BY date DESC limit ?, 10;";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, 0);
+            pst.setInt(2, boardNum);
+            pst.setInt(3, 0);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String writer = rs.getString("writer");
+                Date date = rs.getDate("date");
+                String content = rs.getString("content");
+
+                Comment comment = new Comment(
+                        writer
+                        , date
+                        , content
+                );
+                commentList.add(comment);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return commentList;
     }
 }

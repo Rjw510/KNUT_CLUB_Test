@@ -510,49 +510,108 @@ button{
 .commentSpace{
     width: 90%;
     height: 500px;
-    background-color: bisque;
     margin-left: auto;
     margin-right: auto;
 }
 
 .commentZone{
     width: 100%;
-    height: 110px;
+    height: 60px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     background-color: white;
 }
-
-.commentZone input{
-    width: 80%;
-    height: 100px;
-    margin-top: 2px;
-    padding: 10px;
-    font-size: 30px;
-}
-
-.commentZone input:first-child{
-    overflow: scroll;
-}
-
-.commentZone input:last-child{
+.zoneFirst{
     width: 10%;
-    height: 100px;
-    padding: 10px;
-    font-size: 30px;
-    margin-top: 5px;
-    margin-left: 50px;
-
+    height: 60px;
+    display: inline-block;
+    text-align: center;
 }
 
-.commentZone h1{
-    display: inline;
-    margin-right: 30px;
+.zoneFirst h3{
+    margin-top: 17px;
     margin-left: 30px;
 }
+.zoneMiddle{
+    width: 80%;
+    height: 60px;
+    display: inline-block;
+    text-align: center;
+}
+
+.zoneMiddle input{
+    width: 1000px;
+    height: 50px;
+    font-size: 15px;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.zoneLast{
+    width: 5%;
+    height: 60px;
+    display: inline-block;
+    text-align: center;
+}
+
+.zoneLast input{
+    width: 50px;
+    height: 30px;
+    padding: 5px;
+    background-color: white;
+    border: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.zoneLast input:hover{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.40);
+
+}
+.zoneMiddle input::-webkit-input-placeholder{
+    margin-left: 10px;
+}
 .commentSetter{
-    border-bottom: 3px solid black;
     height: 100px;
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+    border-top: 3px solid black;
+}
+
+.commentSetter #writer, #content, #date{
+    display: inline-block;
+}
+
+.commentSetter #writer{
+    text-align: left;
+    width: 20%;
+}
+
+.commentSetter #content{
+    width: 50%;
+    text-align: left;
+}
+
+.commentSetter #date{
+    width: 20%;
+    text-align: right;
+}
+
+.commentLiner{
+    border-bottom: 2px solid gray;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.modifyZone{
+    float: right;
+    margin-top: 10px;
+}
+
+.modifyZone button{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.20);
+}
+
+.modifyZone button:hover{
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.40);
 }

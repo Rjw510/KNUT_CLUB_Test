@@ -1,5 +1,6 @@
 package com.KNUT_CLUB_Test.domain.noticeservice.service;
 
+import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 
 import java.util.List;
@@ -43,4 +44,6 @@ public interface NoticeService {
     String getNoticeWriter(int num);
 
     String getBoardWriter(int num);
+
+    List<Comment> getBoardComment(int num);
 }

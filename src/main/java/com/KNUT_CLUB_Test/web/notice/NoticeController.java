@@ -4,6 +4,7 @@ package com.KNUT_CLUB_Test.web.notice;
 import com.KNUT_CLUB_Test.domain.adminservice.service.AdminService;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
 import com.KNUT_CLUB_Test.domain.noticeservice.Anonymous;
+import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import com.KNUT_CLUB_Test.domain.noticeservice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -192,8 +193,11 @@ public class NoticeController {
         String writer = noticeService.getBoardWriter(num);
 
         List<Notice> list = noticeService.getBoardDetail(num);
+        /* 댓글 테이블 */
+        List<Comment> commentList = noticeService.getBoardComment(num);
         noticeService.updateViews(num);
 
+        model.addAttribute("commentList", commentList);
         model.addAttribute("boardList", list);
         model.addAttribute("name", name);
         model.addAttribute("writer", writer);
