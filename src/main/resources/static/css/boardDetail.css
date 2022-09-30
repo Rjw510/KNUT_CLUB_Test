@@ -503,12 +503,56 @@ button{
     width: 100%;
     height: 500px;
     background-color: white;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .commentSpace{
     width: 90%;
-    height: 100%;
-    background-color: #8e8e8e;
+    height: 500px;
+    background-color: bisque;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.commentZone{
+    width: 100%;
+    height: 110px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color: white;
+}
+
+.commentZone input{
+    width: 80%;
+    height: 100px;
+    margin-top: 2px;
+    padding: 10px;
+    font-size: 30px;
+}
+
+.commentZone input:first-child{
+    overflow: scroll;
+}
+
+.commentZone input:last-child{
+    width: 10%;
+    height: 100px;
+    padding: 10px;
+    font-size: 30px;
+    margin-top: 5px;
+    margin-left: 50px;
+
+}
+
+.commentZone h1{
+    display: inline;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+.commentSetter{
+    border-bottom: 3px solid black;
+    height: 100px;
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
 }

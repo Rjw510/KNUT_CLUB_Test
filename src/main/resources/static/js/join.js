@@ -41,7 +41,7 @@ email.addEventListener("focusout", isEmailCorrect);
 mobile.addEventListener("focusout", checkPhoneNum);
 address.addEventListener("focusout", checkAddress);
 address2.addEventListener("focusout", addAddress);
-
+department.addEventListener("focusout",checkDepartment);
 
 
 
@@ -230,6 +230,19 @@ function addAddress(){
 	}
 }
 
+function checkDepartment(){
+	var departmentPattern = /[가-힣]/;
+
+	if(department.value === ""){
+		error[5].innerHTML = "필수 정보입니다.";
+		error[5].style.display = "block";
+	} else if(!departmentPattern.test(department.value)){
+		error[5].innerHTML = "한글로만 입력가능합니다.";
+		error[5].style.display = "block";
+	} else{
+		error[5].style.display = "none";
+	}
+}
 /* 전화번호 자동완성 */
 var mobile = document.getElementById('mobile');
 
@@ -265,6 +278,7 @@ var autoHypenPhone = function(str) {
 	}
 	return str;
 }
+
 
 /*주소찾기*/
 function findAddr() {
