@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lnag="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>이메일 인증</title>
     <meta charset="utf-8">
@@ -24,7 +24,7 @@
                 <div id="domain-first">
                     <span class="box">
                         <form th:action="@{/check/mailChk}" method="post">
-                            <input class="input" type="text" name="email" placeholder="@a.ut.ac.kr만 사용가능합니다.">
+                            <input class="input" type="text" name="email" placeholder="@a.ut.ac.kr">
                             <button type="submit">인증번호 발송</button>
                         </form>
                     </span>

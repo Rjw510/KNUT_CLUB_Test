@@ -6,6 +6,7 @@ import com.KNUT_CLUB_Test.domain.noticeservice.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -112,5 +113,15 @@ public class NoticeServiceImpl implements NoticeService{
     @Override
     public List<Comment> getBoardComment(int num) {
         return noticeRepository.getBoardComment(num);
+    }
+
+    @Override
+    public void writeComment(int board_num, String writer, String comment) {
+        noticeRepository.writeComment(board_num, writer, comment);
+    }
+
+    @Override
+    public void deleteComment(int comment_num) {
+        noticeRepository.deleteComment(comment_num);
     }
 }

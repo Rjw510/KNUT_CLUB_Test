@@ -33,7 +33,7 @@ body {
 }
 
 .findWrap input{
-    width: 350px;
+    width: 300px;
     height: 50px;
     text-align: center;
     margin-bottom: 30px;
@@ -42,6 +42,12 @@ body {
     background-color: white;
 }
 
+.findWrap input:last-child{
+    margin-top: 100px;
+    background-color: white;
+    width: 350px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 
 .fake{
     height: 140px;
@@ -58,11 +64,8 @@ body {
     height: 50px;
     font-size: 20px;
     padding: 10px;
-    background-color: white;
-}
-
-.content button:hover{
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color: white;
 }
 /* Clear floats after the columns */
 .row:after {
@@ -75,4 +78,11 @@ body {
     .column.side, .column.middle {
         width: 100%;
     }
+}
+
+.error_next_box {
+    margin-top: 9px;
+    font-size: 12px;
+    color: red;
+    display: none;
 }

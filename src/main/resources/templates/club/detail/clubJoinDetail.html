@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lnag="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Perfect</title>
     <link rel="stylesheet" href="/css/clubdetail.css">
@@ -58,9 +58,8 @@
 
 </div>
 
-<div class="footer">
-    <h2>Footer</h2>
-</div>
+<th:block th:insert="fragments/footer :: footerFragment"></th:block>
+
 
 </body>
 </html>

@@ -6,6 +6,7 @@ import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -975,12 +976,14 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             rs = pst.executeQuery();
 
             while (rs.next()) {
+                int num = rs.getInt("num");
                 String writer = rs.getString("writer");
                 Date date = rs.getDate("date");
                 String content = rs.getString("content");
 
                 Comment comment = new Comment(
-                        writer
+                        num
+                        , writer
                         , date
                         , content
                 );
@@ -1005,5 +1008,78 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             }
         }
         return commentList;
+    }
+
+    @Override
+    public void writeComment(int board_num, String writer, String comment) {
+        String sql = "INSERT INTO COMMENT(board_num, writer, content) VALUES (?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, board_num);
+            pst.setString(2, writer);
+            pst.setString(3, comment);
+
+            int rs = pst.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Override
+    public void deleteComment(int comment_num) {
+
+        String sql = "DELETE FROM COMMENT WHERE num = " + comment_num;
+
+        Connection conn = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            st = conn.createStatement();
+            st.executeUpdate(sql);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (st != null)
+                    st.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 }

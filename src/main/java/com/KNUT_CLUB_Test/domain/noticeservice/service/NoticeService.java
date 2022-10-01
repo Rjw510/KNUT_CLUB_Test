@@ -3,6 +3,7 @@ package com.KNUT_CLUB_Test.domain.noticeservice.service;
 import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 
+import java.util.Date;
 import java.util.List;
 
 public interface NoticeService {
@@ -46,4 +47,8 @@ public interface NoticeService {
     String getBoardWriter(int num);
 
     List<Comment> getBoardComment(int num);
+
+    void writeComment(int board_num, String writer, String comment);
+
+    void deleteComment(int comment_num);
 }

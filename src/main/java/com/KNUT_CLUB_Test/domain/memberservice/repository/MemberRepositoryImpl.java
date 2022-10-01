@@ -1,13 +1,13 @@
 package com.KNUT_CLUB_Test.domain.memberservice.repository;
 
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
-import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
+import com.KNUT_CLUB_Test.web.form.FindPwForm;
 import com.KNUT_CLUB_Test.web.form.JoinForm;
+import com.KNUT_CLUB_Test.web.form.ResetPwForm;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -281,7 +281,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public boolean getJoin(JoinForm joinForm, String birth, String gender) {
+    public boolean getJoin(JoinForm joinForm, String birth, String gender, String email) {
 
         List<JoinForm> memberList = new ArrayList<>();
         boolean check = false;
@@ -307,14 +307,14 @@ public class MemberRepositoryImpl implements MemberRepository {
             pst.setString(4, joinForm.getDepartment());
             pst.setString(5, birth);
             pst.setString(6, gender);
-            pst.setString(7, joinForm.getEmail());
+            pst.setString(7, email);
             pst.setString(8, joinForm.getPhone());
             pst.setString(9, joinForm.getAddress());
             pst.setString(10,joinForm.getDetailAddress());
 
             if (joinForm.getName().equals("") || joinForm.getStudentId().equals("") || joinForm.getPassword().equals("") ||
                     joinForm.getDepartment().equals("") || birth.equals("") || gender.equals("") ||
-                    joinForm.getEmail().equals("") || joinForm.getPhone().equals("") || joinForm.getAddress().equals("") ||
+                    email.equals("") || joinForm.getPhone().equals("") || joinForm.getAddress().equals("") ||
                     joinForm.getDetailAddress().equals("") ) {
                 check = false;
             }
@@ -836,6 +836,89 @@ public class MemberRepositoryImpl implements MemberRepository {
             }
         }
         return memberList;
+    }
+
+    @Override
+    public boolean findPassword(FindPwForm findPwForm) {
+        boolean chk = false;
+        String studentID = "";
+
+        String sql = "SELECT studentID FROM MEMBER WHERE studentID = ? and name = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, findPwForm.getStudentId());
+            pst.setString(2, findPwForm.getName());
+
+            rs = pst.executeQuery();
+
+            if (rs.next() == false) {
+                chk = false;
+            }
+            else {
+                chk = true;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return chk;
+    }
+
+    @Override
+    public void resetPassword(ResetPwForm resetPwForm, String userId) {
+
+        String sql = "UPDATE MEMBER SET password = ? WHERE studentID = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, resetPwForm.getPassword());
+            pst.setString(2, userId);
+
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 }
 

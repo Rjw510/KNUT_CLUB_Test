@@ -2,7 +2,9 @@ package com.KNUT_CLUB_Test.domain.memberservice.service;
 
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.repository.MemberRepository;
+import com.KNUT_CLUB_Test.web.form.FindPwForm;
 import com.KNUT_CLUB_Test.web.form.JoinForm;
+import com.KNUT_CLUB_Test.web.form.ResetPwForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +47,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean getJoin(JoinForm joinForm, String birth, String gender) {
-        return memberRepository.getJoin(joinForm, birth, gender);
+    public boolean getJoin(JoinForm joinForm, String birth, String gender, String email) {
+        return memberRepository.getJoin(joinForm, birth, gender, email);
     }
 
     @Override
@@ -97,5 +99,15 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public List<Member> getMemberClubJoin(String studentID) {
         return memberRepository.getMemberClubJoin(studentID);
+    }
+
+    @Override
+    public boolean findPassword(FindPwForm findPwForm) {
+        return memberRepository.findPassword(findPwForm);
+    }
+
+    @Override
+    public void resetPassword(ResetPwForm resetPwForm, String userId) {
+        memberRepository.resetPassword(resetPwForm, userId);
     }
 }

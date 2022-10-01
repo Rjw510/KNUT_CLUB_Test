@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lnag="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>자세한 페이지</title>
     <meta charset="utf-8">
@@ -34,7 +34,7 @@
                 <div class="detailcontent" style="height:auto; ">
                     <p class="noticect" th:utext="${b.content}">글 내용</p>
                 </div>
-                <div class="modifyZone" >
+                <div class="modifyZone" th:if="${writer == name}">
                     <button type="submit" th:text="삭제"></button>
                     <button type="button" th:onclick="|location.href='@{/board/update(num=${b.num})}'|"
                             th:text="수정"></button>
@@ -42,27 +42,37 @@
             </div>
         </form>
 
-        <form >
+
             <div class="commentWrapper">
                 <div class="commentSpace" >
-                    <div class="commentZone">
-                        <div class="zoneFirst"><h3>댓글</h3></div><div class="zoneMiddle"><input type="text" maxlength="500" placeholder="500자까지 입력가능합니다."></div>
-                        <div class="zoneLast"><input type="submit" id="cmtBtn" value="작성"></div>
-                    </div>
-                    <div class="commentSetter" >
-                        <div class="commentLiner"th:each="c : ${commentList}">
-                            <div id="writer" th:text="${c.writer}">작성자</div>
-                            <div id="content" th:text="${c.content}">내용</div>
-                            <div id="date" th:text="${c.date}">작성 날짜</div>
+                    <form method="post" action="/writeComment">
+                        <div class="commentZone">
+                            <input type="hidden" name="board_num" th:value="${b.num}">
+                            <div class="zoneFirst"><h3>댓글</h3></div><div class="zoneMiddle"><input type="text" name="comment" maxlength="500" placeholder="500자까지 입력가능합니다."></div>
+                            <div class="zoneLast"><input type="submit" id="cmtBtn" value="작성"></div>
                         </div>
-                </div>
+                    </form>
+                    <form method="post" action="/deleteComment" onsubmit="return deleteCheck()">
+                        <div class="commentSetter" >
+                            <div class="commentLiner"th:each="c : ${commentList}">
+                                <input type="hidden" name="board_num" th:value="${b.num}">
+                                <input type="hidden" name="comment_num" th:value="${c.num}">
+                                <div id="writer" th:text="${c.writer}">작성자</div>
+                                <div id="content" th:text="${c.content}">내용</div>
+                                <div id="date" th:text="${c.date}">작성 날짜</div>
+                                <!-- 임의로 만든 버튼 -->
+                                <th:block th:if="${session.name} == ${b.writer}">
+                                    <div class="zoneLast"><input type="submit" id="cmtBtn" value="삭제"></div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </form>
             </div>
         </form>
     </div>
 </div>
 
-<div class="footer">
-    <h2>Footer</h2>
-</div>
+<!--<th:block th:insert="fragments/footer :: footerFragment"></th:block>-->
+
 </body>
 </html>

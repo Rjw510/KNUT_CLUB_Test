@@ -117,9 +117,4 @@ public class LoginController {
             return "/alert";
         }
     }
-
-    @GetMapping("/findPw")
-    public String doFindPassword() {
-        return "/sign/findPw";
-    }
 }

@@ -15,7 +15,6 @@ public class JoinForm {
     private String birth_yy;
     private String birth_dd;
     private String department;
-    private String email;
     private String phone;
     private String address;
     private String detailAddress;

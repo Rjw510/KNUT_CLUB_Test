@@ -1,7 +1,9 @@
 package com.KNUT_CLUB_Test.domain.memberservice.service;
 
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
+import com.KNUT_CLUB_Test.web.form.FindPwForm;
 import com.KNUT_CLUB_Test.web.form.JoinForm;
+import com.KNUT_CLUB_Test.web.form.ResetPwForm;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface MemberService {
 
     boolean getMemberGrade(String studentID);
 
-    boolean getJoin(JoinForm joinForm, String birth, String gender);
+    boolean getJoin(JoinForm joinForm, String birth, String gender, String email);
 
     List<Member> getMemberProfile(String studentID);
 
@@ -40,4 +42,8 @@ public interface MemberService {
 //    int delNonMemberAll(int[] ids);
 //
     List<Member> getMemberClubJoin(String studentID);
+
+    boolean findPassword(FindPwForm findPwForm);
+
+    void resetPassword(ResetPwForm resetPwForm, String userId);
 }

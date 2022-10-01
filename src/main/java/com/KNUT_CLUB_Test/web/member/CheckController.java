@@ -34,18 +34,6 @@ public class CheckController {
         return "/sign/checkAdmin";
     }
 
-    /* 회원 회원가입 페이지 이동*/
-//    @GetMapping("/join")
-//    public String goJoin(Model model) {
-//        return "/sign/join";
-//    }
-
-    /* 관리자 회원가입 페이지 이동 */
-//    @GetMapping("/join/admin")
-//    public String goJoinAdmin(Model model) {
-//        return "/sign/joinAdmin";
-//    }
-
     /* 약관동의 */
     @PostMapping
     public String doCheck(@ModelAttribute Check chk,
@@ -63,11 +51,13 @@ public class CheckController {
         return "/alert";
     }
 
+    /* 이메일 인증 페이지 이동 */
     @GetMapping("/mailChk")
     public String goMailCheck() {
         return "/mail/mailChk";
     }
 
+    /* 이메일 인증 */
     @PostMapping("/mailChk")
     public String doMailCheck(@RequestParam("email") String email,
                               HttpSession session,
@@ -83,6 +73,7 @@ public class CheckController {
 
         mailService.sendMail(email,str);
         session.setAttribute("str", str);
+        session.setAttribute("email", email);
 
         model.addAttribute("url", "/check/mailValid");
         model.addAttribute("message", "인증번호가 발송되었습니다.");

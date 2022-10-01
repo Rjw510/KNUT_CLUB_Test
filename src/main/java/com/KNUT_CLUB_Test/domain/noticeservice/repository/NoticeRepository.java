@@ -3,6 +3,8 @@ package com.KNUT_CLUB_Test.domain.noticeservice.repository;
 import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface NoticeRepository {
@@ -47,4 +49,7 @@ public interface NoticeRepository {
 
     List<Comment> getBoardComment(int num);
 
+    void writeComment(int board_num, String writer, String comment);
+
+    void deleteComment(int comment_num);
 }

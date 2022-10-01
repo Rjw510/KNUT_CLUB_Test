@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -80,13 +81,15 @@ public class JoinController {
     public String doJoin(@ModelAttribute("join") JoinForm joinForm,
                          @RequestParam("birth_mm") String mm,
                          @RequestParam("gender") String gender,
-                         Model model) {
+                         Model model,
+                         HttpSession session) {
 
         log.info("회원 회원가입");
 
         String birth = joinForm.getBirth_yy()+"."+mm+"."+joinForm.getBirth_dd();
+        String email = (String) session.getAttribute("email");
 
-        boolean check = memberService.getJoin(joinForm, birth, gender);
+        boolean check = memberService.getJoin(joinForm, birth, gender, email);
         List<Notice> noticeList = noticeService.getNoticeSelect();
         List<Notice> boardList = noticeService.getBoardSelect();
 
