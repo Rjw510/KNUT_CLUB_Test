@@ -17,6 +17,7 @@ public class Notice {
     private String content;
     private int views;
     private boolean chk;
+    private String img;
 
     public Notice(String title, String writer, String content) {
         this.title = title;
@@ -60,12 +61,13 @@ public class Notice {
         this.chk = chk;
     }
 
-    public Notice(int num, String title, String writer, Date date, String content, int views) {
+    public Notice(int num, String title, String writer, Date date, String content, int views, String img) {
         this.num = num;
         this.title = title;
         this.writer = writer;
         this.date = date;
         this.content = content;
         this.views = views;
+        this.img = img;
     }
 }

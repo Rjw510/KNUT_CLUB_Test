@@ -25,7 +25,7 @@ public interface NoticeRepository {
 
     List<Notice> getBoardDetail(int num);
 
-    List<Notice> writeNotice(String title, String writer, String content);
+    List<Notice> writeNotice(String title, String writer, String content, String img);
 
     List<Notice> writeBoard(String title, String writer, String content, boolean chk);
 

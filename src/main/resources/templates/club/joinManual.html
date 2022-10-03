@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>가입 방법</title>
   <link rel="stylesheet" href="/css/joinManual.css">
@@ -30,7 +30,7 @@
     <div class="card">
       <h2><a href="/joinManual">가입 방법</h2>
       <div class="mainimg">
-        <img src="/img/joinManual.png">
+        <img th:src="@{/img/joinManual/joinManual.png}">
       </div>
     </div>
     <div class="card">

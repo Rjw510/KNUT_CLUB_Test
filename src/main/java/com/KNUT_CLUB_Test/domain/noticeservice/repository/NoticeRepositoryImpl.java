@@ -387,6 +387,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 Date date = rs.getDate("date");
                 String content = rs.getString("content");
                 int views = rs.getInt("views");
+                String img = rs.getString("img");
 
                Notice notice = new Notice(
                        num
@@ -395,6 +396,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                         , date
                         , content
                         , views
+                        , img
                 );
                 list.add(notice);
             }
@@ -483,10 +485,10 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     @Override
-    public List<Notice> writeNotice(String title,String writer,String content) {
+    public List<Notice> writeNotice(String title,String writer,String content, String img) {
         List<Notice> noticeWrite= new ArrayList<>();
 
-        String sql = "INSERT INTO NOTICE(title, writer, content) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO NOTICE(title, writer, content, img) VALUES (?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -502,6 +504,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             pst.setString(1, title);
             pst.setString(2, writer);
             pst.setString(3, content);
+            pst.setString(4, img);
 
 
             int rs = pst.executeUpdate();

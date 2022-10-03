@@ -56,8 +56,8 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public List<Notice> writeNotice(String title, String writer, String content) {
-        return noticeRepository.writeNotice(title, writer, content);
+    public List<Notice> writeNotice(String title, String writer, String content, String img) {
+        return noticeRepository.writeNotice(title, writer, content, img);
     }
 
     @Override

@@ -29,6 +29,9 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'com.google.code.gson:gson:2.9.0'
+	implementation group: 'commons-io', name: 'commons-io', version: '2.6'
 }
 
 test {

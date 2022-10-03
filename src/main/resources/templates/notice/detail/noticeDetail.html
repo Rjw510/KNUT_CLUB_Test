@@ -27,6 +27,9 @@
                     </div>
                 </div><!---->
                 <div class="detailcontent" style="height:auto; ">
+                    <th:block th:if="${n.img != ''}">
+                        <img th:src="${n.img}" width="300" height="300"/>
+                    </th:block>
                     <p class="noticect" th:utext="${n.content}">글 내용</p>
                 </div>
                 <div th:if="${writer == name}">

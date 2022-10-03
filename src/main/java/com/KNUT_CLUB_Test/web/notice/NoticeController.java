@@ -7,14 +7,25 @@ import com.KNUT_CLUB_Test.domain.noticeservice.Anonymous;
 import com.KNUT_CLUB_Test.domain.noticeservice.Comment;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import com.KNUT_CLUB_Test.domain.noticeservice.service.NoticeService;
+import com.KNUT_CLUB_Test.file.FileStore;
+import com.KNUT_CLUB_Test.web.form.NoticeWriteForm;
+import com.KNUT_CLUB_Test.web.form.UploadFile;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpSession;
+import java.io.*;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -24,6 +35,7 @@ public class NoticeController {
     private final NoticeService noticeService;
     private final AdminService adminService;
     private final MemberService memberService;
+    private final FileStore fileStore;
 
     /* 공지사항 페이지 이동 */
     @GetMapping("/notice")
@@ -123,13 +135,20 @@ public class NoticeController {
     }
 
     /* 공지사항 글쓰기 */  // 텍스트는 가능하지만 사진이 들어가면 전송 불가
-    @PostMapping("/notice/noticeWrite")
+    @PostMapping(value = "/notice/noticeWrite")
     public String doNoticeWrite(@RequestParam("title") String title,
                                 @RequestParam("writer") String writer,
+                                @RequestParam("attachFile") MultipartFile file,
                                 @RequestParam("content") String content,
-                                Model model) {
+                                Model model) throws IOException {
 
-        List<Notice> noticeWrite = noticeService.writeNotice(title, writer, content);
+        String domain = "/noticeDetail/";
+        UploadFile attachFile = fileStore.storeFile(file, domain);
+
+        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+        String fullPath = "/img/noticeDetail/" + filename;
+
+        List<Notice> noticeWrite = noticeService.writeNotice(title, writer, content, fullPath);
         model.addAttribute("noticeWrite", noticeWrite);
 
         return "redirect:/notice";

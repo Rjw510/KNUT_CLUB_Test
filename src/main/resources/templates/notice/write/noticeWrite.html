@@ -22,7 +22,7 @@
 <article>
     <div class="container" role="main">
         <h2>공지사항 글쓰기</h2>
-        <form name="form" id="form" role="form" method="post" th:action="@{/notice/noticeWrite}" onsubmit="return writeCheck()">
+        <form name="form" id="form" role="form" method="post" th:action="@{/notice/noticeWrite}" enctype="multipart/form-data" onsubmit="return writeCheck()">
             <div class="mb-3">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
@@ -30,6 +30,10 @@
             <div class="mb-3">
                 <label for="writer">작성자</label>
                 <input type="text" class="form-control" name="writer" id="writer" th:value="${session.name}" readonly>
+            </div>
+            <div>
+                <label>첨부파일</label>
+                <input type="file" name="attachFile" >
             </div>
             <div>
                 <textarea id="summernote" name="content" ></textarea>
@@ -46,7 +50,7 @@
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
+                        ['insert', ['link']],
                         ['view', ['fullscreen', 'codeview', 'help']]
                     ]
                 });
