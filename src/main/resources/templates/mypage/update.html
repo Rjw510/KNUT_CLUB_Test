@@ -1,62 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/mypage.css">
+    <title>마이페이지</title>
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
     <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
-    <title>Update</title>
+    <script></script>
 </head>
 <body>
 
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
+<div class="areaLine"></div>
 
-<div class="pathbox">
-    <p>pathbox</p>
-</div>
-<div class="row">
-
-    <div class="column middle" th:each="p : ${profile}">
-        <div class="wrapper">
-            <div class="row planBox premium text-center">
-                <div class="col-md-12 section1">
-                    <img id="profilepicture" src="/img/profile.PNG">
-                    <p th:text="${p.name} + '님의 마이페이지입니다'">이름></p>
+<div class="row" th:each="profile : ${profile}">
+    <div class="leftcolumn">
+        <div class="card">
+            <form th:action method="post" onsubmit="return updateCheck()">
+                <table class="table-fill">
+                    <thead>
+                    <tr>
+                        <th class="text-left"></th>
+                        <th class="text-left"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-hover">
+                    <tr>
+                        <td class="text-left">이름</td>
+                        <td class="text-left"><input type="text" name="name" id="name" th:placeholder="${profile.name}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">학번</td>
+                        <td class="text-left"><input type="text" name="studentID" id="id" th:placeholder="${profile.studentID}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">이메일</td>
+                        <td class="text-left"><input type="text"  name="email" id="email" th:placeholder="${profile.email}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">학과</td>
+                        <td class="text-left"><input type="text"  name="department" id="department" th:placeholder="${profile.department}"></td>
+                    </tr>
+                    <tr th:if="${profile.club} == false">
+                        <td class="text-left" >가입된 동아리</td>
+                        <td class="text-left">없음</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">가입된 동아리</td>
+                        <td class="text-left"><input type="text"  name="club" id="club" th:placeholder="${profile.club}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="btnZone">
+                    <input type="submit" value="수정"></input>
                 </div>
-                <form th:action method="post" onsubmit="return updateCheck()">
-                <div class="col-md-12 section2">
-
-                    <div class="box">
-                        이름:<input type="text" name="name" id="name" th:placeholder="${p.name}">
-                    </div>
-                    <div class="box">
-                        학번:<input type="text" name="studentID" id="id" th:placeholder="${p.studentID}">
-                    </div>
-                    <div class="box">
-                        이메일:<input type="text"  name="email" id="email" th:placeholder="${p.email}">
-                    </div>
-                    <div class="box">
-                        학과:<input type="text"  name="department" id="department" th:placeholder="${p.department}">
-                    </div>
-                    <div class="box">
-                        가입된 동아리:<input type="text"  name="club" id="club" th:placeholder="${p.club}">
-                    </div>
-                        <!--<button type="submit" >수정</button>-->
-                        <button type="submit" >수정</button>
-                </div>
-                </form>
-            </div>
+            </form>
         </div>
     </div>
-
-
+    <div class="rightcolumn">
+        <div class="card">
+            <form>
+                <h2>About Me</h2>
+                <div id="proImg">Image</div>
+                <input type="file" name="attachFile">
+                <p th:text="${profile.name} + '님의 마이페이지입니다'">이름</p>
+            </form>
+        </div>
+    </div>
 </div>
 
-<div class="footer">
-    <p>Footer</p>
-</div>
+<th:block th:insert="fragments/footer :: footerFragment"></th:block>
 
 </body>
 </html>
