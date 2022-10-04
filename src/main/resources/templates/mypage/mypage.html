@@ -60,11 +60,15 @@
     </div>
     <div class="rightcolumn">
         <div class="card">
-            <form>
+            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
                 <h2>About Me</h2>
-                <div id="proImg">Image</div>
+                <div id="proImg" >
+                    <img th:src="${profile.img}"  />
+                </div>
+                <input type="hidden" name="studentId" th:value="${profile.studentID}">
                 <input type="file" name="attachFile">
                 <p th:text="${profile.name} + '님의 마이페이지입니다'">이름</p>
+                <input type="submit">
             </form>
         </div>
     </div>

@@ -344,7 +344,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 
         List<Member> profile = new ArrayList<>();
 
-        String sql = "SELECT name, email, studentID, department, club, grade FROM MEMBER WHERE studentID = ?;";
+        String sql = "SELECT name, email, studentID, department, club, grade, img FROM MEMBER WHERE studentID = ?;";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -369,6 +369,7 @@ public class MemberRepositoryImpl implements MemberRepository {
                 String department = rs.getString("department");
                 String club = rs.getString("club");
                 boolean grade = rs.getBoolean("grade");
+                String img = rs.getString("img");
 
 
                 Member member = new Member(
@@ -378,6 +379,7 @@ public class MemberRepositoryImpl implements MemberRepository {
                         , department
                         , club
                         , grade
+                        , img
                 );
                 profile.add(member);
             }
@@ -902,6 +904,42 @@ public class MemberRepositoryImpl implements MemberRepository {
             pst = conn.prepareStatement(sql);
             pst.setString(1, resetPwForm.getPassword());
             pst.setString(2, userId);
+
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Override
+    public void uploadProfile(String file, String id) {
+
+        String sql = "UPDATE MEMBER SET img = ? WHERE studentID = ?";
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, file);
+            pst.setString(2, id);
 
             int rs = pst.executeUpdate();
         }

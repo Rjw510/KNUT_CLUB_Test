@@ -34,7 +34,7 @@ public class Notice {
         this.views = views;
     }
 
-    public Notice(int num, String title, String writer, Date date, String content, int views, boolean chk) {
+    public Notice(int num, String title, String writer, Date date, String content, int views, boolean chk, String img) {
         this.num = num;
         this.title = title;
         this.writer = writer;
@@ -42,6 +42,7 @@ public class Notice {
         this.content = content;
         this.views = views;
         this.chk = chk;
+        this.img = img;
     }
 
     public Notice(String title, String writer, String content, boolean chk) {

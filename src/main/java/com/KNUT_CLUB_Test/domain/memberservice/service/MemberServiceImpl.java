@@ -110,4 +110,9 @@ public class MemberServiceImpl implements MemberService{
     public void resetPassword(ResetPwForm resetPwForm, String userId) {
         memberRepository.resetPassword(resetPwForm, userId);
     }
+
+    @Override
+    public void uploadProfile(String file, String id) {
+        memberRepository.uploadProfile(file, id);
+    }
 }

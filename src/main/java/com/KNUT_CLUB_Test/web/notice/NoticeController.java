@@ -154,6 +154,28 @@ public class NoticeController {
         return "redirect:/notice";
     }
 
+    @PostMapping(value = "/board/boardWrite")
+    public String doBoardWrite(@RequestParam("title") String title,
+                               @RequestParam("writer") String writer,
+                               @RequestParam("content") String content,
+                               @RequestParam("attachFile") MultipartFile file,
+                               @ModelAttribute Anonymous anonymous,
+                               Model model) throws IOException {
+
+        Boolean chk = anonymous.getChk();
+
+        String domain = "/boardDetail/";
+        UploadFile attachFile = fileStore.storeFile(file, domain);
+
+        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+        String fullPath = "/img/boardDetail/" + filename;
+
+        List<Notice> boardWrite = noticeService.writeBoard(title, writer, content, chk, fullPath);
+        model.addAttribute("boardWrite", boardWrite);
+
+        return "redirect:/board";
+    }
+
     /* 공지사항 삭제 */
     @PostMapping("/delNotice")
     public String delNotice(@RequestParam("del_id") String[] delIds) {
@@ -273,21 +295,6 @@ public class NoticeController {
 
 
 
-    }
-
-    @PostMapping("/board/boardWrite")
-    public String doBoardWrite(@RequestParam("title") String title,
-                               @RequestParam("writer") String writer,
-                               @RequestParam("content") String content,
-                               @ModelAttribute Anonymous anonymous,
-                               Model model) {
-
-        Boolean chk = anonymous.getChk();
-
-        List<Notice> boardWrite = noticeService.writeBoard(title, writer, content, chk);
-        model.addAttribute("boardWrite", boardWrite);
-
-        return "redirect:/board";
     }
 
     @PostMapping("/delBoard")

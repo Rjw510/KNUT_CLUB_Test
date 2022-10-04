@@ -22,7 +22,7 @@
 <article>
     <div class="container" role="main">
         <h2>자유게시판 글쓰기</h2>
-        <form name="form" id="form" role="form" method="post" action="/board/boardWrite" onsubmit="return writeCheck()">
+        <form name="form" id="form" role="form" method="post" action="/board/boardWrite" enctype="multipart/form-data" onsubmit="return writeCheck()">
             <div class="mb-3">
                 <label for="title">제목</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
@@ -32,10 +32,10 @@
                 <input type="text" class="form-control" name="writer" id="writer" th:value="${session.name}" readonly>
                 <input type="checkbox" th:field="${anonymous.chk}" th:text="익명">
             </div>
-            <!-- <div class="mb-3">
-                 <label for="content">내용</label>
-                 <textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
-             </div>-->
+            <div>
+                <label>첨부파일</label>
+                <input type="file" name="attachFile" >
+            </div>
             <div>
                 <textarea id="summernote" name="content" ></textarea>
             </div>
@@ -51,7 +51,7 @@
                         ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video']],
+                        ['insert', ['link']],
                         ['view', ['fullscreen', 'codeview', 'help']]
                     ]
                 });

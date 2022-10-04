@@ -33,6 +33,9 @@
                 </div><!--th:if="${writer == name}"-->
                 <div class="detailcontent" style="height:auto; ">
                     <p class="noticect" th:utext="${b.content}">글 내용</p>
+                    <th:block th:if="${not #strings.isEmpty(b.img)}">
+                        <img th:src="${b.img}" style="width: 700px; height: 500px; border-radius: 10px; margin-top: 40px; margin-bottom: 20px; margin-right: 20px;"  />
+                    </th:block>
                 </div>
                 <div class="modifyZone" th:if="${writer == name}">
                     <button type="submit" th:text="삭제"></button>

@@ -27,7 +27,7 @@ public interface NoticeRepository {
 
     List<Notice> writeNotice(String title, String writer, String content, String img);
 
-    List<Notice> writeBoard(String title, String writer, String content, boolean chk);
+    List<Notice> writeBoard(String title, String writer, String content, boolean chk, String img);
 
     void updateViews(int num);
 

@@ -68,7 +68,7 @@ public class LoginController {
         session.setAttribute("name", name);
         session.setAttribute("club", club);
 
-        log.info("권한 : {}", session.getAttribute("admin"));
+        log.info("권한 : {}", session.getAttribute("user"));
 
         if (loginCheck.equals(member.getStudentID())) {
             model.addAttribute("url", "/index");

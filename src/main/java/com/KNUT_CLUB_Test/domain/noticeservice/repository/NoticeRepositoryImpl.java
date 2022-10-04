@@ -451,6 +451,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                 String content = rs.getString("content");
                 int views = rs.getInt("views");
                 boolean chk = rs.getBoolean("anonymous");
+                String img = rs.getString("img");
 
                 Notice notice = new Notice(
                         num
@@ -460,6 +461,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
                         , content
                         , views
                         , chk
+                        , img
                 );
                 list.add(notice);
             }
@@ -534,12 +536,12 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     @Override
-    public List<Notice> writeBoard(String title, String writer, String content, boolean chk) {
+    public List<Notice> writeBoard(String title, String writer, String content, boolean chk, String img) {
         List<Notice> boardWrite= new ArrayList<>();
 
         String anonymous = "익명";
 
-        String sql = "INSERT INTO BOARD(title, writer, content, anonymous) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO BOARD(title, writer, content, anonymous, img) VALUES (?, ?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -556,6 +558,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             pst.setString(2, writer);
             pst.setString(3, content);
             pst.setBoolean(4, chk);
+            pst.setString(5, img);
 
 
             int rs = pst.executeUpdate();

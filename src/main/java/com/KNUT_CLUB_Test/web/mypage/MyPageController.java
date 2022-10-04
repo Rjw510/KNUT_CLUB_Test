@@ -7,13 +7,17 @@ import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
 
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
 import com.KNUT_CLUB_Test.domain.noticeservice.service.NoticeService;
+import com.KNUT_CLUB_Test.file.FileStore;
+import com.KNUT_CLUB_Test.web.form.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,7 @@ public class MyPageController {
 
     private final MemberService memberService;
     private final NoticeService noticeService;
+    private final FileStore fileStore;
 
     /* 회원 마이페이지 이동 */
     @GetMapping
@@ -100,6 +105,22 @@ public class MyPageController {
         }
 
         memberService.getMemberUpdate(name, studentID, email, department, club);
+        return "redirect:/mypage";
+    }
+
+    @PostMapping("/uploadProfile")
+    public String doUploadProfile(@RequestParam("attachFile") MultipartFile file,
+                                  @RequestParam("studentId") String id) throws IOException {
+
+        String domain = "/mypage/";
+        UploadFile attachFile = fileStore.storeFile(file, domain);
+
+        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+        String fullPath = "/img/mypage/" + filename;
+
+        memberService.uploadProfile(fullPath, id);
+
+
         return "redirect:/mypage";
     }
 

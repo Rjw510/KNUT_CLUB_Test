@@ -22,6 +22,7 @@ public class Member {
     private String club;
     private String motive;
     private boolean grade;
+    private String img;
 
     private String studentID;
     private String password;
@@ -83,13 +84,14 @@ public class Member {
 //    }
 //
     /* 마이페이지 */
-    public Member(String name, String email, String studentID, String department, String club, boolean grade) {
+    public Member(String name, String email, String studentID, String department, String club, boolean grade, String img) {
         this.name = name;
         this.email = email;
         this.studentID = studentID;
         this.department = department;
         this.club = club;
         this.grade = grade;
+        this.img = img;
     }
 //
 //    public Member(int n, int num, String name, String department, String gender, String grade, String studentID) {

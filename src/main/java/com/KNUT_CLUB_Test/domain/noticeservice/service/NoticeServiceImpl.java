@@ -61,8 +61,8 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public List<Notice> writeBoard(String title, String writer, String content, boolean chk) {
-        return noticeRepository.writeBoard(title, writer, content, chk);
+    public List<Notice> writeBoard(String title, String writer, String content, boolean chk, String img) {
+        return noticeRepository.writeBoard(title, writer, content, chk, img);
     }
 
     @Override

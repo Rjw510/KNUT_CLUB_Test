@@ -46,4 +46,6 @@ public interface MemberService {
     boolean findPassword(FindPwForm findPwForm);
 
     void resetPassword(ResetPwForm resetPwForm, String userId);
+
+    void uploadProfile(String file, String id);
 }
