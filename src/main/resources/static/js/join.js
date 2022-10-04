@@ -31,12 +31,13 @@ mm.addEventListener("focusout", isBirthCompleted);
 dd.addEventListener("focusout", isBirthCompleted);
 gender.addEventListener("focusout", function() {
 	if(gender.value === "성별") {
-		error[5].style.display = "block";
+		error[6].style.display = "block";
+		error[6].innerHTML = "필수 정보입니다.";
 	} else {
-		error[5].style.display = "none";
+		error[6].style.display = "none";
 	}
 })
-email.addEventListener("focusout", isEmailCorrect);
+// email.addEventListener("focusout", isEmailCorrect);
 mobile.addEventListener("focusout", checkPhoneNum);
 address.addEventListener("focusout", checkAddress);
 address2.addEventListener("focusout", addAddress);
@@ -114,13 +115,26 @@ function checkName() {
 	}
 }
 
+function checkDepartment(){
+	var departmentPattern = /[가-힣]/;
+
+	if(department.value === ""){
+		error[4].innerHTML = "필수 정보입니다.";
+		error[4].style.display = "block";
+	} else if(!departmentPattern.test(department.value)){
+		error[4].innerHTML = "한글로만 입력가능합니다.";
+		error[4].style.display = "block";
+	} else{
+		error[4].style.display = "none";
+	}
+}
 
 function isBirthCompleted() {
 	var yearPattern = /[0-9]{4}/;
 
 	if(!yearPattern.test(yy.value)) {
-		error[4].innerHTML = "태어난 년도 4자리를 정확하게 입력하세요.";
-		error[4].style.display = "block";
+		error[5].innerHTML = "태어난 년도 4자리를 정확하게 입력하세요.";
+		error[5].style.display = "block";
 	} else {
 		isMonthSelected();
 	}
@@ -128,7 +142,7 @@ function isBirthCompleted() {
 
 	function isMonthSelected() {
 		if(mm.value === "월") {
-			error[4].innerHTML = "태어난 월을 선택하세요.";
+			error[5].innerHTML = "태어난 월을 선택하세요.";
 		} else {
 			isDateCompleted();
 		}
@@ -136,7 +150,7 @@ function isBirthCompleted() {
 
 	function isDateCompleted() {
 		if(dd.value === "") {
-			error[4].innerHTML = "태어난 일(날짜) 2자리를 정확하게 입력하세요.";
+			error[5].innerHTML = "태어난 일(날짜) 2자리를 정확하게 입력하세요.";
 		} else {
 			isBirthRight();
 		}
@@ -148,7 +162,7 @@ function isBirthCompleted() {
 function isBirthRight() {
 	var datePattern = /\d{1,2}/;
 	if(!datePattern.test(dd.value) || Number(dd.value)<1 || Number(dd.value)>31) {
-		error[4].innerHTML = "생년월일을 다시 확인해주세요.";
+		error[5].innerHTML = "생년월일을 다시 확인해주세요.";
 	} else {
 		checkAge();
 	}
@@ -156,34 +170,34 @@ function isBirthRight() {
 
 function checkAge() {
 	if(Number(yy.value) < 1920) {
-		error[4].innerHTML = "정말이세요?";
-		error[4].style.display = "block";
+		error[5].innerHTML = "정말이세요?";
+		error[5].style.display = "block";
 	} else if(Number(yy.value) > 2020) {
-		error[4].innerHTML = "미래에서 오셨군요. ^^";
-		error[4].style.display = "block";
+		error[5].innerHTML = "미래에서 오셨군요. ^^";
+		error[5].style.display = "block";
 	} else if(Number(yy.value) > 2005) {
-		error[4].innerHTML = "만 14세 미만의 어린이는 보호자 동의가 필요합니다.";
-		error[4].style.display = "block";
+		error[5].innerHTML = "만 14세 미만의 어린이는 보호자 동의가 필요합니다.";
+		error[5].style.display = "block";
 	} else {
-		error[4].style.display = "none";
+		error[5].style.display = "none";
 	}
 }
 
 
-function isEmailCorrect() {
-	var emailPattern = /[a-z0-9]{2,}@[a-z0-9-]{2,}\.[a-z0-9]{2,}/;
-
-	if(email.value === ""){
-		error[6].style.display = "block";
-		error[6].innerHTML = "필수 정보입니다.";
-	} else if(!emailPattern.test(email.value)) {
-		error[6].style.display = "block";
-		error[6].innerHTML = "형식에 맞지 않는 이메일입니다.";
-	} else {
-		error[6].style.display = "none";
-	}
-
-}
+// function isEmailCorrect() {
+// 	var emailPattern = /[a-z0-9]{2,}@[a-z0-9-]{2,}\.[a-z0-9]{2,}/;
+//
+// 	if(email.value === ""){
+// 		error[4].style.display = "block";
+// 		error[4].innerHTML = "필수 정보입니다.";
+// 	} else if(!emailPattern.test(email.value)) {
+// 		error[4].style.display = "block";
+// 		error[4].innerHTML = "형식에 맞지 않는 이메일입니다.";
+// 	} else {
+// 		error[4].style.display = "none";
+// 	}
+//
+// }
 
 function checkPhoneNum() {
 	var isPhoneNum = /([01]{2})([01679]{1})-([0-9]{3,4})-([0-9]{4})/;
@@ -229,19 +243,7 @@ function addAddress(){
 	}
 }
 
-function checkDepartment(){
-	var departmentPattern = /[가-힣]/;
 
-	if(department.value === ""){
-		error[5].innerHTML = "필수 정보입니다.";
-		error[5].style.display = "block";
-	} else if(!departmentPattern.test(department.value)){
-		error[5].innerHTML = "한글로만 입력가능합니다.";
-		error[5].style.display = "block";
-	} else{
-		error[5].style.display = "none";
-	}
-}
 /* 전화번호 자동완성 */
 var mobile = document.getElementById('mobile');
 
@@ -300,9 +302,4 @@ function findAddr() {
 	}).open();
 }
 
-function winpopup() {
-	var ck = window.open("", "new window", "width=400,height=100");
-	ck.document.write("<html><head><title>이메일 인증</title></head><body><h1>이메일 인증</h1><input class='ckNum' type='text' placeholder='인증번호를 입력해주세요'>" +
-		"<input style='margin-left: 10px' class='ckNext' type='submit' value='인증'></body></html>");
-}
 

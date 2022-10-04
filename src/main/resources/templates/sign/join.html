@@ -73,7 +73,6 @@
             <!-- BIRTH -->
             <div>
                 <h3 class="join_title"><label for="yy">생년월일</label></h3>
-
                 <div id="bir_wrap">
                     <!-- BIRTH_YY -->
                     <div id="bir_yy">
@@ -81,7 +80,6 @@
                                     <input type="text" th:field="*{birth_yy}" id="yy" class="int" maxlength="4" placeholder="년(4자)">
                                 </span>
                     </div>
-
                     <!-- BIRTH_MM -->
                     <div id="bir_mm">
                                 <span class="box">
@@ -102,18 +100,15 @@
                                     </select>
                                 </span>
                     </div>
-
                     <!-- BIRTH_DD -->
                     <div id="bir_dd">
                                 <span class="box">
                                     <input type="text" th:field="*{birth_dd}" id="dd" class="int" maxlength="2" placeholder="일">
                                 </span>
                     </div>
-
                 </div>
                 <span class="error_next_box"></span>
             </div>
-
             <!-- GENDER -->
             <div>
                 <h3 class="join_title"><label for="gender">성별</label></h3>
