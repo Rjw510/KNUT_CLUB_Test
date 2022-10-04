@@ -75,12 +75,13 @@
             <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
                 <h2>About Me</h2>
                 <div id="proImg" >
-                    <img th:src="${profile.img}"  id="img"/>
+                    <img th:src="${profile.img}"  id="img" style="margin-right: 20px; margin-bottom: 20px; width: 200px; height: 200px;" />
                 </div>
                 <input type="hidden" name="studentId" th:value="${profile.studentID}">
                 <input type="file" name="attachFile" onchange="readURL(this)";>
-                <p th:text="${profile.name} + '님의 마이페이지입니다'">이름</p>
-                <input type="submit">
+                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">
+                <p th:text="${profile.name} + '님의 마이페이지입니다'" style="margin-top: 40px;">이름</p>
+
             </form>
         </div>
     </div>

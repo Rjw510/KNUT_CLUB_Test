@@ -35,20 +35,16 @@ public class MyPageController {
 
         String studentID = (String) session.getAttribute("id");
 
-//        if (studentID == null) {
-//            model.addAttribute("message", "로그인 후 이용부탁드립니다.");
-//            model.addAttribute("url", "/index");
-//            return "/alert";
-//        }
-//        else {
-//            List<Member> profile = memberService.getMemberProfile(studentID);
-//            model.addAttribute("profile", profile);
-//            return "/mypage/mypage";
-//        }
-
-        List<Member> profile = memberService.getMemberProfile(studentID);
-        model.addAttribute("profile", profile);
-        return "/mypage/mypage";
+        if (studentID == null) {
+            model.addAttribute("message", "로그인 후 이용부탁드립니다.");
+            model.addAttribute("url", "/index");
+            return "/alert";
+        }
+        else {
+            List<Member> profile = memberService.getMemberProfile(studentID);
+            model.addAttribute("profile", profile);
+            return "/mypage/mypage";
+        }
     }
 
     /* 관리자 마이페이지 이동 */
