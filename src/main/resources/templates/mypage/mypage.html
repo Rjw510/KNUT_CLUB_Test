@@ -4,7 +4,19 @@
     <title>마이페이지</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}">
     <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
-    <script></script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('img').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                document.getElementById('img').src = "";
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -63,12 +75,12 @@
             <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
                 <h2>About Me</h2>
                 <div id="proImg" >
-                    <img th:src="${profile.img}" style="width: 200px; height: 200px; margin-right: 20px; margin-bottom: 20px;  border-radius: 20px"/>
+                    <img th:src="${profile.img}"  id="img"/>
                 </div>
                 <input type="hidden" name="studentId" th:value="${profile.studentID}">
-                <input type="file" name="attachFile">
-                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">
-                <p th:text="${profile.name} + '님의 마이페이지입니다'" style="margin-top: 20px">이름</p>
+                <input type="file" name="attachFile" onchange="readURL(this)";>
+                <p th:text="${profile.name} + '님의 마이페이지입니다'">이름</p>
+                <input type="submit">
             </form>
         </div>
     </div>
