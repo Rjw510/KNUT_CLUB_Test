@@ -61,9 +61,9 @@
         <div class="card">
             <form>
                 <h2>About Me</h2>
-                <div id="proImg">Image</div>
+                <div id="proImg"><img th:src="${profile.img}" style="width: 200px; height: 200px; margin-right: 20px; margin-bottom: 20px;  border-radius: 20px"/></div>
                 <input type="file" name="attachFile">
-                <p th:text="${profile.name} + '님의 마이페이지입니다'">이름</p>
+                <p th:text="${profile.name} + '님의 마이페이지입니다'" style="margin-top: 20px;">이름</p>
             </form>
         </div>
     </div>
