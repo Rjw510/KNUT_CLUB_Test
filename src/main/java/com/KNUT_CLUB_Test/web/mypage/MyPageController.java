@@ -58,7 +58,7 @@ public class MyPageController {
             return "/login";
         }
         else {
-            return "/mypage/mypageAdmin";
+            return "/mypage/aboutAdmin";
         }
     }
 

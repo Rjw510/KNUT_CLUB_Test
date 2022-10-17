@@ -2,19 +2,15 @@ package com.KNUT_CLUB_Test.web.club;
 
 import com.KNUT_CLUB_Test.domain.clubservice.Club;
 import com.KNUT_CLUB_Test.domain.clubservice.service.ClubService;
-import com.KNUT_CLUB_Test.domain.memberservice.ManageService;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
-import com.KNUT_CLUB_Test.domain.noticeservice.Anonymous;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -55,6 +51,11 @@ public class ClubController {
         model.addAttribute("clubList", clubList);
 
         return "club/clubJoin";
+    }
+
+    @GetMapping("/newClub")
+    public String goNewClub() {
+        return "/club/newClub";
     }
 
     @GetMapping("/clubJoin/detail")
@@ -119,7 +120,7 @@ public class ClubController {
 
     @GetMapping("/club/create")
     public String goClubCreate() {
-        return "/club/clubCreate";
+        return "newClub";
     }
 
 }

@@ -64,6 +64,6 @@ public class EventController {
 
     @GetMapping("/event/write")
     public String goEventWrite() {
-        return "/event/eventWrite";
+        return "/event/aboutEvent";
     }
 }
