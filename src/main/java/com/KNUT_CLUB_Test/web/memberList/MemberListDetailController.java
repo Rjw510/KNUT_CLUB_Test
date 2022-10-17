@@ -1,5 +1,7 @@
 package com.KNUT_CLUB_Test.web.memberList;
 
+import com.KNUT_CLUB_Test.domain.adminservice.UserDetailDTO;
+import com.KNUT_CLUB_Test.domain.adminservice.service.AdminService;
 import com.KNUT_CLUB_Test.domain.memberservice.ManageService;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberListDetailController {
 
+    private final AdminService adminService;
+
     @GetMapping("/memberList/detail")
     public String goMemberListDetail(@RequestParam("num") int num, Model model) {
 
-        ManageService service = new ManageService();
-//        List<Member> list = service.getMemberListDetail(num);
-
-//        model.addAttribute("list", list);
+        List<UserDetailDTO> profile = adminService.getUserDTO(num);
+        model.addAttribute("profile", profile);
 
         return "memberList/detail/memberListDetail";
     }
@@ -28,10 +30,8 @@ public class MemberListDetailController {
     @GetMapping("/permissionList/detail")
     public String goPermissionListDetail(@RequestParam("num") int num, Model model) {
 
-        ManageService service = new ManageService();
-//        List<Member> list = service.getMemberListDetail(num);
-//
-//        model.addAttribute("list", list);
+        List<UserDetailDTO> profile = adminService.getUserDTO(num);
+        model.addAttribute("profile", profile);
 
         return "memberList/detail/permissionListDetail";
     }

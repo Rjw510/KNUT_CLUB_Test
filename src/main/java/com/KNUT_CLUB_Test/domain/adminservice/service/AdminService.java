@@ -1,6 +1,8 @@
 package com.KNUT_CLUB_Test.domain.adminservice.service;
 
 import com.KNUT_CLUB_Test.domain.adminservice.Admin;
+import com.KNUT_CLUB_Test.domain.adminservice.AdminMypageDTO;
+import com.KNUT_CLUB_Test.domain.adminservice.UserDetailDTO;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.web.form.AdminJoinForm;
 
@@ -18,6 +20,8 @@ public interface AdminService {
 
     List<Member> getPermissionList(String club, String field, String query, int page);
 
+    List<UserDetailDTO> getUserDTO(int id);
+
     int getMemberCount(String club, String field, String query);
 
     int getPermissionCount(String club, String field, String query);
@@ -27,4 +31,6 @@ public interface AdminService {
     int delNonMemberAll(int[] ids);
 
     boolean getJoin(AdminJoinForm joinForm);
+
+    List<AdminMypageDTO> getClubProfile(String dto);
 }

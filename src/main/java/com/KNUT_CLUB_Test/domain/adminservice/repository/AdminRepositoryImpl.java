@@ -1,9 +1,10 @@
 package com.KNUT_CLUB_Test.domain.adminservice.repository;
 
 import com.KNUT_CLUB_Test.domain.adminservice.Admin;
+import com.KNUT_CLUB_Test.domain.adminservice.AdminMypageDTO;
+import com.KNUT_CLUB_Test.domain.adminservice.UserDetailDTO;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.web.form.AdminJoinForm;
-import com.KNUT_CLUB_Test.web.form.JoinForm;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -283,6 +284,67 @@ public class AdminRepositoryImpl implements AdminRepository{
     }
 
     @Override
+    public List<UserDetailDTO> getUserDTO(int id) {
+
+        List<UserDetailDTO> profile = new ArrayList<>();
+
+        String sql = "select name, studentId, department ,phone, motive from member where num = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, id);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String studentId = rs.getString("studentId");
+                String department = rs.getString("department");
+                String phone = rs.getString("phone");
+                String motive = rs.getString("motive");
+
+
+                UserDetailDTO dto = new UserDetailDTO (
+                        name
+                        , studentId
+                        , department
+                        , phone
+                        , motive
+                );
+                profile.add(dto);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return profile;
+    }
+
+
+    @Override
     public int getMemberCount(String club, String field, String query) {
         int count = 0;
 
@@ -516,4 +578,66 @@ public class AdminRepositoryImpl implements AdminRepository{
         }
         return check;
     }
+
+    @Override
+    public List<AdminMypageDTO> getClubProfile(String clubId) {
+
+        List<AdminMypageDTO> profile = new ArrayList<>();
+
+        String sql = "select clubName, name, email, phone, img from admin where clubId = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, clubId);
+
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String clubName = rs.getString("clubName");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String phone = rs.getString("phone");
+                String img = rs.getString("img");
+
+
+                AdminMypageDTO AdminMypageDTO = new AdminMypageDTO(
+                        clubName
+                        , name
+                        , email
+                        , phone
+                        , img
+                );
+                profile.add(AdminMypageDTO);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return profile;
+    }
+
+
 }

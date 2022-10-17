@@ -1,6 +1,8 @@
 package com.KNUT_CLUB_Test.domain.adminservice.service;
 
 import com.KNUT_CLUB_Test.domain.adminservice.Admin;
+import com.KNUT_CLUB_Test.domain.adminservice.AdminMypageDTO;
+import com.KNUT_CLUB_Test.domain.adminservice.UserDetailDTO;
 import com.KNUT_CLUB_Test.domain.adminservice.repository.AdminRepository;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.web.form.AdminJoinForm;
@@ -41,6 +43,11 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
+    public List<UserDetailDTO> getUserDTO(int id) {
+        return adminRepository.getUserDTO(id);
+    }
+
+    @Override
     public int getMemberCount(String club, String field, String query) {
         return adminRepository.getMemberCount(club, field, query);
     }
@@ -63,5 +70,10 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public boolean getJoin(AdminJoinForm joinForm) {
         return adminRepository.getJoin(joinForm);
+    }
+
+    @Override
+    public List<AdminMypageDTO> getClubProfile(String clubId) {
+        return adminRepository.getClubProfile(clubId);
     }
 }

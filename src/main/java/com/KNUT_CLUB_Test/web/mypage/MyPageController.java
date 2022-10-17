@@ -2,6 +2,8 @@ package com.KNUT_CLUB_Test.web.mypage;
 
 //import com.KNUT_CLUB_Test.domain.member.Member;
 //import com.KNUT_CLUB_Test.domain.member.MemberService;
+import com.KNUT_CLUB_Test.domain.adminservice.AdminMypageDTO;
+import com.KNUT_CLUB_Test.domain.adminservice.service.AdminService;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
 
@@ -15,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
 public class MyPageController {
 
     private final MemberService memberService;
+    private final AdminService adminService;
     private final NoticeService noticeService;
     private final FileStore fileStore;
 
@@ -58,6 +60,8 @@ public class MyPageController {
             return "/login";
         }
         else {
+            List<AdminMypageDTO> profile = adminService.getClubProfile(id);
+            model.addAttribute("profile", profile);
             return "/mypage/aboutAdmin";
         }
     }

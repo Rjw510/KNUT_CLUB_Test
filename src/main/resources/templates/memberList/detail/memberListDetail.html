@@ -12,23 +12,23 @@
 
 <div class="row">
     <div class="leftcolumn">
-        <div class="card" th:each="n : ${list}">
+        <div class="card" th:each="p : ${profile}">
             <div class="detailheader">
-                <h2 th:text="${n.name}">이름</h2>
+                <h2 th:text="${p.name}">이름</h2>
                 <div class="list">
                     <ul class="detailheaderlist" >
-                        <li th:text="'학과:' + ${n.department}">학과</li>
+                        <li th:text="'학과:' + ${p.department}">학과</li>
                     </ul>
                     <ul class="detailheaderlist" >
-                        <li th:text="'학번:' + ${n.studentID}">학번</li>
+                        <li th:text="'학번:' + ${p.studentId}">학번</li>
                     </ul>
                     <ul class="detailheaderlist" >
-                        <li th:text="'핸드폰:' + ${n.phone}">핸드폰</li>
+                        <li th:text="'핸드폰:' + ${p.phone}">핸드폰</li>
                     </ul>
                 </div>
             </div><!---->
             <div class="detailcontent" style="height:auto; ">
-                <p class="noticect" th:utext="${n.motive}">지원동기</p>
+                <p class="noticect" th:utext="${p.motive}">지원동기</p>
             </div>
             <div class="detailfooter">
                 <button type="button" onclick="location.href='/memberList'">목록</button>
