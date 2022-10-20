@@ -51,13 +51,13 @@ public class CheckController {
         return "/alert";
     }
 
-    /* 이메일 인증 페이지 이동 */
+    /* 인증번호 발송 페이지 이동 */
     @GetMapping("/mailChk")
     public String goMailCheck() {
         return "/mail/mailChk";
     }
 
-    /* 이메일 인증 */
+    /* 인증번호 발송 */
     @PostMapping("/mailChk")
     public String doMailCheck(@RequestParam("email") String email,
                               HttpSession session,
@@ -72,7 +72,7 @@ public class CheckController {
         }
 
         mailService.sendMail(email,str);
-        session.setAttribute("str", str);
+        session.setAttribute("password", str);
         session.setAttribute("email", email);
 
         model.addAttribute("url", "/check/mailValid");
@@ -81,17 +81,23 @@ public class CheckController {
         return "alert";
     }
 
+    /* 이메일 인증 페이지 이동 */
     @GetMapping("/mailValid")
-    public String goMailValid() {
+    public String goMailValid(HttpSession session) {
+
+        String str = (String) session.getAttribute("password");
+        log.info("인증번호 : {}", str);
+
         return "/mail/mailValid";
     }
 
+    /* 이메일 인증 */
     @PostMapping("/mailValid")
     public String doMailValid(@RequestParam("number") String number,
                               HttpSession session,
                               Model model) {
 
-        String str = (String) session.getAttribute("str");
+        String str = (String) session.getAttribute("password");
 
         if (number.equals(str)) {
             model.addAttribute("url", "/check/join");

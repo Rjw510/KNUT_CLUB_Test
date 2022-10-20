@@ -147,6 +147,94 @@ public class AdminRepositoryImpl implements AdminRepository{
     }
 
     @Override
+    public String getAdminEmail(String id) {
+        String email = "";
+
+        String sql = "SELECT email FROM ADMIN WHERE clubId = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, id);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                email = rs.getString("email");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return email;
+    }
+
+    @Override
+    public String getAdminPhone(String id) {
+        String phone = "";
+
+        String sql = "SELECT phone FROM ADMIN WHERE clubId = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, id);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                phone = rs.getString("phone");
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (rs != null)
+                    rs.close();
+
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return phone;
+    }
+
+    @Override
     public List<Member> getMemberList(String club, String field, String query, int page) {
 
         List<Member> memberList = new ArrayList<>();
@@ -341,6 +429,45 @@ public class AdminRepositoryImpl implements AdminRepository{
             }
         }
         return profile;
+    }
+
+    @Override
+    public void getAdminUpdate(String clubName, String name, String email, String phone) {
+
+        String sql = "UPDATE admin SET clubName = ?, name = ?, email = ?, phone = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, clubName);
+            pst.setString(2, name);
+            pst.setString(3, email);
+            pst.setString(4, phone);
+
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
 
@@ -637,6 +764,43 @@ public class AdminRepositoryImpl implements AdminRepository{
             }
         }
         return profile;
+    }
+
+    @Override
+    public void cancelClub(String id) {
+
+        List<Member> list = new ArrayList<>();
+
+        String sql = "DELETE FROM admin WHERE clubId = ?";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, id);
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 
 

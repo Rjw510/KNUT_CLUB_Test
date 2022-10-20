@@ -115,9 +115,17 @@ public class NoticeController {
     public String doNoticeUpdate(@RequestParam("title") String title,
                                  @RequestParam("content") String content,
                                  @RequestParam("num") int num,
-                                 Model model) {
+                                 @RequestParam("attachFile") MultipartFile file) throws IOException {
+
+        String domain = "/noticeDetail/";
+        UploadFile attachFile = fileStore.storeFile(file, domain);
+
+        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+        String fullPath = "/attachFile/noticeDetail/" + filename;
 
         noticeService.getNoticeUpdate(title, content, num);
+        noticeService.uploadFile(fullPath, num);
+
         return "redirect:/notice";
     }
 
@@ -146,7 +154,7 @@ public class NoticeController {
         UploadFile attachFile = fileStore.storeFile(file, domain);
 
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/img/noticeDetail/" + filename;
+        String fullPath = "/attachFile/noticeDetail/" + filename;
 
         List<Notice> noticeWrite = noticeService.writeNotice(title, writer, content, fullPath);
         model.addAttribute("noticeWrite", noticeWrite);
@@ -168,7 +176,7 @@ public class NoticeController {
         UploadFile attachFile = fileStore.storeFile(file, domain);
 
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/img/boardDetail/" + filename;
+        String fullPath = "/attachFile/boardDetail/" + filename;
 
         List<Notice> boardWrite = noticeService.writeBoard(title, writer, content, chk, fullPath);
         model.addAttribute("boardWrite", boardWrite);

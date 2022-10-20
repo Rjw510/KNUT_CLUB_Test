@@ -124,4 +124,9 @@ public class NoticeServiceImpl implements NoticeService{
     public void deleteComment(int comment_num) {
         noticeRepository.deleteComment(comment_num);
     }
+
+    @Override
+    public void uploadFile(String file, int num) {
+        noticeRepository.uploadFile(file, num);
+    }
 }

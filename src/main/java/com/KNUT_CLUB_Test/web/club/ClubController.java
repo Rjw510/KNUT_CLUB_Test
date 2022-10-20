@@ -118,9 +118,10 @@ public class ClubController {
         return "/alert";
     }
 
+    /* 동아리 생성 */
     @GetMapping("/club/create")
     public String goClubCreate() {
-        return "newClub";
+        return "/club/newClub";
     }
 
 }

@@ -49,6 +49,18 @@ public class MyPageController {
         }
     }
 
+    /* 회원 마이페이지 수정페이지 이동 */
+    @GetMapping("/update")
+    public String goMypageUpdate(HttpSession session, Model model) {
+
+        String studentID = (String) session.getAttribute("id");
+        List<Member> profile = memberService.getMemberProfile(studentID);
+
+        model.addAttribute("profile", profile);
+
+        return "userMypageUpdate";
+    }
+
     /* 관리자 마이페이지 이동 */
     @GetMapping("/admin")
     public String goMyPageAdmin(HttpSession session, Model model) {
@@ -66,16 +78,16 @@ public class MyPageController {
         }
     }
 
-    /* 회원 마이페이지 이동 */
-    @GetMapping("/update")
-    public String goMypageUpdate(HttpSession session, Model model) {
+    /* 관리자 마이페이지 수정페이지 이동 */
+    @GetMapping("/update/admin")
+    public String goAdminMypageUpdate(HttpSession session, Model model) {
 
-        String studentID = (String) session.getAttribute("id");
-        List<Member> profile = memberService.getMemberProfile(studentID);
+        String id = (String) session.getAttribute("id");
+        List<AdminMypageDTO> profile = adminService.getClubProfile(id);
 
         model.addAttribute("profile", profile);
 
-        return "/mypage/update";
+        return "/mypage/adminMypageUpdate";
     }
 
     /* 회원 마이페이지 정보 수정 */
@@ -108,6 +120,36 @@ public class MyPageController {
         return "redirect:/mypage";
     }
 
+    /* 관리자 마이페이지 정보 수정 */
+    @PostMapping("/update/admin")
+    public String doAdminMyPageUpdate(@RequestParam("clubName") String clubName,
+                                      @RequestParam("name") String name,
+                                      @RequestParam("email") String email,
+                                      @RequestParam("phone") String phone,
+                                      HttpSession session) {
+
+        String clubId = (String) session.getAttribute("id");
+
+        if (clubName.equals("")) {
+            clubName = adminService.getAdminClub(clubId);
+        }
+
+        if (name.equals("")) {
+            name = adminService.getAdminName(clubId);
+        }
+
+        if (email.equals("")) {
+            email = adminService.getAdminEmail(clubId);
+        }
+
+        if (phone.equals("")) {
+            phone = adminService.getAdminPhone(clubId);
+        }
+
+        adminService.getAdminUpdate(clubName, name, email, phone);
+        return "redirect:/mypage/admin";
+    }
+
     @PostMapping("/uploadProfile")
     public String doUploadProfile(@RequestParam("attachFile") MultipartFile file,
                                   @RequestParam("studentId") String id) throws IOException {
@@ -116,7 +158,7 @@ public class MyPageController {
         UploadFile attachFile = fileStore.storeFile(file, domain);
 
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/img/mypage/" + filename;
+        String fullPath = "/attachFile/mypage/" + filename;
 
         memberService.uploadProfile(fullPath, id);
 
@@ -125,13 +167,30 @@ public class MyPageController {
     }
 
     @PostMapping("/delete")
-    public String doMyPageDelete(HttpSession session,
+    public String userMyPageDelete(HttpSession session,
                                  Model model) {
         String studentID = (String) session.getAttribute("id");
 
         List<Notice> noticeList = noticeService.getNoticeSelect();
         List<Notice> boardList = noticeService.getBoardSelect();
         memberService.getMemberDelete(studentID);
+
+        model.addAttribute("noticeList", noticeList);
+        model.addAttribute("boardList", boardList);
+
+        session.invalidate();
+        return "/index";
+    }
+
+    @PostMapping("/delete/admin")
+    public String adminMyPageDelete(HttpSession session,
+                                 Model model) {
+
+        String adminId = (String) session.getAttribute("id");
+
+        List<Notice> noticeList = noticeService.getNoticeSelect();
+        List<Notice> boardList = noticeService.getBoardSelect();
+        adminService.cancelClub(adminId);
 
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);

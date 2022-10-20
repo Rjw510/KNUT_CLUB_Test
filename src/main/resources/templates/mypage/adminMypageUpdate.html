@@ -28,45 +28,44 @@
 <div class="row" th:each="profile : ${profile}">
     <div class="leftcolumn">
         <div class="card">
-            <form th:action="@{/mypage/delete/admin}" method="post" onsubmit="return deleteCheck()">
+            <form th:action method="post" onsubmit="return updateCheck()">
                 <table class="table-fill">
                     <thead>
-                        <tr>
-                            <th class="text-left"></th>
-                            <th class="text-left"></th>
-                        </tr>
+                    <tr>
+                        <th class="text-left"></th>
+                        <th class="text-left"></th>
+                    </tr>
                     </thead>
                     <tbody class="table-hover">
-                        <tr>
-                            <td class="text-left">동아리명</td>
-                            <td class="text-left" th:text="${profile.clubName}"></td>
-                        </tr>
-                        <tr>
-                            <td class="text-left">이름</td>
-                            <td class="text-left" th:text="${profile.name}"></td>
-                        </tr>
-                        <tr>
-                            <td class="text-left">이메일</td>
-                            <td class="text-left" th:text="${profile.email}"></td>
-                        </tr>
-                        <tr>
-                            <td class="text-left">휴대전화</td>
-                            <td class="text-left" th:text="${profile.phone}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                    <!--<tr th:if="${profile.club} == false">
-                        <td class="text-left" >가입된 동아리</td>
-                        <td class="text-left">없음</td>
+                    <tr>
+                        <td class="text-left">동아리명</td>
+                        <td class="text-left"><input type="text" name="clubName" th:placeholder="${profile.clubName}"></td>
                     </tr>
                     <tr>
-                        <td class="text-left">가입된 동아리</td>
-                        <td class="text-left" th:text="${profile.club}"></td>
-                    </tr>-->
+                        <td class="text-left">이름</td>
+                        <td class="text-left"><input type="text" name="name" th:placeholder="${profile.name}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">이메일</td>
+                        <td class="text-left"><input type="text" name="email" th:placeholder="${profile.email}"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">휴대전화</td>
+                        <td class="text-left"><input type="text" name="phone" th:placeholder="${profile.phone}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--<tr th:if="${profile.club} == false">
+                    <td class="text-left" >가입된 동아리</td>
+                    <td class="text-left">없음</td>
+                </tr>
+                <tr>
+                    <td class="text-left">가입된 동아리</td>
+                    <td class="text-left" th:text="${profile.club}"></td>
+                </tr>-->
 
                 <div class="btnZone">
-                    <input type="button" value="동아리 수정" th:onclick="|location.href='@{/mypage/update/admin}'|"></input>
-                    <input type="submit" value="동아리 해체"></input>
+                    <input type="submit" value="수정"></input>
                 </div>
             </form>
         </div>
@@ -87,9 +86,6 @@
         <div class="card" th:if="${#strings.isEmpty(profile.img)}">
             <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
                 <h2>About Me</h2>
-                <div id="proImg" >
-                    <img src="/img/mypage/profile2.PNG"  id="img" style="margin-right: 20px; margin-bottom: 20px; width: 200px; height: 200px;" />
-                </div>
                 <input type="hidden" name="studentId" th:value="${profile.clubId}">
                 <input type="file" name="attachFile" onchange="readURL(this)" ;>
                 <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">

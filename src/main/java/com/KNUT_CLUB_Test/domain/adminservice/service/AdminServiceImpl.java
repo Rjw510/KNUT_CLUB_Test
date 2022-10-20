@@ -33,6 +33,16 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
+    public String getAdminEmail(String id) {
+        return adminRepository.getAdminEmail(id);
+    }
+
+    @Override
+    public String getAdminPhone(String id) {
+        return adminRepository.getAdminPhone(id);
+    }
+
+    @Override
     public List<Member> getMemberList(String club, String field, String query, int page) {
         return adminRepository.getMemberList(club, field, query, page);
     }
@@ -45,6 +55,11 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public List<UserDetailDTO> getUserDTO(int id) {
         return adminRepository.getUserDTO(id);
+    }
+
+    @Override
+    public void getAdminUpdate(String clubName, String name, String email, String phone) {
+        adminRepository.getAdminUpdate(clubName, name, email, phone);
     }
 
     @Override
@@ -75,5 +90,10 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public List<AdminMypageDTO> getClubProfile(String clubId) {
         return adminRepository.getClubProfile(clubId);
+    }
+
+    @Override
+    public void cancelClub(String id) {
+        adminRepository.cancelClub(id);
     }
 }

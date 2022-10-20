@@ -22,10 +22,10 @@
                 <a th:href="@{/check}" th:text="회원가입">회원가입</a>
             </th:block>
             <th:block th:if="${not #strings.isEmpty(session.id)}">
-                <th:block th:if="${not #strings.isEmpty(session.admin)}">
+                <th:block th:if="${#strings.equals(session.grade, 'admin')}">
                     <a th:href="@{/mypage/admin}" th:text="MyPage">MyPage</a>
                 </th:block>
-                <th:block th:if="${#strings.isEmpty(session.admin)}">
+                <th:block th:if="${#strings.equals(session.grade, 'user')}">
                     <a th:href="@{/mypage}" th:text="MyPage">MyPage</a>
                 </th:block>
             </th:block>
@@ -54,11 +54,11 @@
                     <li><a th:href="@{/board}">자유게시판</a></li>
                     <li><a>동아리</a>
 
-                        <ul th:if="${#strings.isEmpty(session.admin)}">
+                        <ul>
                             <li><a th:href="@{/clubJoin}">조회 및 가입</a></li>
                             <li><a th:href="@{/joinManual}">가입 방법</a></li>
                         </ul>
-                        <ul th:if="${not #strings.isEmpty(session.admin)}">
+                        <ul th:if="${#strings.equals(session.grade, 'admin')}">
                             <li><a th:href="@{/club/create}">동아리 생성</a></li>
                         </ul>
 
@@ -73,11 +73,11 @@
                         <a>행사</a>
                         <ul>
                             <li><a th:href="@{/event}">동아리 행사</a></li>
-                            <li th:if="${not #strings.isEmpty(session.admin)}">
+                            <li th:if="${#strings.equals(session.grade, 'admin')}">
                                 <a th:href="@{/event/write}">행사 게시물 작성</a></li>
                         </ul>
                     </li>
-                    <li th:if="${not #strings.isEmpty(session.admin)}">
+                    <li th:if="${#strings.equals(session.grade, 'admin')}">
                         <a>회원관리</a>
                         <ul>
                             <li><a th:href="@{/memberList}">회원목록</a></li>

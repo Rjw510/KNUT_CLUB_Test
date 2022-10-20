@@ -16,11 +16,18 @@ public interface AdminService {
 
     String getAdminClub(String id);
 
+    String getAdminEmail(String id);
+
+    String getAdminPhone(String id);
+
     List<Member> getMemberList(String club, String field, String query, int page);
 
     List<Member> getPermissionList(String club, String field, String query, int page);
 
     List<UserDetailDTO> getUserDTO(int id);
+
+    void getAdminUpdate(String clubName,String name,String email,String phone);
+
 
     int getMemberCount(String club, String field, String query);
 
@@ -33,4 +40,6 @@ public interface AdminService {
     boolean getJoin(AdminJoinForm joinForm);
 
     List<AdminMypageDTO> getClubProfile(String dto);
+
+    void cancelClub(String id);
 }

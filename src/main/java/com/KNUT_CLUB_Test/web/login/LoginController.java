@@ -67,8 +67,9 @@ public class LoginController {
         session.setAttribute("id", member.getStudentID());
         session.setAttribute("name", name);
         session.setAttribute("club", club);
+        session.setAttribute("grade", "user");
 
-        log.info("권한 : {}", session.getAttribute("user"));
+        log.info("권한 : {}", session.getAttribute("grade"));
 
         if (loginCheck.equals(member.getStudentID())) {
             model.addAttribute("url", "/index");
@@ -103,18 +104,17 @@ public class LoginController {
         session.setAttribute("id", admin.getClubId());
         session.setAttribute("name", name);
         session.setAttribute("club", club);
-        session.setAttribute("admin", "admin");
+        session.setAttribute("grade", "admin");
 
-        log.info("권한 : {}", session.getAttribute("admin"));
+        log.info("권한 : {}", session.getAttribute("grade"));
 
         if (loginCheck.equals(admin.getClubId())) {
             model.addAttribute("url", "/index");
-            return "/alert";
         }
         else {
             model.addAttribute("message", "아이디 또는 패스워드가 잘못되었습니다");
             model.addAttribute("url", "/login");
-            return "/alert";
         }
+        return "/alert";
     }
 }

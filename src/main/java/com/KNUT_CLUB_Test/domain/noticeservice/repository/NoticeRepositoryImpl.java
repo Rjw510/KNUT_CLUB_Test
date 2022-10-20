@@ -592,7 +592,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     public void updateViews(int num) {
 
 
-        String sql = "UPDATE NOTICE SET views = views+1 WHERE num = ?";
+        String sql = "UPDATE NOTICE SET views = views+1 WHERE num = ? ORDER BY date DESC";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -1080,6 +1080,41 @@ public class NoticeRepositoryImpl implements NoticeRepository {
 
                 if (st != null)
                     st.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Override
+    public void uploadFile(String file, int num) {
+        String sql = "UPDATE notice SET img = ? WHERE num = ?";
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, file);
+            pst.setInt(2, num);
+
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
 
                 if (conn != null)
                     conn.close();

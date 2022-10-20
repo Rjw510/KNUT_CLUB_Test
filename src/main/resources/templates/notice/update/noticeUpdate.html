@@ -33,6 +33,10 @@
                 <input type="text" class="form-control" name="writer" id="writer" th:value="${n.writer}" readonly>
             </div>
             <div>
+                <label>첨부파일</label>
+                <input type="file" name="attachFile" multiple="multiple" enctype="multipart/form-data">
+            </div>
+            <div>
                 <textarea id="summernote" name="content" th:data="${n.content}"></textarea>
             </div>
             <script>

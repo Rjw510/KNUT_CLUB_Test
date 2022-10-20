@@ -10,6 +10,8 @@ sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
+		/* dev-tools */
+		"org.springframework.boot:spring-boot-devtools"
 		extendsFrom annotationProcessor
 	}
 }

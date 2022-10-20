@@ -2,6 +2,7 @@ package com.KNUT_CLUB_Test.web.member;
 
 import com.KNUT_CLUB_Test.domain.adminservice.Admin;
 import com.KNUT_CLUB_Test.domain.adminservice.service.AdminService;
+import com.KNUT_CLUB_Test.domain.mail.MailService;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
 import com.KNUT_CLUB_Test.domain.noticeservice.Notice;
@@ -28,10 +29,21 @@ public class JoinController {
     private final MemberService memberService;
     private final NoticeService noticeService;
     private final AdminService adminService;
+    private final MailService mailService;
 
     /* 회원 회원가입 페이지 이동*/
     @GetMapping
-    public String goJoin(Model model) {
+    public String goJoin(Model model, HttpSession session) {
+
+        String password = (String) session.getAttribute("password");
+
+        if (password==null) {
+            model.addAttribute("url", "/check/mailChk");
+            model.addAttribute("message", "이메일 인증이 필요합니다.");
+
+            return "alert";
+        }
+
         model.addAttribute("join", new JoinForm());
         return "/sign/join";
     }
@@ -39,6 +51,7 @@ public class JoinController {
     /* 관리자 회원가입 페이지 이동 */
     @GetMapping("/admin")
     public String goJoinAdmin(Model model) {
+
         model.addAttribute("adminJoin", new AdminJoinForm());
         return "/sign/joinAdmin";
     }
@@ -46,20 +59,21 @@ public class JoinController {
     /* 관리자 회원가입 */
     @PostMapping("/admin")
     public String doJoinAdimin(@ModelAttribute("adminJoin") AdminJoinForm adminJoinForm,
-                               Model model) {
-
-        log.info("관리자 회원가입");
-
-        log.info("아이디 : {}", adminJoinForm.getClubId());
-        log.info("동아리명 : {}", adminJoinForm.getClubName());
-        log.info("비밀번호 : {}", adminJoinForm.getPassword());
-        log.info("이름 : {}", adminJoinForm.getName());
-        log.info("이메일 : {}", adminJoinForm.getEmail());
-        log.info("휴대전화 : {}", adminJoinForm.getPhone());
+                               Model model) throws Exception {
 
         boolean check = adminService.getJoin(adminJoinForm);
         List<Notice> noticeList = noticeService.getNoticeSelect();
         List<Notice> boardList = noticeService.getBoardSelect();
+
+        mailService.sendMail("wonn510@a.ut.ac.kr",
+                             "동아리 관리자 가입 문의 " +
+                             " 동아리아이디 : " + adminJoinForm.getClubId() +
+                             " 동아리명 : " + adminJoinForm.getClubName() +
+                             " 동아리비밀번호 : " + adminJoinForm.getPassword() +
+                             " 회장이름 : " + adminJoinForm.getName() +
+                             " 회장이름 : " + adminJoinForm.getEmail() +
+                             " 휴대전화 : " + adminJoinForm.getPhone()
+        );
 
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);
@@ -106,5 +120,4 @@ public class JoinController {
         }
         return "/alert";
     }
-
 }

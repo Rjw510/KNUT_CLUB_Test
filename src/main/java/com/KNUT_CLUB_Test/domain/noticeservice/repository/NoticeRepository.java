@@ -52,4 +52,6 @@ public interface NoticeRepository {
     void writeComment(int board_num, String writer, String comment);
 
     void deleteComment(int comment_num);
+
+    void uploadFile(String file, int num);
 }
