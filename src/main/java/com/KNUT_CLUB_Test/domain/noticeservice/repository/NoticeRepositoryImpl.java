@@ -792,10 +792,10 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     @Override
-    public void getNoticeUpdate(String title, String content, int num) {
+    public void getNoticeUpdate(String title, String content, int num, String fullPath) {
         List<Notice> list = new ArrayList<>();
 
-        String sql = "UPDATE NOTICE SET title = ?, content = ? WHERE num = ?";
+        String sql = "UPDATE NOTICE SET title = ?, content = ?, img = ? WHERE num = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -810,7 +810,8 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             pst = conn.prepareStatement(sql);
             pst.setString(1, title);
             pst.setString(2, content);
-            pst.setInt(3, num);
+            pst.setString(3, fullPath);
+            pst.setInt(4, num);
             int rs = pst.executeUpdate();
         }
         catch (Exception e) {
@@ -830,10 +831,10 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     }
 
     @Override
-    public void getBoardUpdate(String title, String content, int num, boolean chk) {
+    public void getBoardUpdate(String title, String content, int num, boolean chk, String fullPath) {
         List<Notice> list = new ArrayList<>();
 
-        String sql = "UPDATE BOARD SET title = ?, content = ?, anonymous = ? WHERE num = ?";
+        String sql = "UPDATE BOARD SET title = ?, content = ?, anonymous = ?, img = ? WHERE num = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -849,7 +850,8 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             pst.setString(1, title);
             pst.setString(2, content);
             pst.setBoolean(3, chk);
-            pst.setInt(4, num);
+            pst.setString(4, fullPath);
+            pst.setInt(5, num);
 
             int rs = pst.executeUpdate();
         }

@@ -1,17 +1,23 @@
 package com.KNUT_CLUB_Test.web.club;
 
+import com.KNUT_CLUB_Test.domain.adminservice.service.AdminService;
 import com.KNUT_CLUB_Test.domain.clubservice.Club;
+import com.KNUT_CLUB_Test.domain.clubservice.NewClubDTO;
 import com.KNUT_CLUB_Test.domain.clubservice.service.ClubService;
 import com.KNUT_CLUB_Test.domain.memberservice.Member;
 import com.KNUT_CLUB_Test.domain.memberservice.service.MemberService;
+import com.KNUT_CLUB_Test.file.FileStore;
+import com.KNUT_CLUB_Test.web.form.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -20,6 +26,8 @@ public class ClubController {
 
     private final ClubService clubService;
     private final MemberService memberService;
+    private final AdminService adminService;
+    private final FileStore fileStore;
 
     @GetMapping("/clubJoin")
     public String goClubJoin(@RequestParam(value = "select", required = false) String field_,
@@ -120,8 +128,40 @@ public class ClubController {
 
     /* 동아리 생성 */
     @GetMapping("/club/create")
-    public String goClubCreate() {
+    public String goClubCreate(HttpSession session,
+                               Model model) {
+
+        String id = (String) session.getAttribute("id");
+        String club = adminService.getAdminClub(id);
+
+        if (club != null) {
+            model.addAttribute("message", "동아리 생성이 불가능한 계정입니다.");
+            model.addAttribute("url", "/index");
+            return "/alert";
+        }
+
+        model.addAttribute("newClub", new NewClubDTO());
         return "/club/newClub";
     }
+
+    @PostMapping("/club/create")
+    public String doClubCreate(@ModelAttribute("newClub") NewClubDTO dto,
+                               Model model) {
+
+        boolean check = clubService.createClub(dto);
+
+
+        if (check == true) {
+            model.addAttribute("message", "동아리 생성에 성공하셨습니다.");
+            model.addAttribute("url", "/index");
+        }
+        else {
+            model.addAttribute("message", "필수 정보가 비어있습니다.");
+            model.addAttribute("url", "/club/newClub");
+        }
+
+        return "/alert";
+    }
+
 
 }

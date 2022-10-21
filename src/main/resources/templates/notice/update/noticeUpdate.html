@@ -22,7 +22,7 @@
 <article>
     <div class="container" role="main" th:each="n : ${noticeUpdate}">
         <h2>공지사항 글수정</h2>
-        <form name="form" id="form" role="form" method="post" action="/notice/update" onsubmit="return updateCheck()">
+        <form name="form" id="form" role="form" method="post" action="/notice/update" enctype="multipart/form-data" onsubmit="return updateCheck()">
             <input type="hidden" name="num" th:value="${n.num}">
             <div class="mb-3">
                 <label for="title">제목</label>

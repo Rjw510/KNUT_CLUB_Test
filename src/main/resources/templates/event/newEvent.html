@@ -25,7 +25,7 @@
 
 <div class="divideLine" style="width: 100%; border: 1px solid black;" ></div>
 
-<div class="row">
+<div class="row" th:object="${eventPost}">
     <div class="rightcolumn" style="padding: 0px; padding-right: 20px;">
         <div class="card" style="height: 1025px;">
         </div>
@@ -33,7 +33,7 @@
     <div class="leftcolumn">
         <div class="card">
             <div id="eventImg">
-                <img id="img" style="width: 50%; height: 400px; margin-left: 250px;"/>
+                <img id="img" th:field="*{img}" style="width: 50%; height: 400px; margin-left: 250px;"/>
             </div>
             <input type="file" name="attachFile" onchange="readURL(this)"; style="margin-left: 580px; margin-top: 20px;">
         </div>
@@ -48,20 +48,28 @@
                     </thead>
                     <tbody>
                     <tr>
+                        <td>캠퍼스</td>
+                        <td><input type="text" th:field="*{campus}" style="width: 300px; height: 30px; padding: 2px;"></td>
+                    </tr>
+                    <tr>
+                        <td>유형</td>
+                        <td><input type="text" th:field="*{campus}" style="width: 300px; height: 30px; padding: 2px;"></td>
+                    </tr>
+                    <tr>
                         <td>행사명</td>
-                        <td><input type="text" style="width: 300px; height: 30px; padding: 2px;"></td>
+                        <td><input type="text" th:field="*{campus}" style="width: 300px; height: 30px; padding: 2px;"></td>
                     </tr>
                     <tr>
-                        <td>행사 장소</td>
-                        <td><input type="text" style="width: 300px; height: 30px; padding: 2px;"></td>
+                        <td>행사 종목</td>
+                        <td><input type="text" th:field="*{activity}" style="width: 300px; height: 30px; padding: 2px;"></td>
                     </tr>
                     <tr>
-                        <td>행사 일정</td>
-                        <td><input type="text" style="width: 300px; height: 30px; padding: 2px;"></td>
+                        <td>행사 소개</td>
+                        <td><textarea th:field="*{campus}" style="height: 200px; width: 300px; padding: 2px;"></textarea></td>
                     </tr>
                     <tr>
                         <td>행사 개요</td>
-                        <td><textarea style="height: 200px; width: 300px; padding: 2px;"></textarea></td>
+                        <td><textarea th:field="*{promotion}" style="height: 200px; width: 300px; padding: 2px;"></textarea></td>
                     </tr>
                     </tbody>
                 </table>

@@ -1,6 +1,7 @@
 package com.KNUT_CLUB_Test.domain.eventsrvice.repository;
 
 import com.KNUT_CLUB_Test.domain.eventsrvice.Event;
+import com.KNUT_CLUB_Test.domain.eventsrvice.EventPostDTO;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -128,5 +129,52 @@ public class EventRepositoryImpl implements EventRepository{
             }
         }
         return eventList;
+    }
+
+    @Override
+    public void getEventWrite(EventPostDTO dto) {
+
+        List<EventPostDTO> eventList = new ArrayList<>();
+
+        String sql = "INSERT INTO EVENT(campus, type, name, activity, introduce, promotion, date)"
+                + " values (?, ?, ?, ?, ?, ?, ?)";
+
+        Connection conn = null;
+        PreparedStatement pst = null;
+        int rs = 0;
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+
+            pst.setString(1, dto.getCampus());
+            pst.setString(2, dto.getType());
+            pst.setString(3, dto.getName());
+            pst.setString(4, dto.getActivity());
+            pst.setString(5, dto.getIntroduce());
+            pst.setString(6, dto.getPromotion());
+            pst.setString(7, dto.getDate());
+
+            rs = pst.executeUpdate();
+            eventList.add(dto);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 }

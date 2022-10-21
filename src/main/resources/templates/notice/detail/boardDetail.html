@@ -30,14 +30,14 @@
                             <li th:text="'등록일:' + ${b.date}">작성일></li>
                         </ul>
                     </div>
-                </div><!--th:if="${writer == name}"-->
-                <div class="detailcontent" style="height:auto; ">
-                    <p class="noticect" th:utext="${b.content}">글 내용</p>
-                    <th:block th:if="${not #strings.isEmpty(b.img)}">
-                        <img th:src="${b.img}" style="width: 700px; height: 500px; border-radius: 10px; margin-top: 40px; margin-bottom: 20px; margin-right: 20px;"  />
-                    </th:block>
                 </div>
-                <div class="modifyZone" th:if="${writer == name}">
+                <div class="detailcontent" style="height:auto; ">
+                    <th:block th:if="${not #strings.isEmpty(b.img)}">
+                        <img th:if="${b.img} != '/attachFile/boardDetail/'" th:src="${b.img}" style="width: 700px; height: 500px; border-radius: 10px; margin-top: 40px; margin-bottom: 20px; margin-right: 20px;"  />
+                    </th:block>
+                    <p class="noticect" th:utext="${b.content}">글 내용</p>
+                </div>
+                <div class="modifyZone" th:if="${writer == name or writer == adminName}">
                     <button type="submit" th:text="삭제"></button>
                     <button type="button" th:onclick="|location.href='@{/board/update(num=${b.num})}'|"
                             th:text="수정"></button>
@@ -48,7 +48,7 @@
 
             <div class="commentWrapper">
                 <div class="commentSpace" >
-                    <form method="post" action="/writeComment">
+                    <form method="post" action="/writeComment" onsubmit="return writeCheck()">
                         <div class="commentZone">
                             <input type="hidden" name="board_num" th:value="${b.num}">
                             <div class="zoneFirst"><h3>댓글</h3></div><div class="zoneMiddle"><input type="text" name="comment" maxlength="500" placeholder="500자까지 입력가능합니다."></div>

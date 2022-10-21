@@ -1,6 +1,7 @@
 package com.KNUT_CLUB_Test.domain.clubservice.service;
 
 import com.KNUT_CLUB_Test.domain.clubservice.Club;
+import com.KNUT_CLUB_Test.domain.clubservice.NewClubDTO;
 import com.KNUT_CLUB_Test.domain.clubservice.repository.ClubRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class ClubServiceImpl implements ClubService{
     @Override
     public void joinClub(String id, String club, String motive) {
         clubRepository.joinClub(id, club, motive);
+    }
+
+    @Override
+    public boolean createClub(NewClubDTO dto) {
+        return clubRepository.createClub(dto);
     }
 }

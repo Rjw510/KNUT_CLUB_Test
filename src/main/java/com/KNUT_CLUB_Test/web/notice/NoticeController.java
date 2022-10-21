@@ -123,7 +123,7 @@ public class NoticeController {
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
         String fullPath = "/attachFile/noticeDetail/" + filename;
 
-        noticeService.getNoticeUpdate(title, content, num);
+        noticeService.getNoticeUpdate(title, content, num, fullPath);
         noticeService.uploadFile(fullPath, num);
 
         return "redirect:/notice";
@@ -239,6 +239,7 @@ public class NoticeController {
         String id = (String) session.getAttribute("id");
 
         String name = memberService.getMemberName(id);
+        String adminName = adminService.getAdminName(id);
         String writer = noticeService.getBoardWriter(num);
 
         List<Notice> list = noticeService.getBoardDetail(num);
@@ -248,6 +249,7 @@ public class NoticeController {
 
         model.addAttribute("commentList", commentList);
         model.addAttribute("boardList", list);
+        model.addAttribute("adminName", adminName);
         model.addAttribute("name", name);
         model.addAttribute("writer", writer);
 
@@ -270,12 +272,20 @@ public class NoticeController {
     public String doBoardUpdate(@RequestParam("title") String title,
                                 @RequestParam("content") String content,
                                 @RequestParam("num") int num,
+                                @RequestParam("attachFile") MultipartFile file,
                                 @ModelAttribute Anonymous anonymous,
-                                Model model) {
+                                Model model) throws IOException {
 
         Boolean chk = anonymous.getChk();
 
-        noticeService.getBoardUpdate(title, content, num, chk);
+        String domain = "/boardDetail/";
+        UploadFile attachFile = fileStore.storeFile(file, domain);
+
+        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+        String fullPath = "/attachFile/boardDetail/" + filename;
+
+        noticeService.uploadFile(fullPath, num);
+        noticeService.getBoardUpdate(title, content, num, chk, fullPath);
         return "redirect:/board";
     }
 

@@ -91,13 +91,13 @@ public class NoticeServiceImpl implements NoticeService{
     }
 
     @Override
-    public void getNoticeUpdate(String title, String content, int num) {
-        noticeRepository.getNoticeUpdate(title, content, num);
+    public void getNoticeUpdate(String title, String content, int num, String fullPath) {
+        noticeRepository.getNoticeUpdate(title, content, num, fullPath);
     }
 
     @Override
-    public void getBoardUpdate(String title, String content, int num, boolean chk) {
-        noticeRepository.getBoardUpdate(title, content, num, chk);
+    public void getBoardUpdate(String title, String content, int num, boolean chk, String fullPath) {
+        noticeRepository.getBoardUpdate(title, content, num, chk, fullPath);
     }
 
     @Override

@@ -38,9 +38,9 @@ public interface NoticeService {
 
     void delBoard(int num);
 
-    void getNoticeUpdate(String title, String content, int num);
+    void getNoticeUpdate(String title, String content, int num, String fullPath);
 
-    void getBoardUpdate(String title, String content, int num, boolean chk);
+    void getBoardUpdate(String title, String content, int num, boolean chk, String fullPath);
 
     String getNoticeWriter(int num);
 

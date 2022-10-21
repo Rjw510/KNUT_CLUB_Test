@@ -3,11 +3,14 @@ package com.KNUT_CLUB_Test.web.event;
 
 
 import com.KNUT_CLUB_Test.domain.eventsrvice.Event;
+import com.KNUT_CLUB_Test.domain.eventsrvice.EventPostDTO;
 import com.KNUT_CLUB_Test.domain.eventsrvice.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -18,7 +21,6 @@ public class EventController {
 
     private final EventService eventService;
 
-    /* 검색기능 이상 -> 수정 필요 */
     @GetMapping("/event")
     public String goEvent(@RequestParam(value = "select", required = false) String field_,
                           @RequestParam(value = "campus", required = false) String query_,
@@ -63,7 +65,18 @@ public class EventController {
     }
 
     @GetMapping("/event/write")
-    public String goEventWrite() {
+    public String goEventWrite(Model model) {
+
+        model.addAttribute("eventPost", new EventPostDTO());
+
         return "/event/newEvent";
     }
+
+    @PostMapping("/event/write")
+    public String doEventWrite(@ModelAttribute("eventPost") EventPostDTO dto) {
+
+        List<EventPostDTO> postList = null;
+    }
+
+
 }

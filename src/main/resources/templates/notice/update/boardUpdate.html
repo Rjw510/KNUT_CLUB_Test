@@ -22,7 +22,7 @@
 <article>
     <div class="container" role="main" th:each="b : ${boardUpdate}">
         <h2>자유게시판 글수정</h2>
-        <form name="form" id="form" role="form" method="post" action="/board/update" onsubmit="return updateCheck()">
+        <form name="form" id="form" role="form" method="post" action="/board/update" enctype="multipart/form-data" onsubmit="return updateCheck()">
             <input type="hidden" name="num" th:value="${b.num}">
             <div class="mb-3">
                 <label for="title">제목</label>
@@ -32,6 +32,10 @@
                 <label for="writer">작성자</label>
                 <input type="text" class="form-control" name="writer" id="writer" th:value="${b.writer}" readonly>
                 <input type="checkbox" th:field="${anonymous.chk}" th:text="익명">
+            </div>
+            <div>
+                <label>첨부파일</label>
+                <input type="file" name="attachFile" multiple="multiple" enctype="multipart/form-data">
             </div>
             <div>
                 <textarea id="summernote" name="content" th:data="${b.content}"></textarea>

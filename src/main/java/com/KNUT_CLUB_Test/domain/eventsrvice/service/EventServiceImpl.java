@@ -1,6 +1,7 @@
 package com.KNUT_CLUB_Test.domain.eventsrvice.service;
 
 import com.KNUT_CLUB_Test.domain.eventsrvice.Event;
+import com.KNUT_CLUB_Test.domain.eventsrvice.EventPostDTO;
 import com.KNUT_CLUB_Test.domain.eventsrvice.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,14 @@ public class EventServiceImpl implements EventService{
     public List<Event> getEventList(String field, String field2, String query, String query2, int page) {
         return eventRepository.getEventList(field, field2, query, query2, page);
     }
-
+s
     @Override
     public List<Event> getEventDetail(int num) {
         return eventRepository.getEventDetail(num);
+    }
+
+    @Override
+    public void getEventWrite(EventPostDTO dto) {
+        eventRepository.getEventWrite(dto);
     }
 }
