@@ -162,6 +162,4 @@ public class ClubController {
 
         return "/alert";
     }
-
-
 }

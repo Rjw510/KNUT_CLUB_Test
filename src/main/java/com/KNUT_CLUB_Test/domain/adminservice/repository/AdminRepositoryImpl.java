@@ -376,7 +376,7 @@ public class AdminRepositoryImpl implements AdminRepository{
 
         List<UserDetailDTO> profile = new ArrayList<>();
 
-        String sql = "select name, studentId, department ,phone, motive from member where num = ?";
+        String sql = "select name, studentId, email ,phone, department, birth, address, img from member where num = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -396,17 +396,23 @@ public class AdminRepositoryImpl implements AdminRepository{
             while (rs.next()) {
                 String name = rs.getString("name");
                 String studentId = rs.getString("studentId");
-                String department = rs.getString("department");
+                String email = rs.getString("email");
                 String phone = rs.getString("phone");
-                String motive = rs.getString("motive");
+                String department = rs.getString("department");
+                String birth = rs.getString("birth");
+                String address = rs.getString("address");
+                String img = rs.getString("img");
 
 
                 UserDetailDTO dto = new UserDetailDTO (
                         name
                         , studentId
-                        , department
+                        , email
                         , phone
-                        , motive
+                        , department
+                        , birth
+                        , address
+                        , img
                 );
                 profile.add(dto);
             }

@@ -11,5 +11,5 @@ public interface EventRepository {
 
     List<Event> getEventDetail(int num);
 
-    void getEventWrite(EventPostDTO dto);
+    boolean getEventWrite(EventPostDTO dto);
 }

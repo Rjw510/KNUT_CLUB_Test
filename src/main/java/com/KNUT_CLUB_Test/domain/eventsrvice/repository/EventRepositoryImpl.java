@@ -132,12 +132,13 @@ public class EventRepositoryImpl implements EventRepository{
     }
 
     @Override
-    public void getEventWrite(EventPostDTO dto) {
+    public boolean getEventWrite(EventPostDTO dto) {
 
         List<EventPostDTO> eventList = new ArrayList<>();
+        boolean check = false;
 
-        String sql = "INSERT INTO EVENT(campus, type, name, activity, introduce, promotion, date)"
-                + " values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO EVENT(campus, type, name, activity, introduce, promotion)"
+                + " values (?, ?, ?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -158,11 +159,16 @@ public class EventRepositoryImpl implements EventRepository{
             pst.setString(4, dto.getActivity());
             pst.setString(5, dto.getIntroduce());
             pst.setString(6, dto.getPromotion());
-            pst.setString(7, dto.getDate());
 
-            rs = pst.executeUpdate();
-            eventList.add(dto);
-
+            if (dto.getCampus().equals("") || dto.getType().equals("") || dto.getName().equals("") || dto.getActivity().equals("") ||
+                dto.getIntroduce().equals("") || dto.getPromotion().equals("")) {
+                check = false;
+            }
+            else {
+                rs = pst.executeUpdate();
+                eventList.add(dto);
+                check = true;
+            }
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -176,5 +182,6 @@ public class EventRepositoryImpl implements EventRepository{
                 System.out.println(e);
             }
         }
+        return check;
     }
 }

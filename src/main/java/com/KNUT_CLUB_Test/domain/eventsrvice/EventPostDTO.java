@@ -15,7 +15,7 @@ public class EventPostDTO {
     private String activity;
     private String introduce;
     private String promotion;
-    private String img;
-    private String date;
+//    private String img;
+//    private String date;
 
 }

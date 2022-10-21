@@ -73,10 +73,27 @@ public class EventController {
     }
 
     @PostMapping("/event/write")
-    public String doEventWrite(@ModelAttribute("eventPost") EventPostDTO dto) {
+    public String doEventWrite(@ModelAttribute("eventPost") EventPostDTO dto,
+                               Model model) {
 
-        List<EventPostDTO> postList = null;
+        boolean check = eventService.getEventWrite(dto);
+
+        System.out.println("dto.getCampus() = " + dto.getCampus());
+        System.out.println("dto.getType() = " + dto.getType());
+        System.out.println("dto.getName() = " + dto.getName());
+        System.out.println("dto.getActivity() = " + dto.getActivity());
+        System.out.println("dto.getIntroduce() = " + dto.getIntroduce());
+        System.out.println("dto.getPromotion() = " + dto.getPromotion());
+
+        if (check == true) {
+            model.addAttribute("message", "게시글이 작성되었습니다.");
+            model.addAttribute("url", "/index");
+        }
+        else {
+            model.addAttribute("message", "필수 정보가 비어있습니다.");
+            model.addAttribute("url", "/event/newEvent");
+        }
+
+        return "/alert";
     }
-
-
 }

@@ -11,7 +11,10 @@ public class UserDetailDTO {
 
     private String name;
     private String studentId;
-    private String department;
+    private String email;
     private String phone;
-    private String motive;
+    private String department;
+    private String birth;
+    private String address;
+    private String img;
 }

@@ -33,12 +33,13 @@
     <div class="leftcolumn">
         <div class="card">
             <div id="eventImg">
-                <img id="img" th:field="*{img}" style="width: 50%; height: 400px; margin-left: 250px;"/>
+                <!-- th:field="*{img}" -->
+                <img id="img"  style="width: 50%; height: 400px; margin-left: 250px;"/>
             </div>
             <input type="file" name="attachFile" onchange="readURL(this)"; style="margin-left: 580px; margin-top: 20px;">
         </div>
         <div class="card">
-            <form>
+            <form th:action="@{/event/write}" th:method="post">
                 <table>
                     <thead>
                     <tr>
@@ -53,11 +54,11 @@
                     </tr>
                     <tr>
                         <td>유형</td>
-                        <td><input type="text" th:field="*{campus}" style="width: 300px; height: 30px; padding: 2px;"></td>
+                        <td><input type="text" th:field="*{type}" style="width: 300px; height: 30px; padding: 2px;"></td>
                     </tr>
                     <tr>
                         <td>행사명</td>
-                        <td><input type="text" th:field="*{campus}" style="width: 300px; height: 30px; padding: 2px;"></td>
+                        <td><input type="text" th:field="*{name}" style="width: 300px; height: 30px; padding: 2px;"></td>
                     </tr>
                     <tr>
                         <td>행사 종목</td>
@@ -65,7 +66,7 @@
                     </tr>
                     <tr>
                         <td>행사 소개</td>
-                        <td><textarea th:field="*{campus}" style="height: 200px; width: 300px; padding: 2px;"></textarea></td>
+                        <td><textarea th:field="*{introduce}" style="height: 200px; width: 300px; padding: 2px;"></textarea></td>
                     </tr>
                     <tr>
                         <td>행사 개요</td>

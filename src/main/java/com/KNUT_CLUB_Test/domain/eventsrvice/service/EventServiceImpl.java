@@ -18,14 +18,14 @@ public class EventServiceImpl implements EventService{
     public List<Event> getEventList(String field, String field2, String query, String query2, int page) {
         return eventRepository.getEventList(field, field2, query, query2, page);
     }
-s
+
     @Override
     public List<Event> getEventDetail(int num) {
         return eventRepository.getEventDetail(num);
     }
 
     @Override
-    public void getEventWrite(EventPostDTO dto) {
-        eventRepository.getEventWrite(dto);
+    public boolean getEventWrite(EventPostDTO dto) {
+        return eventRepository.getEventWrite(dto);
     }
 }
