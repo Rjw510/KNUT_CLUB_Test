@@ -14,4 +14,6 @@ public interface ClubService {
     void joinClub(String id, String club, String motive);
 
     boolean createClub(NewClubDTO dto);
+
+    void uploadClubImg(String file, String clubName);
 }

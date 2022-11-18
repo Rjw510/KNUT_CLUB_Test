@@ -11,10 +11,6 @@
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
-<div class="pathbox">
-    <h2>pathbox</h2>
-</div>
-
 <div class="row">
     <div class="column side">
         <div class="sidewrapper">
@@ -25,7 +21,6 @@
             </div>
             <ul class="sidemenu">
                 <li id="now"><a href="/event">동아리 행사</a></li>
-                <!--<li><a href="#">우수동아리</a></li>-->
             </ul>
         </div>
     </div>
@@ -50,58 +45,16 @@
                 <th:block th:each="n : ${list}">
                 <div class="image_wrap">
                     <a th:href="@{/event/detail(num=${n.num})}">
-                        <img th:src="${n.img}">
+                        <th:block th:if="${not #strings.isEmpty(n.img)}">
+                            <img th:src="${n.img}">
+                        </th:block>
+                        <th:block th:if="${#strings.isEmpty(n.img)}">
+                            <img src="/img/event/event.jpg">
+                        </th:block>
                         <p class="name" th:text="${n.name}"></p>
-<!--                        <p class="price" th:text="${n.date}"></p>-->
                     </a>
                 </div>
                 </th:block>
-            <!--<div class="products">
-                <a href="#">
-                    <img src="/img/grid_1.png">
-                    <p class="name">테니스</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)~18(수)</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_2.png">
-                    <p class="name">축구</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)부터</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_3.png">
-                    <p class="name">축구</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_4.png">
-                    <p class="name">축구</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_5.png">
-                    <p class="name">배구</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_1.png">
-                    <p class="name">테니스</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)~18(수)</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_2.png">
-                    <p class="name">축구</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)부터</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_3.png">
-                    <p class="name">축구</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
-                </a>
-                <a href="#">
-                    <img src="/img/grid_4.png">
-                    <p class="name">축구</p>
-                    <p class="price">신청 기간 : 2022-05-15(일)까지</p>
-                </a> -->
                 <div class="clearfix"></div>
             </div>
     </div>

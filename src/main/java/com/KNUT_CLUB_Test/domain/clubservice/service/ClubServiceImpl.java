@@ -32,4 +32,9 @@ public class ClubServiceImpl implements ClubService{
     public boolean createClub(NewClubDTO dto) {
         return clubRepository.createClub(dto);
     }
+
+    @Override
+    public void uploadClubImg(String file, String clubName) {
+        clubRepository.uploadClubImg(file, clubName);
+    }
 }

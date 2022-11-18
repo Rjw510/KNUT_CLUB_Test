@@ -277,7 +277,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     public int getNoticeCount(String field, String query) {
         int count = 0;
 
-        String sql = "SELECT COUNT(num) as count FROM NOTICE";
+        String sql = "SELECT COUNT(num) as count FROM NOTICE WHERE "+ field + " LIKE ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -291,6 +291,9 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
+
+            pst.setString(1, "%" + query + "%");
+
             rs = pst.executeQuery();
 
             if(rs.next())
@@ -320,7 +323,7 @@ public class NoticeRepositoryImpl implements NoticeRepository {
     public int getBoardCount(String field, String query) {
         int count = 0;
 
-        String sql = "SELECT COUNT(num) as count FROM BOARD";
+        String sql = "SELECT COUNT(num) as count FROM BOARD WHERE " + field + " LIKE ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -334,6 +337,9 @@ public class NoticeRepositoryImpl implements NoticeRepository {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
             pst = conn.prepareStatement(sql);
+
+            pst.setString(1, "%" + query + "%");
+
             rs = pst.executeQuery();
 
             if(rs.next())

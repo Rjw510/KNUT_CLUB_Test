@@ -117,11 +117,10 @@ public class NoticeController {
                                  @RequestParam("num") int num,
                                  @RequestParam("attachFile") MultipartFile file) throws IOException {
 
-        String domain = "/noticeDetail/";
-        UploadFile attachFile = fileStore.storeFile(file, domain);
+        UploadFile attachFile = fileStore.storeFile(file, "");
 
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/attachFile/noticeDetail/" + filename;
+        String fullPath = "/attachFile/" + filename;
 
         noticeService.getNoticeUpdate(title, content, num, fullPath);
         noticeService.uploadFile(fullPath, num);
@@ -150,11 +149,10 @@ public class NoticeController {
                                 @RequestParam("content") String content,
                                 Model model) throws IOException {
 
-        String domain = "/noticeDetail/";
-        UploadFile attachFile = fileStore.storeFile(file, domain);
+        UploadFile attachFile = fileStore.storeFile(file, "");
 
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/attachFile/noticeDetail/" + filename;
+        String fullPath = "/attachFile/" + filename;
 
         List<Notice> noticeWrite = noticeService.writeNotice(title, writer, content, fullPath);
         model.addAttribute("noticeWrite", noticeWrite);
@@ -172,11 +170,10 @@ public class NoticeController {
 
         Boolean chk = anonymous.getChk();
 
-        String domain = "/boardDetail/";
-        UploadFile attachFile = fileStore.storeFile(file, domain);
+        UploadFile attachFile = fileStore.storeFile(file, "");
 
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/attachFile/boardDetail/" + filename;
+        String fullPath = "/attachFile/" + filename;
 
         List<Notice> boardWrite = noticeService.writeBoard(title, writer, content, chk, fullPath);
         model.addAttribute("boardWrite", boardWrite);
@@ -186,7 +183,7 @@ public class NoticeController {
 
     /* 공지사항 삭제 */
     @PostMapping("/delNotice")
-    public String delNotice(@RequestParam("del_id") String[] delIds) {
+    public String delNotice(@RequestParam(value = "del_id", required = false, defaultValue = "7987978") String[] delIds) {
 
         int[] ids = new int[delIds.length];
 
@@ -278,11 +275,10 @@ public class NoticeController {
 
         Boolean chk = anonymous.getChk();
 
-        String domain = "/boardDetail/";
-        UploadFile attachFile = fileStore.storeFile(file, domain);
+        UploadFile attachFile = fileStore.storeFile(file, "");
 
         String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/attachFile/boardDetail/" + filename;
+        String fullPath = "/attachFile/" + filename;
 
         noticeService.uploadFile(fullPath, num);
         noticeService.getBoardUpdate(title, content, num, chk, fullPath);
@@ -316,7 +312,7 @@ public class NoticeController {
     }
 
     @PostMapping("/delBoard")
-    public String delBoard(@RequestParam("del_id") String[] delIds) {
+    public String delBoard(@RequestParam(value = "del_id", required = false, defaultValue = "7987978") String[] delIds) {
 
         int[] ids = new int[delIds.length];
 

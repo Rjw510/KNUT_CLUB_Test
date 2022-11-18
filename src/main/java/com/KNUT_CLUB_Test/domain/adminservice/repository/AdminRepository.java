@@ -41,4 +41,8 @@ public interface AdminRepository {
     List<AdminMypageDTO> getClubProfile(String adminId);
 
     void cancelClub(String id);
+
+    void permissionUser(int id);
+
+    void uploadProfileAdmin(String file, String id);
 }

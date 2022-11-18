@@ -58,7 +58,7 @@ public class MyPageController {
 
         model.addAttribute("profile", profile);
 
-        return "userMypageUpdate";
+        return "/mypage/userMypageUpdate";
     }
 
     /* 관리자 마이페이지 이동 */
@@ -96,7 +96,8 @@ public class MyPageController {
                                  @RequestParam("email") String email,
                                  @RequestParam("department") String department,
                                  @RequestParam("club") String club,
-                                 HttpSession session) {
+                                 @RequestParam("attachFile") MultipartFile file,
+                                 HttpSession session) throws IOException {
 
         String studentID = (String) session.getAttribute("id");
 
@@ -116,7 +117,16 @@ public class MyPageController {
             club = memberService.getMemberClub(studentID);
         }
 
+        UploadFile attachFile = fileStore.storeFile(file, "");
+
         memberService.getMemberUpdate(name, studentID, email, department, club);
+
+        if (attachFile != null) {
+            String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+            String fullPath = "/attachFile/" + filename;
+            memberService.uploadProfile(fullPath, studentID);
+        }
+
         return "redirect:/mypage";
     }
 
@@ -126,7 +136,8 @@ public class MyPageController {
                                       @RequestParam("name") String name,
                                       @RequestParam("email") String email,
                                       @RequestParam("phone") String phone,
-                                      HttpSession session) {
+                                      @RequestParam("attachFile") MultipartFile file,
+                                      HttpSession session) throws IOException {
 
         String clubId = (String) session.getAttribute("id");
 
@@ -146,25 +157,32 @@ public class MyPageController {
             phone = adminService.getAdminPhone(clubId);
         }
 
+        UploadFile attachFile = fileStore.storeFile(file, "");
+
         adminService.getAdminUpdate(clubName, name, email, phone);
+
+        if (attachFile != null) {
+            String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+            String fullPath = "/attachFile/" + filename;
+            adminService.uploadProfileAdmin(fullPath, clubId);
+        }
         return "redirect:/mypage/admin";
     }
 
-    @PostMapping("/uploadProfile")
-    public String doUploadProfile(@RequestParam("attachFile") MultipartFile file,
-                                  @RequestParam("studentId") String id) throws IOException {
-
-        String domain = "/mypage/";
-        UploadFile attachFile = fileStore.storeFile(file, domain);
-
-        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
-        String fullPath = "/attachFile/mypage/" + filename;
-
-        memberService.uploadProfile(fullPath, id);
-
-
-        return "redirect:/mypage";
-    }
+//    @PostMapping("/uploadProfile")
+//    public String doUploadProfile(@RequestParam("attachFile") MultipartFile file,
+//                                  @RequestParam("studentId") String id) throws IOException {
+//
+//        String domain = "/mypage/";
+//        UploadFile attachFile = fileStore.storeFile(file, domain);
+//
+//        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+//        String fullPath = "/attachFile/mypage/" + filename;
+//
+//        memberService.uploadProfile(fullPath, id);
+//
+//        return "redirect:/mypage";
+//    }
 
     @PostMapping("/delete")
     public String userMyPageDelete(HttpSession session,

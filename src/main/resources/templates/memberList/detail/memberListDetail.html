@@ -17,8 +17,8 @@
     <div class="column middle" th:each="p : ${profile}">
             <div class="profileZone" style="margin-top: 100px;">
                 <div class="proPicture" style="text-align: center;">
-                    <img src="/img/mypage/profile2.PNG" id="img" style="margin-bottom: 20px; width: 200px; height: 200px;" />
-                    <img th:if="${not #strings.isEmpty(p.img)}" th:src="@{p.img}" id="img" style="margin-bottom: 20px; width: 200px; height: 200px;" />
+                    <img th:if="${#strings.isEmpty(p.img)}" src="/img/mypage/profile2.PNG" id="img" style="margin-bottom: 20px; width: 200px; height: 200px;" />
+                    <img th:if="${not #strings.isEmpty(p.img)}" th:src="${p.img}" id="img" style="margin-bottom: 20px; width: 200px; height: 200px;" />
                 </div>
             </div>
             <table class="table-fill">

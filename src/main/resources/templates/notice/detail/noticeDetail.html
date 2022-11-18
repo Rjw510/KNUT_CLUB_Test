@@ -28,7 +28,7 @@
                 </div><!---->
                 <div class="detailcontent" style="height:auto; ">
                     <th:block th:if="${not #strings.isEmpty(n.img)}">
-                        <img th:if="${n.img} != '/attachFile/noticeDetail/'" th:src="${n.img}" style="width: 700px; height: 500px; border-radius: 10px; margin-top: 40px; margin-bottom: 20px; margin-right: 20px;"  />
+                        <img th:if="${n.img} != '/attachFile/'" th:src="${n.img}" style="width: 700px; height: 500px; border-radius: 10px; margin-top: 40px; margin-bottom: 20px; margin-right: 20px;"  />
                     </th:block>
                     <p class="noticect" th:utext="${n.content}">글 내용</p>
                 </div>

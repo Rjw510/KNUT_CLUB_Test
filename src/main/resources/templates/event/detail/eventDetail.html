@@ -16,7 +16,13 @@
         <div class="card">
             <div class="clubimg">
 <!--                <img src="/img/perfect.jpg">-->
-                <img th:src="${e.img}">
+                <th:block th:if="${not #strings.isEmpty(e.img)}">
+                    <img th:src="${e.img}">
+                </th:block>
+                <th:block th:if="${#strings.isEmpty(e.img)}">
+                    <img src="/img/event/event.jpg">
+                </th:block>
+<!--                <img th:src="${e.img}">-->
             </div>
             <h2 th:text="${e.name}" name="name"></h2>
         </div>
@@ -29,7 +35,6 @@
 <!--                <h3>#중앙동아리 #스포츠 #테니스</h3>-->
 <!--                <br>-->
 <!--                <br>-->
-                <p th:text="${e.introduce}">
 <!--                    교통대 유일무이 테니스 동아리 퍼펙트<br>-->
 
 <!--                    대표자 : 신현식<br>-->

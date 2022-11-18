@@ -7,18 +7,6 @@
 </head>
 <body>
 
-<!--<div class="header">
-    <h1>My Website</h1>
-    <p>Resize the browser window to see the effect.</p>
-</div>
-
-<div class="topnav">
-    <a href="#">Link</a>
-    <a href="#">Link</a>
-    <a href="#">Link</a>
-    <a href="#" style="float:right">Link</a>
-</div>-->
-
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
@@ -31,7 +19,7 @@
                     </h2>
                 </div>
                 <ul class="sidemenu">
-                    <li id="now"><a href="/aboutClub">동아리란?</li>
+                    <li id="now"><a href="/aboutClub">동아리란?</a></li>
                     <li><a href="/arrange">동아리 배치도</a></li>
                 </ul>
 
@@ -56,7 +44,9 @@
             <p>교통대 총학생회 산하 총동아리연합회에 가입된 동아리로 총장의 승인을 받은 공식 학생단체로 간주되며,<br>
                 총동아리연합회로부터 비용 지원을 받을 수 있다.
             </p>
-            <div class="fakeimg" style="height:200px;"><img th:src="@{/img/aboutClub/clubimg.png}"></div>
+            <div class="fakeimg" style="height:200px;">
+                <img th:src="@{/img/aboutClub/clubimg.png}">
+            </div>
         </div>
     </div>
 

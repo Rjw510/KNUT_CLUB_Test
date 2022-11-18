@@ -12,10 +12,6 @@
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
-<div class="pathbox">
-    <h2>Pathbox</h2>
-</div>
-
 <div class="row">
     <div class="column side">
         <ul class="sidemenu">
@@ -113,19 +109,18 @@
         </li>
     </ul>
 
-    <div class="margin-top align-center pager">
-        <th:block th:if="${session.grade == 'admin'}">
-            <button id="deletebtn" class="btn btn-danger btn-lg btn-block"  type="submit">삭제
-            </button>
-            </form>
+    <div class="margin-top align-center pager" th:if="${session.grade == 'admin'}">
             <button id="writebtn" class="btn btn-success btn-lg btn-block" th:onclick="|location.href='@{/notice/noticeWrite}'|"
                     type="button">글쓰기
             </button>
-        </th:block>
+            <button id="deletebtn" class="btn btn-danger btn-lg btn-block"  type="submit">삭제
+            </button>
+            </form>
+
     </div>
 </div>
 
-    <!-- footer -->
-    <th:block th:insert="fragments/footer :: footerFragment"></th:block>
+<!-- footer -->
+<th:block th:insert="fragments/footer :: footerFragment"></th:block>
 </body>
 </html>

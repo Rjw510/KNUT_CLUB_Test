@@ -4,19 +4,19 @@
     <title>마이페이지</title>
     <link rel="stylesheet" th:href="@{/css/mypage.css}">
     <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
-    <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('img').src = e.target.result;
-                };
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                document.getElementById('img').src = "";
-            }
-        }
-    </script>
+<!--    <script>-->
+<!--        function readURL(input) {-->
+<!--            if (input.files && input.files[0]) {-->
+<!--                var reader = new FileReader();-->
+<!--                reader.onload = function(e) {-->
+<!--                    document.getElementById('img').src = e.target.result;-->
+<!--                };-->
+<!--                reader.readAsDataURL(input.files[0]);-->
+<!--            } else {-->
+<!--                document.getElementById('img').src = "";-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body>
 
@@ -53,11 +53,11 @@
                         <td class="text-left">학과</td>
                         <td class="text-left" th:text="${p.department}"></td>
                     </tr>
-                    <tr th:if="${p.club} == false">
+                    <tr th:if="${#strings.isEmpty(p.club)}">
                         <td class="text-left" >가입된 동아리</td>
                         <td class="text-left">없음</td>
                     </tr>
-                    <tr>
+                    <tr th:if="${not #strings.isEmpty(p.club)}">
                         <td class="text-left">가입된 동아리</td>
                         <td class="text-left" th:text="${p.club}"></td>
                     </tr>
@@ -72,24 +72,27 @@
     </div>
     <div class="rightcolumn">
         <div class="card" th:if="${not #strings.isEmpty(p.img)}">
-            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
+<!--            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">-->
                 <h2>About Me</h2>
                 <div id="proImg" >
                     <img th:src="${p.img}"  id="img" style="margin-right: 20px; margin-bottom: 20px; width: 200px; height: 200px;" />
                 </div>
                 <input type="hidden" name="studentId" th:value="${p.studentID}">
-                <input type="file" name="attachFile" onchange="readURL(this)";>
-                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">
+<!--                <input type="file" name="attachFile" onchange="readURL(this)";>-->
+<!--                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">-->
                 <p th:text="${p.name} + '님의 마이페이지입니다'" style="margin-top: 40px;">이름</p>
 
-            </form>
+<!--            </form>-->
         </div>
         <div class="card" th:if="${#strings.isEmpty(p.img)}">
-            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
-                <h2>About Me</h2>
+<!--            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">-->
+            <h2>About Me</h2>
+            <div id="proImg" >
+                <img src="/img/mypage/profile2.PNG"  id="img" style="margin-right: 20px; margin-bottom: 20px; width: 200px; height: 200px;" />
+            </div>
                 <input type="hidden" name="studentId" th:value="${p.studentID}">
-                <input type="file" name="attachFile" onchange="readURL(this)" ;>
-                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">
+<!--                <input type="file" name="attachFile" onchange="readURL(this)" ;>-->
+<!--                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">-->
                 <p th:text="${p.name} + '님의 마이페이지입니다'" style="margin-top: 40px;">이름</p>
             </form>
         </div>

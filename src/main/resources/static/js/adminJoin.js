@@ -245,42 +245,75 @@ function addAddress(){
         error[9].style.display = "none";
     }
 }
+function test(e) {
+    var number = e.value.replace(/[^0-9]/g, "");
+    var phone = "";
 
-/* 전화번호 자동완성 */
-var mobile = document.getElementById('mobile');
-
-
-mobile.onkeyup = function() {
-    console.log(this.value);
-    this.value = autoHypenPhone(this.value);
-}
-var autoHypenPhone = function(str) {
-    str = str.replace(/[^0-9]/g, '');
-    var tmp = '';
-    if (str.length < 4) {
-        return str;
-    } else if (str.length < 7) {
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3);
-        return tmp;
-    } else if (str.length < 11) {
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3, 3);
-        tmp += '-';
-        tmp += str.substr(6);
-        return tmp;
+    if (number.length < 4) {
+        return number;
+    } else if (number.length < 7) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3);
+    } else if (number.length < 10) {
+        phone += number.substr(0, 2);
+        phone += "-";
+        phone += number.substr(2, 3);
+        phone += "-";
+        phone += number.substr(5);
+    } else if (number.length < 11) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 3);
+        phone += "-";
+        phone += number.substr(6);
     } else {
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3, 4);
-        tmp += '-';
-        tmp += str.substr(7);
-        return tmp;
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 4);
+        phone += "-";
+        phone += number.substr(7, 4);
     }
-    return str;
+
+    e.value = phone;
 }
+/* 전화번호 자동완성 */
+// var mobile = document.getElementById('mobile');
+//
+//
+// mobile.onkeyup = function() {
+//     console.log(this.value);
+//     this.value = autoHypenPhone(this.value);
+// }
+// var autoHypenPhone = function(str) {
+//     str = str.replace(/[^0-9]/g, '');
+//     var tmp = '';
+//     if (str.length < 4) {
+//         return str;
+//     } else if (str.length < 7) {
+//         tmp += str.substr(0, 3);
+//         tmp += '-';
+//         tmp += str.substr(3);
+//         return tmp;
+//     } else if (str.length < 11) {
+//         tmp += str.substr(0, 3);
+//         tmp += '-';
+//         tmp += str.substr(3, 3);
+//         tmp += '-';
+//         tmp += str.substr(6);
+//         return tmp;
+//     } else {
+//         tmp += str.substr(0, 3);
+//         tmp += '-';
+//         tmp += str.substr(3, 4);
+//         tmp += '-';
+//         tmp += str.substr(7);
+//         return tmp;
+//     }
+//     return str;
+// }
+
+
 
 /*주소찾기*/
 function findAddr() {

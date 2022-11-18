@@ -7,18 +7,6 @@
 </head>
 <body>
 
-<!--<div class="header">
-    <h1>My Website</h1>
-    <p>Resize the browser window to see the effect.</p>
-</div>
-
-<div class="topnav">
-    <a href="#">Link</a>
-    <a href="#">Link</a>
-    <a href="#">Link</a>
-    <a href="#" style="float:right">Link</a>
-</div>-->
-
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
@@ -50,9 +38,8 @@
 
 </div>
 
-<div class="footer">
-    <h2>Footer</h2>
-</div>
+<!-- footer -->
+<th:block th:insert="fragments/footer :: footerFragment"></th:block>
 
 </body>
 </html>

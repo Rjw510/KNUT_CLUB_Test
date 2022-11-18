@@ -3,7 +3,7 @@
 <head>
     <title>자유게시판</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/css/notice.css">
+    <link rel="stylesheet" href="/css/board.css">
     <script type="text/javascript" th:src="@{/js/confirm.js}"></script>
 </head>
 
@@ -11,10 +11,6 @@
 
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
-
-<div class="pathbox">
-    <h2>Pathbox</h2>
-</div>
 
 <div class="row">
     <div class="column side">
@@ -117,16 +113,17 @@
         </li>
     </ul>
 
-
-<div>
-    <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
-</div>
-</form>
-<div>
-    <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/board/boardWrite'"
-            style="float:right;" type="submit">글쓰기
-    </button>
-</div>
+    <div class="btnWrapper">
+        <div>
+            <button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit">삭제</button>
+        </div>
+        </form>
+        <div>
+            <button id="writebtn" class="btn btn-success btn-lg btn-block" onclick="location.href='/board/boardWrite'"
+                    style="float:right;" type="submit">글쓰기
+            </button>
+        </div>
+    </div>
 </div>
 
 <th:block th:insert="fragments/footer :: footerFragment"></th:block>

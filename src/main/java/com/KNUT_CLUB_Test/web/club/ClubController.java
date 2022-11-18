@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -134,11 +135,11 @@ public class ClubController {
         String id = (String) session.getAttribute("id");
         String club = adminService.getAdminClub(id);
 
-        if (club != null) {
-            model.addAttribute("message", "동아리 생성이 불가능한 계정입니다.");
-            model.addAttribute("url", "/index");
-            return "/alert";
-        }
+//        if (club != null) {
+//            model.addAttribute("message", "동아리 생성이 불가능한 계정입니다.");
+//            model.addAttribute("url", "/index");
+//            return "/alert";
+//        }
 
         model.addAttribute("newClub", new NewClubDTO());
         return "/club/newClub";
@@ -146,10 +147,21 @@ public class ClubController {
 
     @PostMapping("/club/create")
     public String doClubCreate(@ModelAttribute("newClub") NewClubDTO dto,
-                               Model model) {
+                               @RequestParam("attachFile") MultipartFile file,
+                               Model model) throws IOException {
 
         boolean check = clubService.createClub(dto);
 
+        UploadFile attachFile = fileStore.storeFile(file, "");
+
+        String club = dto.getClubName();
+
+        if (attachFile != null) {
+
+            String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+            String fullPath = "/attachFile/" + filename;
+            clubService.uploadClubImg(fullPath, club);
+        }
 
         if (check == true) {
             model.addAttribute("message", "동아리 생성에 성공하셨습니다.");

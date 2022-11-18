@@ -22,3 +22,9 @@ function joinCheck() {
         return false;
     }
 }
+
+function permissionCheck() {
+    if (confirm("정말 승인하시겠습니까?") == false) {
+        return false;
+    }
+}

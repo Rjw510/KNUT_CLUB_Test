@@ -14,7 +14,6 @@ public class NewClubDTO {
     private String campus;
     private String type;
     private String activity;
-    private String introduce;
     private String promotion;
     private MultipartFile img;
 

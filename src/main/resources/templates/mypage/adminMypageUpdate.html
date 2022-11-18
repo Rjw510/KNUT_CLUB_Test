@@ -26,9 +26,10 @@
 <div class="areaLine"></div>
 
 <div class="row" th:each="profile : ${profile}">
+    <form th:action="@{/mypage/update/admin}" method="post" enctype="multipart/form-data" onsubmit="return updateCheck()">
     <div class="leftcolumn">
         <div class="card">
-            <form th:action method="post" onsubmit="return updateCheck()">
+<!--            <form th:action method="post" enctype="multipart/form-data" onsubmit="return updateCheck()">-->
                 <table class="table-fill">
                     <thead>
                     <tr>
@@ -67,32 +68,36 @@
                 <div class="btnZone">
                     <input type="submit" value="수정"></input>
                 </div>
-            </form>
+<!--            </form>-->
         </div>
     </div>
     <div class="rightcolumn">
         <div class="card" th:if="${not #strings.isEmpty(profile.img)}">
-            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
+<!--            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">-->
                 <h2>About Me</h2>
                 <div id="proImg" >
                     <img th:src="${profile.img}"  id="img" style="margin-right: 20px; margin-bottom: 20px; width: 200px; height: 200px;" />
                 </div>
-                <input type="hidden" name="studentId" th:value="${profile.clubId}">
+<!--                <input type="hidden" name="studentId" th:value="${profile.clubId}">-->
                 <input type="file" name="attachFile" onchange="readURL(this)";>
-                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">
+<!--                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">-->
                 <p th:text="${profile.clubName} + '의 동아리 페이지입니다'" style="margin-top: 40px;">이름</p>
-            </form>
+<!--            </form>-->
         </div>
         <div class="card" th:if="${#strings.isEmpty(profile.img)}">
-            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">
-                <h2>About Me</h2>
-                <input type="hidden" name="studentId" th:value="${profile.clubId}">
+<!--            <form th:action="@{/mypage/uploadProfile}" method="post" enctype="multipart/form-data">-->
+            <h2>About Me</h2>
+            <div id="proImg" >
+                <img src="/img/mypage/profile2.PNG"  id="img" style="margin-right: 20px; margin-bottom: 20px; width: 200px; height: 200px;" />
+            </div>
+<!--                <input type="hidden" name="studentId" th:value="${profile.clubId}">-->
                 <input type="file" name="attachFile" onchange="readURL(this)" ;>
-                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">
+<!--                <input type="submit" value="선택 완료" style="width: 75px; height: 25px; padding: 2px;">-->
                 <p th:text="${profile.clubName} + '의 동아리 마이페이지입니다'" style="margin-top: 40px;">이름</p>
-            </form>
+<!--            </form>-->
         </div>
     </div>
+    </form>
 </div>
 
 <th:block th:insert="fragments/footer :: footerFragment"></th:block>

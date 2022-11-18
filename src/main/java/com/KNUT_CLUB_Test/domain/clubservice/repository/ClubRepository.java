@@ -16,4 +16,5 @@ public interface ClubRepository {
     boolean createClub(NewClubDTO dto);
 
     void uploadClubImg(String file, String clubName);
+
 }

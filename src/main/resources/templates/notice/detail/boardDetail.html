@@ -33,14 +33,15 @@
                 </div>
                 <div class="detailcontent" style="height:auto; ">
                     <th:block th:if="${not #strings.isEmpty(b.img)}">
-                        <img th:if="${b.img} != '/attachFile/boardDetail/'" th:src="${b.img}" style="width: 700px; height: 500px; border-radius: 10px; margin-top: 40px; margin-bottom: 20px; margin-right: 20px;"  />
+                        <img th:if="${b.img} != '/attachFile/'" th:src="${b.img}" style="width: 700px; height: 500px; border-radius: 10px; margin-top: 40px; margin-bottom: 20px; margin-right: 20px;"  />
                     </th:block>
                     <p class="noticect" th:utext="${b.content}">글 내용</p>
                 </div>
-                <div class="modifyZone" th:if="${writer == name or writer == adminName}">
-                    <button type="submit" th:text="삭제"></button>
+                <div class="modifyZone" th:if="${b.writer == name or b.writer == adminName}">
                     <button type="button" th:onclick="|location.href='@{/board/update(num=${b.num})}'|"
                             th:text="수정"></button>
+                    <button type="submit" th:text="삭제"></button>
+
                 </div>
             </div>
         </form>
@@ -64,8 +65,10 @@
                                 <div id="content" th:text="${c.content}">내용</div>
                                 <div id="date" th:text="${c.date}">작성 날짜</div>
                                 <!-- 임의로 만든 버튼 -->
-                                <th:block th:if="${session.name} == ${b.writer}">
-                                    <div class="zoneLast"><input type="submit" id="cmtBtn" value="삭제"></div>
+                                <th:block th:if="${session.name} == ${c.writer}">
+                                    <div class="zoneLast">
+                                        <input type="submit" id="cmtBtn" value="삭제">
+                                    </div>
                                 </th:block>
                             </div>
                         </div>

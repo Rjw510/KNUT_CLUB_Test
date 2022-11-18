@@ -5,6 +5,8 @@ package com.KNUT_CLUB_Test.web.event;
 import com.KNUT_CLUB_Test.domain.eventsrvice.Event;
 import com.KNUT_CLUB_Test.domain.eventsrvice.EventPostDTO;
 import com.KNUT_CLUB_Test.domain.eventsrvice.service.EventService;
+import com.KNUT_CLUB_Test.file.FileStore;
+import com.KNUT_CLUB_Test.web.form.UploadFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -20,6 +24,7 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
+    private final FileStore fileStore;
 
     @GetMapping("/event")
     public String goEvent(@RequestParam(value = "select", required = false) String field_,
@@ -74,16 +79,21 @@ public class EventController {
 
     @PostMapping("/event/write")
     public String doEventWrite(@ModelAttribute("eventPost") EventPostDTO dto,
-                               Model model) {
+                               @RequestParam("attachFile") MultipartFile file,
+                               Model model) throws IOException {
 
         boolean check = eventService.getEventWrite(dto);
 
-        System.out.println("dto.getCampus() = " + dto.getCampus());
-        System.out.println("dto.getType() = " + dto.getType());
-        System.out.println("dto.getName() = " + dto.getName());
-        System.out.println("dto.getActivity() = " + dto.getActivity());
-        System.out.println("dto.getIntroduce() = " + dto.getIntroduce());
-        System.out.println("dto.getPromotion() = " + dto.getPromotion());
+        String eventName = dto.getName();
+        System.out.println("eventName = " + eventName);
+
+        /* upload */
+        UploadFile attachFile = fileStore.storeFile(file, "");
+
+        String filename = fileStore.createStoreFileName(file.getOriginalFilename());
+        String fullPath = "/attachFile/" + filename;
+
+        eventService.uploadEventImg(fullPath, eventName);
 
         if (check == true) {
             model.addAttribute("message", "게시글이 작성되었습니다.");

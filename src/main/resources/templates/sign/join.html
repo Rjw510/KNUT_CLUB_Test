@@ -138,7 +138,7 @@
             <div>
                 <h3 class="join_title"><label for="phoneNo">휴대전화</label></h3>
                 <span class="box int_mobile">
-                            <input type="tel" id="mobile" th:field="*{phone}" class="int" maxlength="16" placeholder="전화번호 입력">
+                            <input type="tel" id="mobile" th:field="*{phone}" class="int" oninput="hypenTel(this)" maxlength="16" placeholder="전화번호 입력">
                         </span>
                 <span class="error_next_box"></span>
             </div>

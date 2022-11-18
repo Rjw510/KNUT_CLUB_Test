@@ -30,6 +30,10 @@ public class EventRepositoryImpl implements EventRepository{
         String dbID = "root";
         String dbPassword = "root";
 
+        if (query.equals("전국")) {
+            query = "";
+        }
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
@@ -42,13 +46,11 @@ public class EventRepositoryImpl implements EventRepository{
             while (rs.next()) {
                 int num = rs.getInt("num");
                 String name = rs.getString("name");
-                String date = rs.getString("date");
                 String img = rs.getString("img");
 
                 Event event = new Event(
                         num
                         , name
-                        , date
                         , img
                 );
                 eventList.add(event);
@@ -98,13 +100,11 @@ public class EventRepositoryImpl implements EventRepository{
 
             while (rs.next()) {
                 String name = rs.getString("name");
-                String introduce = rs.getString("introduce");
                 String promotion = rs.getString("promotion");
                 String img = rs.getString("img");
 
                  Event event = new Event(
                         name
-                        , introduce
                         , promotion
                         , img
                 );
@@ -137,8 +137,8 @@ public class EventRepositoryImpl implements EventRepository{
         List<EventPostDTO> eventList = new ArrayList<>();
         boolean check = false;
 
-        String sql = "INSERT INTO EVENT(campus, type, name, activity, introduce, promotion)"
-                + " values (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO EVENT(campus, type, name, activity, promotion)"
+                + " values (?, ?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -157,11 +157,10 @@ public class EventRepositoryImpl implements EventRepository{
             pst.setString(2, dto.getType());
             pst.setString(3, dto.getName());
             pst.setString(4, dto.getActivity());
-            pst.setString(5, dto.getIntroduce());
-            pst.setString(6, dto.getPromotion());
+            pst.setString(5, dto.getPromotion());
 
             if (dto.getCampus().equals("") || dto.getType().equals("") || dto.getName().equals("") || dto.getActivity().equals("") ||
-                dto.getIntroduce().equals("") || dto.getPromotion().equals("")) {
+                dto.getPromotion().equals("")) {
                 check = false;
             }
             else {
@@ -183,5 +182,40 @@ public class EventRepositoryImpl implements EventRepository{
             }
         }
         return check;
+    }
+
+    @Override
+    public void uploadEventImg(String file, String eventName) {
+        String sql = "UPDATE EVENT SET img = ? WHERE  name = ?";
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, file);
+            pst.setString(2, eventName);
+
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 }

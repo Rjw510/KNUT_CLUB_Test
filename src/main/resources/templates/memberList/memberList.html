@@ -14,13 +14,18 @@
 
     <div class="column side">
         <h2>회원 관리</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+        <div class="sideMenu">
+            <ul>
+                <li class="now"><a href="/memberList">회원 목록</a></li>
+                <li><a href="/permissionList">승인 목록</a></li>
+            </ul>
+        </div>
     </div>
 
     <div class="column middle">
-        <h2 th:href="@{/memberList}">회원 목록</h2>
+        <h1 th:href="@{/memberList}">회원 목록</h1>
         <form action="/memberList" method="get">
-            <div class="col-md-8 mb-3">
+            <div class="search">
                 <select id="searchBox" class="custom-select d-block w-100" name="select">
                     <option value="name" th:selected="${#strings.equals(param.select, 'name')}">이름</option>
                     <option value="department" th:selected="${#strings.equals(param.select, 'department')}">학과</option>
@@ -56,6 +61,12 @@
                 </tr>
                 </tbody>
             </table>
+
+            <div class="table_footer">
+                <div class="btns">
+                    <input type='submit' value="삭제">
+                </div>
+            </div>
 
             <div class="margin-top align-center pager">
                 <ul class="pagingwrap">
@@ -95,13 +106,6 @@
                         </div>
                     </li>
                 </ul>
-            </div>
-
-            <div class="table_footer">
-                <div class="btns">
-                    <input type='submit' value="삭제">
-                    <!--<button id="deletebtn" class="btn btn-danger btn-lg btn-block" style="float: right;" type="submit" formaction="/delMember">삭제</button>-->
-                </div>
             </div>
         </form>
     </div>

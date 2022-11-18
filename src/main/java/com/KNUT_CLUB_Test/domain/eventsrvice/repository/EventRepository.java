@@ -12,4 +12,6 @@ public interface EventRepository {
     List<Event> getEventDetail(int num);
 
     boolean getEventWrite(EventPostDTO dto);
+
+    void uploadEventImg(String file, String clubName);
 }

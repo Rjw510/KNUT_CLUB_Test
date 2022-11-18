@@ -96,4 +96,14 @@ public class AdminServiceImpl implements AdminService{
     public void cancelClub(String id) {
         adminRepository.cancelClub(id);
     }
+
+    @Override
+    public void permissionUser(int id) {
+        adminRepository.permissionUser(id);
+    }
+
+    @Override
+    public void uploadProfileAdmin(String file, String id) {
+        adminRepository.uploadProfileAdmin(file, id);
+    }
 }

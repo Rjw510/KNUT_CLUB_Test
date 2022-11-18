@@ -376,7 +376,7 @@ public class AdminRepositoryImpl implements AdminRepository{
 
         List<UserDetailDTO> profile = new ArrayList<>();
 
-        String sql = "select name, studentId, email ,phone, department, birth, address, img from member where num = ?";
+        String sql = "select num, name, studentId, email ,phone, department, birth, address, img from member where num = ?";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -394,6 +394,7 @@ public class AdminRepositoryImpl implements AdminRepository{
             rs = pst.executeQuery();
 
             while (rs.next()) {
+                int num = rs.getInt("num");
                 String name = rs.getString("name");
                 String studentId = rs.getString("studentId");
                 String email = rs.getString("email");
@@ -405,7 +406,8 @@ public class AdminRepositoryImpl implements AdminRepository{
 
 
                 UserDetailDTO dto = new UserDetailDTO (
-                        name
+                        num
+                        , name
                         , studentId
                         , email
                         , phone
@@ -809,5 +811,73 @@ public class AdminRepositoryImpl implements AdminRepository{
         }
     }
 
+    @Override
+    public void permissionUser(int id) {
+        String sql = "UPDATE member SET grade = 1 where num = ?";
 
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, id);
+
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @Override
+    public void uploadProfileAdmin(String file, String id) {
+        String sql = "UPDATE ADMIN SET img = ? WHERE clubId = ?";
+        Connection conn = null;
+        PreparedStatement pst = null;
+
+
+        String dbURL = "jdbc:mysql://localhost:4406/KNUT_CLUB";
+        String dbID = "root";
+        String dbPassword = "root";
+
+        try {
+            conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, file);
+            pst.setString(2, id);
+
+            int rs = pst.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            try {
+                if (pst != null)
+                    pst.close();
+
+                if (conn != null)
+                    conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
 }

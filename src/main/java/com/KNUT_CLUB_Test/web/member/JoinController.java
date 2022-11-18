@@ -65,20 +65,19 @@ public class JoinController {
         List<Notice> noticeList = noticeService.getNoticeSelect();
         List<Notice> boardList = noticeService.getBoardSelect();
 
-        mailService.sendMail("wonn510@a.ut.ac.kr",
-                             "동아리 관리자 가입 문의 " +
-                             " 동아리아이디 : " + adminJoinForm.getClubId() +
-                             " 동아리명 : " + adminJoinForm.getClubName() +
-                             " 동아리비밀번호 : " + adminJoinForm.getPassword() +
-                             " 회장이름 : " + adminJoinForm.getName() +
-                             " 회장이름 : " + adminJoinForm.getEmail() +
-                             " 휴대전화 : " + adminJoinForm.getPhone()
-        );
-
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("boardList", boardList);
 
         if (check == true) {
+            mailService.sendMail("wonn510@a.ut.ac.kr",
+                    "동아리 관리자 가입 문의 " +
+                            " 동아리아이디 : " + adminJoinForm.getClubId() +
+                            " 동아리명 : " + adminJoinForm.getClubName() +
+                            " 동아리비밀번호 : " + adminJoinForm.getPassword() +
+                            " 회장이름 : " + adminJoinForm.getName() +
+                            " 회장이름 : " + adminJoinForm.getEmail() +
+                            " 휴대전화 : " + adminJoinForm.getPhone()
+            );
             model.addAttribute("message", "회원가입이 완료되었습니다. 승인을 기다려주세요.");
             model.addAttribute("url", "/index");
         }

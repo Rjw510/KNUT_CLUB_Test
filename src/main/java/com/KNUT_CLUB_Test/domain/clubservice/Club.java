@@ -28,9 +28,9 @@ public class Club {
         this.img = img;
     }
 
-    public Club(String name, String introduce, String promotion, String img) {
+    public Club(String name, String type, String promotion, String img) {
         this.name = name;
-        this.introduce = introduce;
+        this.type = type;
         this.promotion = promotion;
         this.img = img;
     }

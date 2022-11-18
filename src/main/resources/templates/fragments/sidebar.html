@@ -35,10 +35,10 @@
             </th:block>
             <th:block th:if="${not #strings.isEmpty(session.id)}">
                 <th:block th:if="${#strings.equals(session.grade, 'admin')}">
-                    <a th:href="@{/mypage/admin}" th:text="MyPage">MyPage</a>
+                    <button th:onclick="|location.href='@{/mypage/admin}'|" th:text="MyPage">MyPage</button>
                 </th:block>
                 <th:block th:if="${#strings.equals(session.grade, 'user')}">
-                    <a th:href="@{/mypage}" th:text="MyPage">MyPage</a>
+                    <button th:onclick="|location.href='@{/mypage}'|" th:text="MyPage">MyPage</button>
                 </th:block>
             </th:block>
         </div>
@@ -64,7 +64,7 @@
             <li>
                 <a th:href="@{/check}">
                     <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-                    <span class="item">가입</span>
+                    <span class="item">회원가입</span>
                 </a>
             </li>
             <li>

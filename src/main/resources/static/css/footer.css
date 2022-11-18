@@ -9,7 +9,7 @@ footer .s_logo{
   height: 100%;
 }
 footer .inner {
-  width: 79%;
+  width: 85%;
 }
 footer .s_logo{
   float: left;
@@ -79,14 +79,9 @@ footer .btn-group .btn:last-child {
   margin-right: 0px;
 }
 footer .info_wrapper{
-  margin-left: 600px;
-}
-footer .info {
-
-
+  margin-left: 800px;
 }
 footer .info span {
-  margin-right: 20px;
   color: #999;
   font-size: 12px;
 }

@@ -11,10 +11,6 @@
 <th:block th:replace="fragments/header :: headerFragment"></th:block>
 <th:block th:replace="fragments/sidebar :: sideBarFragment"></th:block>
 
-<div class="pathbox">
-    <h2>pathbox</h2>
-</div>
-
 <div class="row">
     <div class="column side">
         <div class="sidewrapper">
@@ -42,7 +38,10 @@
                     <option value="" th:selected="${#strings.equals(param.type, 'type')}">종류 선택</option>
                     <option value="스포츠" th:selected="${#strings.equals(param.type, 'sport')}">스포츠</option>
                     <option value="밴드" th:selected="${#strings.equals(param.type, 'band')}">밴드</option>
+                    <option value="사진" th:selected="${#strings.equals(param.type, 'photo')}">사진</option>
+                    <option value="종교" th:selected="${#strings.equals(param.type, 'religion')}">종교</option>
                     <option value="봉사" th:selected="${#strings.equals(param.type, 'volunteer')}">봉사</option>
+                    <option value="학술" th:selected="${#strings.equals(param.type, 'academic')}">학술</option>
                 </select>
                 <input type="submit" value="조회">
             </form>
@@ -50,7 +49,12 @@
             <th:block th:each="c : ${clubList}">
             <div class="tag_wrap">
                 <a th:href="@{/clubJoin/detail(num=${c.num})}">
-                    <img th:src="${c.img}">
+                    <th:block th:if="${not #strings.isEmpty(c.img)}">
+                        <img th:src="${c.img}">
+                    </th:block>
+                    <th:block th:if="${#strings.isEmpty(c.img)}">
+                        <img src="/img/event/event.jpg">
+                    </th:block>
                     <p class="name" th:text="${c.name}"></p>
     <!--                <p class="price" th:text="${n.activity} + '동아리'"></p>-->
                 </a>

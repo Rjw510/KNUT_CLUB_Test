@@ -36,7 +36,7 @@ public class findPwController {
 
 
         if (chk == false) {
-            model.addAttribute("message", "존재하지 않은 학번입니다.");
+            model.addAttribute("message", "유효하지 않은 정보입니다.");
             model.addAttribute("url", "/findPw");
 
         } else {

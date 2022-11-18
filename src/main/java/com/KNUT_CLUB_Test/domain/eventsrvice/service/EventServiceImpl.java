@@ -28,4 +28,9 @@ public class EventServiceImpl implements EventService{
     public boolean getEventWrite(EventPostDTO dto) {
         return eventRepository.getEventWrite(dto);
     }
+
+    @Override
+    public void uploadEventImg(String file, String clubName) {
+        eventRepository.uploadEventImg(file, clubName);
+    }
 }

@@ -93,13 +93,13 @@ public class ClubRepositoryImpl implements ClubRepository {
 
             while (rs.next()) {
                 String name = rs.getString("name");
-                String introduce = rs.getString("introduce");
+                String type = rs.getString("type");
                 String promotion = rs.getString("promotion");
                 String img = rs.getString("img");
 
                 Club club = new Club(
                         name
-                        , introduce
+                        , type
                         , promotion
                         , img
                 );
@@ -142,7 +142,11 @@ public class ClubRepositoryImpl implements ClubRepository {
             pst.setString(1, club);
             pst.setString(2, motive);
             pst.setString(3, id);
+
             int rs = pst.executeUpdate();
+
+            System.out.println("club = " + club);
+
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -164,8 +168,8 @@ public class ClubRepositoryImpl implements ClubRepository {
         List<NewClubDTO> list = new ArrayList<>();
         boolean check = false;
 
-        String sql = "insert into promotion (campus, type, name, activity, introduce, promotion) " +
-                "values (?, ?, ?, ?, ?, ?)";
+        String sql = "insert into promotion (campus, type, name, activity, promotion) " +
+                "values (?, ?, ?, ?, ?)";
 
         Connection conn = null;
         PreparedStatement pst = null;
@@ -183,11 +187,10 @@ public class ClubRepositoryImpl implements ClubRepository {
             pst.setString(2, dto.getType());
             pst.setString(3, dto.getClubName());
             pst.setString(4, dto.getActivity());
-            pst.setString(5, dto.getIntroduce());
-            pst.setString(6, dto.getPromotion());
+            pst.setString(5, dto.getPromotion());
 
             if (dto.getCampus().equals("") || dto.getType().equals("") || dto.getActivity().equals("") ||
-                dto.getIntroduce().equals("") || dto.getPromotion().equals("")) {
+                dto.getPromotion().equals("")) {
                 check = false;
             } else {
                 rs = pst.executeUpdate();
